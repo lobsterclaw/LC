@@ -1,0 +1,17 @@
+object Form1: TForm1
+  Left = 346
+  Height = 622
+  Top = 221
+  Width = 875
+  Caption = 'Form1'
+  ClientHeight = 622
+  ClientWidth = 875
+  LCLVersion = '1.0.14.0'
+  object LCDrawPad1: TLCDrawPad
+    Left = 24
+    Height = 560
+    Top = 24
+    Width = 744
+    Stretched = False
+  end
+end
