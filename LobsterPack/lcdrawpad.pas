@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
-  BGRABitmap, BGRABitmapTypes, BGRACanvas2D, Math;
+  BGRABitmap, BGRABitmapTypes;
 
 type
 
@@ -20,6 +20,7 @@ type
     fMouseDrawing: boolean;
     fMouseOrigin: TPoint;
     fFillColor: TColor;
+    fBrushRadius: Byte;
     procedure DrawBrush(X, Y: Integer; Closed: boolean);
     function getImagePos: TPoint;
     procedure PaintImage;
@@ -38,6 +39,7 @@ type
     { Published declarations }
     property Stretched: boolean read fStretched write setStretched;
     property FillColor: TColor read fFillColor write fFillColor;
+    property BrushRadius: Byte read fBrushRadius write fBrushRadius;
   end;
 
   TLCDrawPad = class(TLCCustomDrawPad)
@@ -64,8 +66,6 @@ end;
 { TLCCustomDrawPad }
 
 procedure TLCCustomDrawPad.DrawBrush(X, Y: Integer; Closed: boolean);
-const
-  brushRadius = 20;
 var
   xRatio, yRatio: Double;
   adjOrigin, adjDest, imagePos: TPoint;
@@ -91,7 +91,7 @@ begin
   lFillColor.alpha:= 255;
 
   //fImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, BGRA(0,0,0,128), brushRadius, true);
-  fImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, lFillColor, brushRadius, true);
+  fImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, lFillColor, fBrushRadius, true);
 	//fImage.Canvas2D.;
   //drawCrayonLine(fImage.Canvas2D, adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, BGRA(255,0,0, 255), BGRA(0,0,0, 255), '');
 
@@ -186,6 +186,8 @@ begin
 	fStretched := false;
   fMouseDrawing := false;
   fMouseOrigin := Point(0, 0);
+  fFillColor := clBlack;
+  fBrushRadius := 20;
 end;
 
 destructor TLCCustomDrawPad.Destroy;
