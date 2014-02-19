@@ -7,7 +7,7 @@ unit LobsterPack;
 interface
 
 uses
-  LCDrawPad, LazarusPackageIntf;
+  LCDrawPad, lcutils, LazarusPackageIntf;
 
 implementation
 
