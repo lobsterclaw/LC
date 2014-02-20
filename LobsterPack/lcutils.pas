@@ -5,9 +5,9 @@ unit lcutils;
 interface
 
 uses
-  Classes, SysUtils, BGRABitmap, BGRABitmapTypes, BGRACanvas2D, Math;
+  Classes, SysUtils, Graphics, BGRABitmap, BGRABitmapTypes, BGRACanvas2D, Math;
 
-procedure drawCrayonLine(ctx: TBGRACanvas2D; setx1,sety1,setx2,sety2: Longint; lineColor,shadeColor: TBGRAPixel; specialOrders: String);
+function mapDefaultColor(ActualColor, ToColor: TColor) : TColor;
 
 
 implementation
@@ -138,6 +138,14 @@ begin
 		progy := endprogy;
 		progx := progx + 5;
 	end;
+end;
+
+function mapDefaultColor(ActualColor, ToColor: TColor): TColor;
+begin
+  if ActualColor = clDefault then
+    Result := ToColor
+  else
+    Result := ActualColor;
 end;
 
 end.

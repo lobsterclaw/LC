@@ -12,10 +12,10 @@ object Form1: TForm1
     Height = 536
     Top = 24
     Width = 752
-    ForeColor = clNavy
+    ForeColor = clDefault
     BrushRadius = 30
     ZoomPercent = 75
-    CanvasColor = clYellow
+    CanvasColor = clDefault
     CanvasPosition = csUpperLeft
   end
 end

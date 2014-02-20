@@ -66,6 +66,9 @@ procedure Register;
 
 implementation
 
+uses
+  lcutils;
+
 procedure Register;
 begin
   {$I lcdrawpad_icon.lrs}
@@ -86,7 +89,7 @@ begin
   adjOrigin := Point(Round(fMouseOrigin.X / ratio) - imagePos.X, Round(fMouseOrigin.Y / ratio) - imagePos.Y);
   adjDest := Point(Round(X / ratio) - imagePos.X, Round(Y / ratio) - imagePos.Y);
 
-  lForeColor := ColorToBGRA(ColorToRGB(fForeColor));
+  lForeColor := ColorToBGRA(ColorToRGB(mapDefaultColor(fForeColor, clBlack)));
   lForeColor.alpha:= 255;
 
   //fImage.PenStyle := psDash;
@@ -184,9 +187,9 @@ end;
 procedure TLCCustomDrawPad.setCanvasColor(CanvasColor: TColor);
 begin
   if CanvasColor = fCanvasColor then
-  	 exit;
+  	exit;
 
-  fImage.ReplaceColor(fCanvasColor, CanvasColor);
+  fImage.ReplaceColor(fCanvasColor, mapDefaultColor(CanvasColor, clWhite));
   fCanvasColor := CanvasColor;
   self.Invalidate;
 end;
