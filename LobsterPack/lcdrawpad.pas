@@ -97,7 +97,7 @@ begin
 
   fMouseOrigin := Point(X,Y);
 
-  PaintImage;
+  self.Invalidate;
 end;
 
 function TLCCustomDrawPad.getImagePos: TPoint;
