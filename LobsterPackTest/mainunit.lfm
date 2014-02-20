@@ -1,19 +1,21 @@
 object Form1: TForm1
-  Left = 252
-  Height = 622
-  Top = 320
-  Width = 875
+  Left = 463
+  Height = 636
+  Top = 231
+  Width = 797
   Caption = 'Form1'
-  ClientHeight = 622
-  ClientWidth = 875
+  ClientHeight = 636
+  ClientWidth = 797
   LCLVersion = '1.0.14.0'
   object LCDrawPad1: TLCDrawPad
     Left = 24
-    Height = 560
+    Height = 536
     Top = 24
-    Width = 744
-    Stretched = False
-    FillColor = 13865545
+    Width = 752
+    ForeColor = clMaroon
     BrushRadius = 30
+    ZoomPercent = 75
+    CanvasColor = clYellow
+    CanvasPosition = csUpperLeft
   end
 end
