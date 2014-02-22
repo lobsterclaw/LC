@@ -23,15 +23,21 @@ type
     fMouseOrigin: TPoint;
     fForeColor: TColor;
     fBrushRadius: Byte;
-    fZoomPercent: Byte;
+    fZoomPercent: Integer;
+    fCanvasWidth: Integer;
+    fCanvasHeight: Integer;
     fCanvasColor: TColor;
     fCanvasPosition: TCanvasPosition;
+    procedure EnsureCanvas();
     procedure DrawBrush(X, Y: Integer; Closed: boolean);
     function getImagePos: TPoint;
     procedure PaintImage;
+    procedure setCanvasHeight(CanvasHeight: Integer);
+    procedure setCanvasWidth(CanvasWidth: Integer);
     procedure setZoomPercent(ZoomPercent: byte);
     procedure setCanvasColor(CanvasColor: TColor);
     procedure setCanvasPosition(CanvasPosition: TCanvasPosition);
+    procedure setZoomPercent(AValue: Integer);
   protected
     { Protected declarations }
     procedure MouseDown(Button: TMouseButton; {%H-}Shift:TShiftState; X, Y:Integer); override;
@@ -46,7 +52,9 @@ type
     { Published declarations }
     property ForeColor: TColor read fForeColor write fForeColor;
     property BrushRadius: Byte read fBrushRadius write fBrushRadius;
-    property ZoomPercent: Byte read fZoomPercent write setZoomPercent;
+    property ZoomPercent: Integer read fZoomPercent write setZoomPercent;
+    property CanvasWidth: Integer read fCanvasWidth write setCanvasWidth;
+    property CanvasHeight: Integer read fCanvasHeight write setCanvasHeight;
     property CanvasColor: TColor read fCanvasColor write setCanvasColor;
     property CanvasPosition: TCanvasPosition read fCanvasPosition write setCanvasPosition;
   end;
@@ -77,12 +85,20 @@ end;
 
 { TLCCustomDrawPad }
 
+procedure TLCCustomDrawPad.EnsureCanvas;
+begin
+  if fImage = nil then
+    fImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+end;
+
 procedure TLCCustomDrawPad.DrawBrush(X, Y: Integer; Closed: boolean);
 var
   ratio: Double;
   adjOrigin, adjDest, imagePos: TPoint;
   lForeColor: TBGRAPixel;
 begin
+  EnsureCanvas;
+
   imagePos := getImagePos();
   ratio := fZoomPercent / 100;
 
@@ -107,6 +123,8 @@ function TLCCustomDrawPad.getImagePos: TPoint;
 var
   ratio: Double;
 begin
+  EnsureCanvas;
+
   ratio := fZoomPercent / 100;
 
   case fCanvasPosition of
@@ -159,6 +177,8 @@ var
   stretchedBmp: TBGRABitmap;
   ratio: Double;
 begin
+  EnsureCanvas;
+
   imagePos := getImagePos();
   If fZoomPercent <> 100 Then
   Begin
@@ -176,11 +196,34 @@ begin
   end;
 end;
 
-procedure TLCCustomDrawPad.setZoomPercent(ZoomPercent: Byte);
+procedure TLCCustomDrawPad.setCanvasHeight(CanvasHeight: Integer);
+begin
+  if fCanvasHeight = CanvasHeight then Exit;
+
+  fCanvasHeight := CanvasHeight;
+  if fCanvasHeight < 0 Then fCanvasHeight := 0;
+
+  self.Invalidate;
+end;
+
+procedure TLCCustomDrawPad.setCanvasWidth(CanvasWidth: Integer);
+begin
+  if fCanvasWidth = CanvasWidth then Exit;
+
+  fCanvasWidth := CanvasWidth;
+  if fCanvasWidth < 0 Then fCanvasWidth := 0;
+
+  self.Invalidate;
+end;
+
+procedure TLCCustomDrawPad.setZoomPercent(ZoomPercent: byte);
 begin
   if fZoomPercent = ZoomPercent then Exit;
 
   fZoomPercent := ZoomPercent;
+  if fZoomPercent < 1 Then fZoomPercent := 1;
+  if fZoomPercent > 5000 Then fZoomPercent := 5000;
+
   self.Invalidate;
 end;
 
@@ -189,8 +232,8 @@ begin
   if CanvasColor = fCanvasColor then
   	exit;
 
-  fImage.ReplaceColor(fCanvasColor, mapDefaultColor(CanvasColor, clWhite));
   fCanvasColor := CanvasColor;
+
   self.Invalidate;
 end;
 
@@ -199,7 +242,14 @@ begin
   if fCanvasPosition = CanvasPosition then Exit;
 
   fCanvasPosition := CanvasPosition;
+
   self.Invalidate;
+end;
+
+procedure TLCCustomDrawPad.setZoomPercent(AValue: Integer);
+begin
+  if fZoomPercent=AValue then Exit;
+  fZoomPercent:=AValue;
 end;
 
 procedure TLCCustomDrawPad.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -210,7 +260,6 @@ begin
     fMouseOrigin := Point(X,Y);
     DrawBrush(X,Y,True);
   end;
-
 end;
 
 procedure TLCCustomDrawPad.MouseMove(Shift: TShiftState; X, Y: Integer);
@@ -234,7 +283,10 @@ begin
   inherited Create(TheOwner);
 
   //fImage := TBGRABitmap.Create('header_logo.gif');
-  fImage := TBGRABitmap.Create(640,480,BGRAWhite);  //create a 640x480 image
+  fImage := nil;
+
+  fCanvasWidth := 640;
+  fCanvasHeight := 480;
 
   fMouseDrawing := false;
   fMouseOrigin := Point(0, 0);
