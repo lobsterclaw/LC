@@ -13,7 +13,8 @@ type
   								csMiddleLeft, csMiddleCenter, csMiddleRight,
                   csLowerLeft, csLowerCenter, csLowerRight);
 
-	TRotateMode = (rm90Right, rm90Left);
+	TRotateMode = (rm90Right, rm90Left, rm180);
+	TFlipMode = (fmHorizontal, fmVertical);
 
   { TLCCustomDrawPad }
 
@@ -51,6 +52,7 @@ type
     destructor Destroy; override;
     procedure Paint; override;
     procedure Rotate(RotateMode: TRotateMode);
+    procedure Flip(FlipMode: TFlipMode);
   published
     { Published declarations }
     property ForeColor: TColor read fForeColor write fForeColor;
@@ -94,7 +96,7 @@ var
 begin
   if (fCanvasImage = nil) OR (CanvasResizeMode = crmClearContents) then
   begin
-	  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+	  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, MapDefaultColor(fCanvasColor, clWhite));
 	end
   else if CanvasResizeMode = crmResample then
   begin
@@ -102,7 +104,7 @@ begin
   end
   else if CanvasResizeMode = crmKeepContents then
   begin
-	  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+	  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, MapDefaultColor(fCanvasColor, clWhite));
 		NewCanvasImage.PutImage(0, 0, fCanvasImage, dmSet);
   end;
   FreeAndNil(fCanvasImage);
@@ -115,11 +117,11 @@ var
 begin
   if (fCanvasImage = nil) Then
   Begin
-	  fCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+	  fCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, MapDefaultColor(fCanvasColor, clWhite));
   End
   Else If (fCanvasWidth <> fCanvasImage.Width) Or (fCanvasHeight <> fCanvasImage.Height) then
   Begin
-    NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+    NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, MapDefaultColor(fCanvasColor, clWhite));
 		NewCanvasImage.PutImage(0, 0, fCanvasImage, dmSet);
     fCanvasImage.Free();
   	fCanvasImage := NewCanvasImage;
@@ -142,7 +144,7 @@ begin
   adjOrigin := Point(Round(fMouseOrigin.X / ratio) - imagePos.X, Round(fMouseOrigin.Y / ratio) - imagePos.Y);
   adjDest := Point(Round(X / ratio) - imagePos.X, Round(Y / ratio) - imagePos.Y);
 
-  lForeColor := ColorToBGRA(ColorToRGB(mapDefaultColor(fForeColor, clBlack)));
+  lForeColor := ColorToBGRA(ColorToRGB(MapDefaultColor(fForeColor, clBlack)));
   lForeColor.alpha:= 255;
 
   //fCanvasImage.PenStyle := psDash;
@@ -313,18 +315,39 @@ end;
 procedure TLCCustomDrawPad.Rotate(RotateMode: TRotateMode);
 var
   TempBitmap: TBGRABitmap;
+  UsesTemp: Boolean = True;
 begin
   EnsureCanvas();
 
   If RotateMode = rm90Left Then
   	 TempBitmap := fCanvasImage.RotateCCW() as TBGRABitmap
   Else If RotateMode = rm90Right Then
-    TempBitmap := fCanvasImage.RotateCW() as TBGRABitmap;
+    TempBitmap := fCanvasImage.RotateCW() as TBGRABitmap
+  Else If RotateMode = rm180 Then
+  Begin
+    Rotate180(fCanvasImage);
+    UsesTemp := False;
+  end;
 
-  fCanvasWidth := TempBitmap.Width;
-  fCanvasHeight := TempBitmap.Height;
-  FreeAndNil(fCanvasImage);
-  fCanvasImage := TempBitmap;
+  if UsesTemp Then
+  Begin
+  	fCanvasWidth := TempBitmap.Width;
+  	fCanvasHeight := TempBitmap.Height;
+  	FreeAndNil(fCanvasImage);
+  	fCanvasImage := TempBitmap;
+  end;
+
+  self.Invalidate;
+end;
+
+procedure TLCCustomDrawPad.Flip(FlipMode: TFlipMode);
+begin
+  EnsureCanvas();
+
+  If FlipMode = fmHorizontal Then
+  	 fCanvasImage.HorizontalFlip
+  Else If FlipMode = fmVertical Then
+    fCanvasImage.VerticalFlip;
 
   self.Invalidate;
 end;
@@ -348,7 +371,7 @@ begin
   fDrawingOccurred := False;
 
   //fCanvasImage := TBGRABitmap.Create('header_logo.gif');
-  //fCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+  //fCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, MapDefaultColor(fCanvasColor, clWhite));
 end;
 
 destructor TLCCustomDrawPad.Destroy;

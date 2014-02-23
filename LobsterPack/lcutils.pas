@@ -7,10 +7,37 @@ interface
 uses
   Classes, SysUtils, Graphics, BGRABitmap, BGRABitmapTypes, BGRACanvas2D, Math;
 
-function mapDefaultColor(ActualColor, ToColor: TColor) : TColor;
+procedure Rotate180(Image: TBGRABitmap);
+function MapDefaultColor(ActualColor, ToColor: TColor) : TColor;
 
 
 implementation
+
+procedure Rotate180(Image: TBGRABitmap);
+var
+  yb, xb: integer;
+  PStart: PBGRAPixel;
+  PEnd:   PBGRAPixel;
+  temp:   TBGRAPixel;
+begin
+  if Image = nil then
+    exit;
+
+  for yb := 0 to (Image.Height div 2) - 1 do
+  begin
+    PStart := Image.Scanline[yb];
+    PEnd := Image.Scanline[Image.Height - yb - 1] + Image.Width;
+    for xb := 0 to Image.Width - 1 do
+    begin
+      Dec(PEnd);
+      temp    := PStart^;
+      PStart^ := PEnd^;
+      PEnd^   := temp;
+      Inc(PStart);
+    end;
+  end;
+  Image.InvalidateBitmap;
+end;
 
 // drawLine: draw a line on the canvas in crayon
 // ctx is the 2d context of the canvas to draw on
@@ -140,7 +167,7 @@ begin
 	end;
 end;
 
-function mapDefaultColor(ActualColor, ToColor: TColor): TColor;
+function MapDefaultColor(ActualColor, ToColor: TColor): TColor;
 begin
   if ActualColor = clDefault then
     Result := ToColor

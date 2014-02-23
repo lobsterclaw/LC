@@ -2,10 +2,10 @@ object Form1: TForm1
   Left = 463
   Height = 636
   Top = 231
-  Width = 797
+  Width = 910
   Caption = 'Form1'
   ClientHeight = 636
-  ClientWidth = 797
+  ClientWidth = 910
   LCLVersion = '1.0.14.0'
   object LCDrawPad1: TLCDrawPad
     Left = 16
@@ -21,21 +21,57 @@ object Form1: TForm1
     CanvasPosition = csUpperLeft
   end
   object BtnRotateLeft: TButton
-    Left = 81
-    Height = 50
-    Top = 13
+    Left = 16
+    Height = 42
+    Top = 22
     Width = 121
     Caption = 'Rotate Left'
     OnClick = BtnRotateLeftClick
     TabOrder = 0
   end
   object BtnRotateRight: TButton
-    Left = 264
-    Height = 41
+    Left = 168
+    Height = 42
     Top = 22
     Width = 113
     Caption = 'Rotate Right'
     OnClick = BtnRotateRightClick
     TabOrder = 1
+  end
+  object BtnRotate180: TButton
+    Left = 312
+    Height = 42
+    Top = 22
+    Width = 113
+    Caption = 'Rotate 180'
+    OnClick = BtnRotate180Click
+    TabOrder = 2
+  end
+  object BtnFlipVertical: TButton
+    Left = 456
+    Height = 42
+    Top = 22
+    Width = 113
+    Caption = 'Flip Vert'
+    OnClick = BtnFlipVerticalClick
+    TabOrder = 3
+  end
+  object BtnFlipHorizontal: TButton
+    Left = 592
+    Height = 42
+    Top = 22
+    Width = 113
+    Caption = 'Flip Horiz'
+    OnClick = BtnFlipHorizontalClick
+    TabOrder = 4
+  end
+  object ColorBox1: TColorBox
+    Left = 732
+    Height = 28
+    Top = 36
+    Width = 146
+    ItemHeight = 20
+    OnChange = ColorBox1Change
+    TabOrder = 5
   end
 end
