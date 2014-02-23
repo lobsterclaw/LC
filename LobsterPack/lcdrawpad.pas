@@ -13,12 +13,14 @@ type
   								csMiddleLeft, csMiddleCenter, csMiddleRight,
                   csLowerLeft, csLowerCenter, csLowerRight);
 
+	TRotateMode = (rm90Right, rm90Left);
+
   { TLCCustomDrawPad }
 
   TLCCustomDrawPad = class(TGraphicControl)
   private
     { Private declarations }
-    fImage: TBGRABitmap;
+    fCanvasImage: TBGRABitmap;
     fMouseDrawing: boolean;
     fMouseOrigin: TPoint;
     fForeColor: TColor;
@@ -28,16 +30,16 @@ type
     fCanvasHeight: Integer;
     fCanvasColor: TColor;
     fCanvasPosition: TCanvasPosition;
+    fDrawingOccurred: Boolean;
     procedure EnsureCanvas();
     procedure DrawBrush(X, Y: Integer; Closed: boolean);
     function getImagePos: TPoint;
     procedure PaintImage;
     procedure setCanvasHeight(CanvasHeight: Integer);
     procedure setCanvasWidth(CanvasWidth: Integer);
-    procedure setZoomPercent(ZoomPercent: byte);
+    procedure setZoomPercent(ZoomPercent: Integer);
     procedure setCanvasColor(CanvasColor: TColor);
     procedure setCanvasPosition(CanvasPosition: TCanvasPosition);
-    procedure setZoomPercent(AValue: Integer);
   protected
     { Protected declarations }
     procedure MouseDown(Button: TMouseButton; {%H-}Shift:TShiftState; X, Y:Integer); override;
@@ -48,6 +50,7 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure Paint; override;
+    procedure Rotate(RotateMode: TRotateMode);
   published
     { Published declarations }
     property ForeColor: TColor read fForeColor write fForeColor;
@@ -85,10 +88,42 @@ end;
 
 { TLCCustomDrawPad }
 
-procedure TLCCustomDrawPad.EnsureCanvas;
+(*procedure TLCCustomDrawPad.ResizeCanvas();
+var
+  NewCanvasImage: TBGRABitmap;
 begin
-  if fImage = nil then
-    fImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+  if (fCanvasImage = nil) OR (CanvasResizeMode = crmClearContents) then
+  begin
+	  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+	end
+  else if CanvasResizeMode = crmResample then
+  begin
+    NewCanvasImage := fCanvasImage.Resample(fCanvasWidth, fCanvasHeight, rmSimpleStretch) as TBGRABitmap;
+  end
+  else if CanvasResizeMode = crmKeepContents then
+  begin
+	  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+		NewCanvasImage.PutImage(0, 0, fCanvasImage, dmSet);
+  end;
+  FreeAndNil(fCanvasImage);
+  fCanvasImage := NewCanvasImage;
+end;*)
+
+procedure TLCCustomDrawPad.EnsureCanvas();
+var
+  NewCanvasImage: TBGRABitmap;
+begin
+  if (fCanvasImage = nil) Then
+  Begin
+	  fCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+  End
+  Else If (fCanvasWidth <> fCanvasImage.Width) Or (fCanvasHeight <> fCanvasImage.Height) then
+  Begin
+    NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
+		NewCanvasImage.PutImage(0, 0, fCanvasImage, dmSet);
+    fCanvasImage.Free();
+  	fCanvasImage := NewCanvasImage;
+  End;
 end;
 
 procedure TLCCustomDrawPad.DrawBrush(X, Y: Integer; Closed: boolean);
@@ -97,7 +132,9 @@ var
   adjOrigin, adjDest, imagePos: TPoint;
   lForeColor: TBGRAPixel;
 begin
-  EnsureCanvas;
+  EnsureCanvas();
+
+  fDrawingOccurred := True;
 
   imagePos := getImagePos();
   ratio := fZoomPercent / 100;
@@ -108,58 +145,82 @@ begin
   lForeColor := ColorToBGRA(ColorToRGB(mapDefaultColor(fForeColor, clBlack)));
   lForeColor.alpha:= 255;
 
-  //fImage.PenStyle := psDash;
-  //fImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, BGRA(0,0,0,128), brushRadius, true);
-  fImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, lForeColor, fBrushRadius, true);
-	//fImage.Canvas2D.;
-  //drawCrayonLine(fImage.Canvas2D, adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, BGRA(255,0,0, 255), BGRA(0,0,0, 255), '');
+  //fCanvasImage.PenStyle := psDash;
+  //fCanvasImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, BGRA(0,0,0,128), brushRadius, true);
+  fCanvasImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, lForeColor, fBrushRadius, true);
+	//fCanvasImage.Canvas2D.;
+  //drawCrayonLine(fCanvasImage.Canvas2D, adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, BGRA(255,0,0, 255), BGRA(0,0,0, 255), '');
 
   fMouseOrigin := Point(X,Y);
 
   self.Invalidate;
 end;
 
+procedure TLCCustomDrawPad.PaintImage;
+var
+  imagePos: TPoint;
+  stretchedBmp: TBGRABitmap;
+  ratio: Double;
+begin
+  EnsureCanvas();
+
+  imagePos := getImagePos();
+
+	if fZoomPercent <> 100 Then
+  Begin
+    ratio := fZoomPercent / 100;
+    stretchedBmp := fCanvasImage.Resample(Round(fCanvasImage.Width * ratio), Round(fCanvasImage.Height * ratio), rmSimpleStretch) as TBGRABitmap;
+    try
+      stretchedBmp.Draw(Canvas, imagePos.X, imagePos.Y, True);
+    finally
+      stretchedBmp.Free;
+    end;
+  end
+  Else
+  Begin
+    fCanvasImage.Draw(Canvas, imagePos.X, imagePos.Y, True);
+  end;
+end;
+
 function TLCCustomDrawPad.getImagePos: TPoint;
 var
   ratio: Double;
 begin
-  EnsureCanvas;
-
   ratio := fZoomPercent / 100;
 
   case fCanvasPosition of
   csUpperLeft: Result := Point(0, 0);
   csUpperCenter: Result := Point(
-        (self.ClientWidth - Round(fImage.Width * ratio)) div 2,
+        (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
         0
       );
   csUpperRight: Result := Point(
-			  (self.ClientWidth - Round(fImage.Width * ratio)),
+			  (self.ClientWidth - Round(fCanvasWidth * ratio)),
         0
       );
   csMiddleLeft: Result := Point(
         0,
-        (self.ClientHeight - Round(fImage.Height * ratio)) div 2
+        (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
       );
   csMiddleCenter: Result := Point(
-        (self.ClientWidth - Round(fImage.Width * ratio)) div 2,
-        (self.ClientHeight - Round(fImage.Height * ratio)) div 2
+        (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
+        (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
       );
   csMiddleRight: Result := Point(
-        (self.ClientWidth - Round(fImage.Width * ratio)),
-        (self.ClientHeight - Round(fImage.Height * ratio)) div 2
+        (self.ClientWidth - Round(fCanvasWidth * ratio)),
+        (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
       );
   csLowerLeft: Result := Point(
         0,
-        (self.ClientHeight - Round(fImage.Height * ratio))
+        (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
   csLowerCenter: Result := Point(
-        (self.ClientWidth - Round(fImage.Width * ratio)) div 2,
-        (self.ClientHeight - Round(fImage.Height * ratio))
+        (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
+        (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
   csLowerRight: Result := Point(
-        (self.ClientWidth - Round(fImage.Width * ratio)),
-        (self.ClientHeight - Round(fImage.Height * ratio))
+        (self.ClientWidth - Round(fCanvasWidth * ratio)),
+        (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
   else
     Result := Point(0, 0);
@@ -171,58 +232,22 @@ begin
 
 end;
 
-procedure TLCCustomDrawPad.PaintImage;
-var
-  imagePos: TPoint;
-  stretchedBmp: TBGRABitmap;
-  ratio: Double;
-begin
-  EnsureCanvas;
-
-  imagePos := getImagePos();
-  If fZoomPercent <> 100 Then
-  Begin
-    ratio := fZoomPercent / 100;
-    stretchedBmp := fImage.Resample(Round(fImage.Width * ratio), Round(fImage.Height * ratio), rmSimpleStretch) as TBGRABitmap;
-    try
-      stretchedBmp.Draw(Canvas, imagePos.X, imagePos.Y, True);
-    finally
-      stretchedBmp.Free;
-    end;
-  end
-  Else
-  Begin
-    fImage.Draw(Canvas, imagePos.X, imagePos.Y, True);
-  end;
-end;
-
 procedure TLCCustomDrawPad.setCanvasHeight(CanvasHeight: Integer);
 begin
+  if CanvasHeight < 0 Then CanvasHeight := 0;
   if fCanvasHeight = CanvasHeight then Exit;
 
   fCanvasHeight := CanvasHeight;
-  if fCanvasHeight < 0 Then fCanvasHeight := 0;
 
   self.Invalidate;
 end;
 
 procedure TLCCustomDrawPad.setCanvasWidth(CanvasWidth: Integer);
 begin
+  if CanvasWidth < 0 Then CanvasWidth := 0;
   if fCanvasWidth = CanvasWidth then Exit;
 
   fCanvasWidth := CanvasWidth;
-  if fCanvasWidth < 0 Then fCanvasWidth := 0;
-
-  self.Invalidate;
-end;
-
-procedure TLCCustomDrawPad.setZoomPercent(ZoomPercent: byte);
-begin
-  if fZoomPercent = ZoomPercent then Exit;
-
-  fZoomPercent := ZoomPercent;
-  if fZoomPercent < 1 Then fZoomPercent := 1;
-  if fZoomPercent > 5000 Then fZoomPercent := 5000;
 
   self.Invalidate;
 end;
@@ -233,6 +258,8 @@ begin
   	exit;
 
   fCanvasColor := CanvasColor;
+
+  If (Not fDrawingOccurred) Then FreeAndNil(fCanvasImage);
 
   self.Invalidate;
 end;
@@ -246,10 +273,15 @@ begin
   self.Invalidate;
 end;
 
-procedure TLCCustomDrawPad.setZoomPercent(AValue: Integer);
+procedure TLCCustomDrawPad.setZoomPercent(ZoomPercent: Integer);
 begin
-  if fZoomPercent=AValue then Exit;
-  fZoomPercent:=AValue;
+  if ZoomPercent < 1 Then ZoomPercent := 1;
+  if ZoomPercent > 5000 Then ZoomPercent := 5000;
+  if fZoomPercent = ZoomPercent then Exit;
+
+  fZoomPercent := ZoomPercent;
+
+  self.Invalidate;
 end;
 
 procedure TLCCustomDrawPad.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -278,29 +310,50 @@ begin
   PaintImage;
 end;
 
+procedure TLCCustomDrawPad.Rotate(RotateMode: TRotateMode);
+var
+  TempBitmap: TBGRABitmap;
+begin
+  EnsureCanvas();
+
+  If RotateMode = rm90Left Then
+  	 TempBitmap := fCanvasImage.RotateCCW() as TBGRABitmap
+  Else If RotateMode = rm90Right Then
+    TempBitmap := fCanvasImage.RotateCW() as TBGRABitmap;
+
+  fCanvasWidth := TempBitmap.Width;
+  fCanvasHeight := TempBitmap.Height;
+  FreeAndNil(fCanvasImage);
+  fCanvasImage := TempBitmap;
+
+  self.Invalidate;
+end;
+
 constructor TLCCustomDrawPad.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
-  //fImage := TBGRABitmap.Create('header_logo.gif');
-  fImage := nil;
-
-  fCanvasWidth := 640;
-  fCanvasHeight := 480;
-
   fMouseDrawing := false;
   fMouseOrigin := Point(0, 0);
   fForeColor := clBlack;
-  fCanvasColor := clWhite;
   fBrushRadius := 20;
 
-  fCanvasPosition := csUpperLeft;
   fZoomPercent := 100;
+
+  fCanvasWidth := 640;
+  fCanvasHeight := 480;
+  fCanvasColor := clWhite;
+  fCanvasPosition := csUpperLeft;
+
+  fDrawingOccurred := False;
+
+  //fCanvasImage := TBGRABitmap.Create('header_logo.gif');
+  //fCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, mapDefaultColor(fCanvasColor, clWhite));
 end;
 
 destructor TLCCustomDrawPad.Destroy;
 begin
-  fImage.Free;
+  FreeAndNil(fCanvasImage);
 
   inherited;
 end;

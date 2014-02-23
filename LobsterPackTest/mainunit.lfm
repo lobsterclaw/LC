@@ -8,14 +8,34 @@ object Form1: TForm1
   ClientWidth = 797
   LCLVersion = '1.0.14.0'
   object LCDrawPad1: TLCDrawPad
-    Left = 24
+    Left = 16
     Height = 536
-    Top = 24
+    Top = 88
     Width = 752
     ForeColor = clDefault
     BrushRadius = 30
     ZoomPercent = 75
-    CanvasColor = clDefault
+    CanvasWidth = 640
+    CanvasHeight = 600
+    CanvasColor = clCream
     CanvasPosition = csUpperLeft
+  end
+  object BtnRotateLeft: TButton
+    Left = 81
+    Height = 50
+    Top = 13
+    Width = 121
+    Caption = 'Rotate Left'
+    OnClick = BtnRotateLeftClick
+    TabOrder = 0
+  end
+  object BtnRotateRight: TButton
+    Left = 264
+    Height = 41
+    Top = 22
+    Width = 113
+    Caption = 'Rotate Right'
+    OnClick = BtnRotateRightClick
+    TabOrder = 1
   end
 end
