@@ -2,10 +2,10 @@ object Form1: TForm1
   Left = 463
   Height = 636
   Top = 231
-  Width = 910
+  Width = 972
   Caption = 'Form1'
   ClientHeight = 636
-  ClientWidth = 910
+  ClientWidth = 972
   LCLVersion = '1.0.14.0'
   object LCDrawPad1: TLCDrawPad
     Left = 16
@@ -67,11 +67,38 @@ object Form1: TForm1
   end
   object ColorBox1: TColorBox
     Left = 732
-    Height = 28
+    Height = 26
     Top = 36
     Width = 146
     ItemHeight = 20
     OnChange = ColorBox1Change
     TabOrder = 5
+  end
+  object Button1: TButton
+    Left = 792
+    Height = 43
+    Top = 125
+    Width = 160
+    Caption = 'Reset(500,200,White)'
+    OnClick = Button1Click
+    TabOrder = 6
+  end
+  object Button2: TButton
+    Left = 792
+    Height = 43
+    Top = 184
+    Width = 160
+    Caption = 'Resize(500,500)'
+    OnClick = Button2Click
+    TabOrder = 7
+  end
+  object Button3: TButton
+    Left = 792
+    Height = 43
+    Top = 248
+    Width = 160
+    Caption = 'Resample(700,700)'
+    OnClick = Button3Click
+    TabOrder = 8
   end
 end

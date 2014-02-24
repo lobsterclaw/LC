@@ -53,6 +53,9 @@ type
     procedure Paint; override;
     procedure Rotate(RotateMode: TRotateMode);
     procedure Flip(FlipMode: TFlipMode);
+    procedure NewCanvas(NewWidth, NewHeight: Integer; NewColor: TColor);
+    procedure ResizeCanvas(NewWidth, NewHeight: Integer);
+    procedure ResampleCanvas(NewWidth, NewHeight: Integer; ResampleMode: TResampleMode=rmFineResample);
   published
     { Published declarations }
     property ForeColor: TColor read fForeColor write fForeColor;
@@ -348,6 +351,57 @@ begin
   	 fCanvasImage.HorizontalFlip
   Else If FlipMode = fmVertical Then
     fCanvasImage.VerticalFlip;
+
+  self.Invalidate;
+end;
+
+procedure TLCCustomDrawPad.NewCanvas(NewWidth, NewHeight: Integer; NewColor: TColor);
+begin
+  fDrawingOccurred := False;
+
+  fMouseDrawing := false;
+  fMouseOrigin := Point(0, 0);
+
+  fCanvasWidth := NewWidth;
+  fCanvasHeight := NewHeight;
+  fCanvasColor := NewColor;
+
+  FreeAndNil(fCanvasImage);
+
+  self.Invalidate;
+end;
+
+procedure TLCCustomDrawPad.ResizeCanvas(NewWidth, NewHeight: Integer);
+var
+  NewCanvasImage: TBGRABitmap;
+begin
+  fMouseDrawing := false;
+  fMouseOrigin := Point(0, 0);
+
+  fCanvasWidth := NewWidth;
+  fCanvasHeight := NewHeight;
+
+  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, MapDefaultColor(fCanvasColor, clWhite));
+	NewCanvasImage.PutImage(0, 0, fCanvasImage, dmSet);
+  fCanvasImage.Free();
+	fCanvasImage := NewCanvasImage;
+
+  self.Invalidate;
+end;
+
+procedure TLCCustomDrawPad.ResampleCanvas(NewWidth, NewHeight: Integer; ResampleMode: TResampleMode = rmFineResample);
+var
+  NewCanvasImage: TBGRABitmap;
+begin
+  fMouseDrawing := false;
+  fMouseOrigin := Point(0, 0);
+
+  fCanvasWidth := NewWidth;
+  fCanvasHeight := NewHeight;
+
+  NewCanvasImage := fCanvasImage.Resample(fCanvasWidth, fCanvasHeight, ResampleMode) as TBGRABitmap;
+  fCanvasImage.Free();
+	fCanvasImage := NewCanvasImage;
 
   self.Invalidate;
 end;
