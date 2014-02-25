@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ColorBox, LCDrawPad;
+  ColorBox, ComCtrls, ExtCtrls, PairSplitter, LCDrawPad;
 
 type
 
@@ -18,20 +18,34 @@ type
     BtnRotateLeft: TButton;
     BtnRotateRight: TButton;
     BtnRotate180: TButton;
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
-    ColorBox1: TColorBox;
+    BtnReset: TButton;
+    BtnResize: TButton;
+    BtnResample: TButton;
+    BtnSave: TButton;
+    BtnToBitmap: TButton;
+    ColorButton1: TColorButton;
+    Image1: TImage;
+    LblZoomPercent: TLabel;
     LCDrawPad1: TLCDrawPad;
+    PairSplitter1: TPairSplitter;
+    PairSplitterSide1: TPairSplitterSide;
+    PairSplitterSide2: TPairSplitterSide;
+    SaveDialog1: TSaveDialog;
+    ToolBar1: TToolBar;
+    SldZoomPercent: TTrackBar;
     procedure BtnFlipHorizontalClick(Sender: TObject);
     procedure BtnFlipVerticalClick(Sender: TObject);
     procedure BtnRotate180Click(Sender: TObject);
     procedure BtnRotateLeftClick(Sender: TObject);
     procedure BtnRotateRightClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure ColorBox1Change(Sender: TObject);
+    procedure BtnResetClick(Sender: TObject);
+    procedure BtnResizeClick(Sender: TObject);
+    procedure BtnResampleClick(Sender: TObject);
+    procedure BtnSaveClick(Sender: TObject);
+    procedure BtnToBitmapClick(Sender: TObject);
+    procedure ColorButton1ColorChanged(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure SldZoomPercentChange(Sender: TObject);
   private
     { private declarations }
   public
@@ -72,24 +86,50 @@ begin
   LCDrawPad1.Rotate(rm90Right);
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.BtnResetClick(Sender: TObject);
 begin
   LCDrawPad1.NewCanvas(500, 200, clWhite);
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.BtnResizeClick(Sender: TObject);
 begin
     LCDrawPad1.ResizeCanvas(500, 500);
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
+procedure TForm1.BtnResampleClick(Sender: TObject);
 begin
   LCDrawPad1.ResampleCanvas(700, 700);
 end;
 
-procedure TForm1.ColorBox1Change(Sender: TObject);
+procedure TForm1.BtnSaveClick(Sender: TObject);
 begin
-  LCDrawPad1.ForeColor:=ColorBox1.Selected;
+  SaveDialog1.Execute;
+  if (SaveDialog1.FileName <> '') then
+    LCDrawPad1.SaveToFile(SaveDialog1.FileName);
+end;
+
+procedure TForm1.BtnToBitmapClick(Sender: TObject);
+begin
+  LCDrawPad1.SaveToBitmap(Image1.Picture.Bitmap);
+  Image1.Refresh;
+end;
+
+procedure TForm1.ColorButton1ColorChanged(Sender: TObject);
+begin
+  LCDrawPad1.ForeColor:=ColorButton1.ButtonColor;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  ColorButton1.ButtonColor := LCDrawPad1.ForeColor;
+  SldZoomPercent.Position:= LCDrawPad1.ZoomPercent;
+  LblZoomPercent.Caption:= Format('%d%%', [LCDrawPad1.ZoomPercent]);
+end;
+
+procedure TForm1.SldZoomPercentChange(Sender: TObject);
+begin
+  LCDrawPad1.ZoomPercent := SldZoomPercent.Position;
+  LblZoomPercent.Caption:= Format('%d%%', [LCDrawPad1.ZoomPercent]);
 end;
 
 end.

@@ -16,7 +16,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Version Minor="5"/>
+    <Version Minor="6"/>
     <Files Count="2">
       <Item1>
         <Filename Value="lcdrawpad.pas"/>

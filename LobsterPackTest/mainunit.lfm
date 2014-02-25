@@ -1,104 +1,198 @@
 object Form1: TForm1
-  Left = 463
-  Height = 636
-  Top = 231
-  Width = 972
+  Left = 453
+  Height = 704
+  Top = 213
+  Width = 1079
   Caption = 'Form1'
-  ClientHeight = 636
-  ClientWidth = 972
+  ClientHeight = 704
+  ClientWidth = 1079
+  OnCreate = FormCreate
   LCLVersion = '1.0.14.0'
-  object LCDrawPad1: TLCDrawPad
-    Left = 16
-    Height = 536
-    Top = 88
-    Width = 752
-    ForeColor = clDefault
-    BrushRadius = 30
-    ZoomPercent = 75
-    CanvasWidth = 640
-    CanvasHeight = 600
-    CanvasColor = clCream
-    CanvasPosition = csUpperLeft
-  end
-  object BtnRotateLeft: TButton
-    Left = 16
-    Height = 42
-    Top = 22
-    Width = 121
-    Caption = 'Rotate Left'
-    OnClick = BtnRotateLeftClick
+  object ToolBar1: TToolBar
+    Left = 0
+    Height = 90
+    Top = 0
+    Width = 1079
+    AutoSize = True
+    ButtonHeight = 44
+    ButtonWidth = 45
+    Caption = 'ToolBar1'
     TabOrder = 0
+    object BtnRotateLeft: TButton
+      Left = 1
+      Height = 44
+      Top = 2
+      Width = 97
+      Caption = 'Rotate Left'
+      OnClick = BtnRotateLeftClick
+      TabOrder = 0
+    end
+    object BtnRotateRight: TButton
+      Left = 98
+      Height = 44
+      Top = 2
+      Width = 97
+      Caption = 'Rotate Right'
+      OnClick = BtnRotateRightClick
+      TabOrder = 1
+    end
+    object BtnRotate180: TButton
+      Left = 195
+      Height = 44
+      Top = 2
+      Width = 93
+      Caption = 'Rotate 180'
+      OnClick = BtnRotate180Click
+      TabOrder = 2
+    end
+    object BtnFlipVertical: TButton
+      Left = 288
+      Height = 44
+      Top = 2
+      Width = 89
+      Caption = 'Flip Vert'
+      OnClick = BtnFlipVerticalClick
+      TabOrder = 3
+    end
+    object BtnFlipHorizontal: TButton
+      Left = 377
+      Height = 44
+      Top = 2
+      Width = 89
+      Caption = 'Flip Horiz'
+      OnClick = BtnFlipHorizontalClick
+      TabOrder = 4
+    end
+    object BtnReset: TButton
+      Left = 466
+      Height = 44
+      Top = 2
+      Width = 160
+      Caption = 'Reset(500,200,White)'
+      OnClick = BtnResetClick
+      TabOrder = 5
+    end
+    object BtnResize: TButton
+      Left = 626
+      Height = 44
+      Top = 2
+      Width = 136
+      Caption = 'Resize(500,500)'
+      OnClick = BtnResizeClick
+      TabOrder = 6
+    end
+    object BtnResample: TButton
+      Left = 762
+      Height = 44
+      Top = 2
+      Width = 152
+      Caption = 'Resample(700,700)'
+      OnClick = BtnResampleClick
+      TabOrder = 7
+    end
+    object ColorButton1: TColorButton
+      Left = 914
+      Height = 44
+      Top = 2
+      Width = 75
+      BorderWidth = 2
+      ButtonColorSize = 16
+      ButtonColor = clBlack
+      OnColorChanged = ColorButton1ColorChanged
+    end
+    object SldZoomPercent: TTrackBar
+      Left = 1
+      Height = 44
+      Top = 46
+      Width = 200
+      Frequency = 50
+      LineSize = 5
+      Max = 1000
+      Min = 1
+      OnChange = SldZoomPercentChange
+      PageSize = 10
+      Position = 100
+      ShowSelRange = False
+      TabOrder = 8
+    end
+    object LblZoomPercent: TLabel
+      Left = 201
+      Height = 21
+      Top = 46
+      Width = 110
+      Caption = 'LblZoomPercent'
+      ParentColor = False
+    end
+    object BtnSave: TButton
+      Left = 311
+      Height = 44
+      Top = 46
+      Width = 81
+      Caption = 'Save'
+      OnClick = BtnSaveClick
+      TabOrder = 9
+    end
+    object BtnToBitmap: TButton
+      Left = 392
+      Height = 44
+      Top = 46
+      Width = 90
+      Caption = 'ToBitmap'
+      OnClick = BtnToBitmapClick
+      TabOrder = 10
+    end
   end
-  object BtnRotateRight: TButton
-    Left = 168
-    Height = 42
-    Top = 22
-    Width = 113
-    Caption = 'Rotate Right'
-    OnClick = BtnRotateRightClick
-    TabOrder = 1
+  object PairSplitter1: TPairSplitter
+    Left = 0
+    Height = 614
+    Top = 90
+    Width = 1079
+    Align = alClient
+    Position = 700
+    object PairSplitterSide1: TPairSplitterSide
+      Cursor = crArrow
+      Left = 0
+      Height = 614
+      Top = 0
+      Width = 700
+      ClientWidth = 700
+      ClientHeight = 614
+      object LCDrawPad1: TLCDrawPad
+        Left = 0
+        Height = 614
+        Top = 0
+        Width = 700
+        ForeColor = clBlack
+        LineSize = 20
+        ZoomPercent = 50
+        CanvasWidth = 640
+        CanvasHeight = 500
+        CanvasColor = clCream
+        CanvasPosition = csLowerCenter
+        Align = alClient
+      end
+    end
+    object PairSplitterSide2: TPairSplitterSide
+      Cursor = crArrow
+      Left = 705
+      Height = 614
+      Top = 0
+      Width = 374
+      ClientWidth = 374
+      ClientHeight = 614
+      object Image1: TImage
+        Left = 0
+        Height = 614
+        Top = 0
+        Width = 374
+        Align = alClient
+      end
+    end
   end
-  object BtnRotate180: TButton
-    Left = 312
-    Height = 42
-    Top = 22
-    Width = 113
-    Caption = 'Rotate 180'
-    OnClick = BtnRotate180Click
-    TabOrder = 2
-  end
-  object BtnFlipVertical: TButton
-    Left = 456
-    Height = 42
-    Top = 22
-    Width = 113
-    Caption = 'Flip Vert'
-    OnClick = BtnFlipVerticalClick
-    TabOrder = 3
-  end
-  object BtnFlipHorizontal: TButton
-    Left = 592
-    Height = 42
-    Top = 22
-    Width = 113
-    Caption = 'Flip Horiz'
-    OnClick = BtnFlipHorizontalClick
-    TabOrder = 4
-  end
-  object ColorBox1: TColorBox
-    Left = 732
-    Height = 26
-    Top = 36
-    Width = 146
-    ItemHeight = 20
-    OnChange = ColorBox1Change
-    TabOrder = 5
-  end
-  object Button1: TButton
-    Left = 792
-    Height = 43
-    Top = 125
-    Width = 160
-    Caption = 'Reset(500,200,White)'
-    OnClick = Button1Click
-    TabOrder = 6
-  end
-  object Button2: TButton
-    Left = 792
-    Height = 43
-    Top = 184
-    Width = 160
-    Caption = 'Resize(500,500)'
-    OnClick = Button2Click
-    TabOrder = 7
-  end
-  object Button3: TButton
-    Left = 792
-    Height = 43
-    Top = 248
-    Width = 160
-    Caption = 'Resample(700,700)'
-    OnClick = Button3Click
-    TabOrder = 8
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '.*.png'
+    Filter = 'Png|*.png|Gif|*.gif|Jpeg|*.jpg|Bitmap|*.bmp'
+    left = 184
+    top = 160
   end
 end
