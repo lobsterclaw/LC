@@ -1,3 +1,21 @@
+{
+****************************************************************************
+* Copyright 2014 Jeremiah Jenkins                                          *
+*                                                                          *
+* Licensed under the Apache License, Version 2.0 (the "License");          *
+* you may not use this file except in compliance with the License.         *
+* You may obtain a copy of the License at                                  *
+*                                                                          *
+*    http://www.apache.org/licenses/LICENSE-2.0                            *
+*                                                                          *
+* Unless required by applicable law or agreed to in writing, software      *
+* distributed under the License is distributed on an "AS IS" BASIS,        *
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+* See the License for the specific language governing permissions and      *
+* limitations under the License.                                           *
+*                                                                          *
+****************************************************************************
+}
 unit LCDrawPad;
 
 {$mode objfpc}{$H+}
@@ -84,6 +102,7 @@ type
   published
     { Published declarations }
     property Align;
+    property Anchors;
     property AutoSize;
   end;
 
@@ -92,7 +111,7 @@ procedure Register;
 implementation
 
 uses
-  lcutils, LazLogger;
+  lcutils;
 
 procedure Register;
 begin
@@ -155,10 +174,6 @@ begin
 
   adjOrigin := Point(Round((fMouseOrigin.X - imagePos.X) / ratio), Round((fMouseOrigin.Y - imagePos.Y) / ratio));
   adjDest := Point(Round((X - imagePos.X) / ratio), Round((Y - imagePos.Y) / ratio));
-
-  DebugLn(Format('X,Y = [%d,%d]', [X, Y]));
-  DebugLn(Format('imagePos = [%d,%d]', [imagePos.X, imagePos.Y]));
-  DebugLn(Format('adjDest = [%d,%d]', [adjDest.X, adjDest.Y]));
 
   lForeColor := ColorToBGRA(ColorToRGB(MapDefaultColor(fForeColor, clBlack)));
   lForeColor.alpha:= 255;

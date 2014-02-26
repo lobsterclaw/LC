@@ -164,12 +164,13 @@ object Form1: TForm1
         Width = 700
         ForeColor = clBlack
         LineSize = 20
-        ZoomPercent = 50
-        CanvasWidth = 640
+        ZoomPercent = 100
+        CanvasWidth = 600
         CanvasHeight = 500
-        CanvasColor = clCream
-        CanvasPosition = csLowerCenter
+        CanvasColor = clWhite
+        CanvasPosition = csMiddleCenter
         Align = alClient
+        AutoSize = True
       end
     end
     object PairSplitterSide2: TPairSplitterSide
@@ -191,8 +192,8 @@ object Form1: TForm1
   end
   object SaveDialog1: TSaveDialog
     DefaultExt = '.*.png'
-    Filter = 'Png|*.png|Gif|*.gif|Jpeg|*.jpg|Bitmap|*.bmp'
-    left = 184
-    top = 160
+    Filter = 'Png|*.png|Bitmap|*.bmp|Jpeg|*.jpg'
+    left = 560
+    top = 56
   end
 end
