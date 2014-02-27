@@ -42,6 +42,7 @@ type
     BtnResample: TButton;
     BtnSave: TButton;
     BtnToBitmap: TButton;
+    BtnNew: TButton;
     ColorButton1: TColorButton;
     Image1: TImage;
     LblZoomPercent: TLabel;
@@ -54,6 +55,7 @@ type
     SldZoomPercent: TTrackBar;
     procedure BtnFlipHorizontalClick(Sender: TObject);
     procedure BtnFlipVerticalClick(Sender: TObject);
+    procedure BtnNewClick(Sender: TObject);
     procedure BtnRotate180Click(Sender: TObject);
     procedure BtnRotateLeftClick(Sender: TObject);
     procedure BtnRotateRightClick(Sender: TObject);
@@ -93,6 +95,12 @@ end;
 procedure TForm1.BtnFlipVerticalClick(Sender: TObject);
 begin
   LCDrawPad1.Flip(fmVertical);
+end;
+
+procedure TForm1.BtnNewClick(Sender: TObject);
+begin
+  //LCDrawPad1.NewCanvas(LCDrawPad1.CanvasWidth, LCDrawPad1.CanvasHeight, LCDrawPad1.CanvasColor);
+  LCDrawPad1.NewCanvas();
 end;
 
 procedure TForm1.BtnFlipHorizontalClick(Sender: TObject);

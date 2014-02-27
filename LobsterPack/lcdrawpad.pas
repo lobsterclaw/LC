@@ -74,7 +74,8 @@ type
     procedure Paint; override;
     procedure Rotate(RotateMode: TRotateMode);
     procedure Flip(FlipMode: TFlipMode);
-    procedure NewCanvas(NewWidth, NewHeight: Integer; NewColor: TColor);
+    procedure NewCanvas(); overload;
+    procedure NewCanvas(NewWidth, NewHeight: Integer; NewColor: TColor); overload;
     procedure ResizeCanvas(NewWidth, NewHeight: Integer);
     procedure ResampleCanvas(NewWidth, NewHeight: Integer; ResampleMode: TResampleMode=rmFineResample);
     procedure SaveToFile(const FileName: string);
@@ -397,6 +398,15 @@ begin
   Else If FlipMode = fmVertical Then
     fCanvasImage.VerticalFlip;
 
+  Invalidate;
+end;
+
+procedure TLCCustomDrawPad.NewCanvas();
+begin
+  fDrawingOccurred := False;
+
+  RecreateCanvas;
+  UpdateSize;
   Invalidate;
 end;
 

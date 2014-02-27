@@ -141,6 +141,15 @@ object Form1: TForm1
       OnClick = BtnToBitmapClick
       TabOrder = 10
     end
+    object BtnNew: TButton
+      Left = 482
+      Height = 44
+      Top = 46
+      Width = 78
+      Caption = 'New'
+      OnClick = BtnNewClick
+      TabOrder = 11
+    end
   end
   object PairSplitter1: TPairSplitter
     Left = 0
