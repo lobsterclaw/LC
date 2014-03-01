@@ -2,7 +2,7 @@
   This source is only used to compile and install the package.
  }
 
-unit LobsterPack;
+unit LobsterGraphicsPack;
 
 interface
 
@@ -17,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('LobsterPack', @Register);
+  RegisterPackage('LobsterGraphicsPack', @Register);
 end.

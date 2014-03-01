@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
-    <Name Value="LobsterPack"/>
+    <Name Value="LobsterGraphicsPack"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
