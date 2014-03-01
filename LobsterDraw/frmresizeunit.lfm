@@ -1,0 +1,81 @@
+object FrmResize: TFrmResize
+  Left = 678
+  Height = 264
+  Top = 418
+  Width = 240
+  BorderStyle = bsDialog
+  Caption = 'Resize Canvas'
+  ClientHeight = 264
+  ClientWidth = 240
+  FormStyle = fsStayOnTop
+  Position = poMainFormCenter
+  ShowInTaskBar = stNever
+  LCLVersion = '1.0.14.0'
+  object GrpResize: TGroupBox
+    Left = 16
+    Height = 155
+    Top = 16
+    Width = 200
+    Caption = 'Resize'
+    ClientHeight = 133
+    ClientWidth = 196
+    TabOrder = 0
+    OnClick = GrpResizeClick
+    object EdtWidth: TSpinEdit
+      Left = 94
+      Height = 28
+      Top = 17
+      Width = 74
+      MaxValue = 4000
+      MinValue = 1
+      TabOrder = 0
+      Value = 640
+    end
+    object EdtHeight: TSpinEdit
+      Left = 94
+      Height = 28
+      Top = 80
+      Width = 74
+      MaxValue = 4000
+      MinValue = 1
+      TabOrder = 1
+      Value = 480
+    end
+    object LblWidth: TLabel
+      Left = 22
+      Height = 21
+      Top = 17
+      Width = 41
+      Caption = 'Width'
+      ParentColor = False
+    end
+    object LblHeight: TLabel
+      Left = 22
+      Height = 21
+      Top = 80
+      Width = 46
+      Caption = 'Height'
+      ParentColor = False
+    end
+  end
+  object BtnOkay: TButton
+    Left = 32
+    Height = 41
+    Top = 192
+    Width = 79
+    Caption = 'Okay'
+    Default = True
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object BtnCancel: TButton
+    Left = 128
+    Height = 41
+    Top = 192
+    Width = 78
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 2
+  end
+end
