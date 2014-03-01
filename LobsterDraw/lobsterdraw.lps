@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="6">
+    <Units Count="9">
       <Unit0>
         <Filename Value="lobsterdraw.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -12,7 +12,7 @@
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="4" Y="12"/>
+        <CursorPos X="2" Y="18"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -23,11 +23,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmmainunit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="7" Y="5"/>
+        <CursorPos X="2" Y="18"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -39,10 +38,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmresizeunit"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="8"/>
-        <CursorPos X="13" Y="15"/>
+        <TopLine Value="1"/>
+        <CursorPos X="2" Y="18"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -58,7 +57,7 @@
       <Unit4>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgradefaultbitmap.pas"/>
         <UnitName Value="BGRADefaultBitmap"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="810"/>
         <CursorPos X="80" Y="839"/>
@@ -68,13 +67,44 @@
       <Unit5>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgrabitmaptypes.pas"/>
         <UnitName Value="BGRABitmapTypes"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="617"/>
         <CursorPos X="15" Y="633"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
+        <UnitName Value="LCDrawPad"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\LobsterGraphicsPack\lcutils.pas"/>
+        <UnitName Value="lcutils"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="2" Y="18"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\LobsterGraphicsPack\lobstergraphicspack.pas"/>
+        <UnitName Value="LobsterGraphicsPack"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit8>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
