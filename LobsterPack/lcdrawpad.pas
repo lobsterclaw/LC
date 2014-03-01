@@ -82,6 +82,8 @@ type
     procedure SaveToStreamAsPng(AStream: TStream);
     procedure SaveToBitmap(ABitmap: TBitmap); overload;
     function SaveToBitmap(): TBitmap; overload;
+    procedure LoadFromFile(const FileName: string);
+    procedure LoadFromBitmap(ABitmap: TBitmap);
   published
     { Published declarations }
     property ForeColor: TColor read fForeColor write fForeColor;
@@ -465,20 +467,59 @@ end;
 
 procedure TLCCustomDrawPad.SaveToBitmap(ABitmap: TBitmap);
 var
-  opaqueCopy: TBGRACustomBitmap;
+  OpaqueCopy: TBGRACustomBitmap;
 begin
   ABitmap.Width := fCanvasImage.Width;
   ABitmap.Height := fCanvasImage.Height;
-  opaqueCopy := fCanvasImage.NewBitmap(fCanvasImage.Width, fCanvasImage.Height);
-  opaqueCopy.Fill(ColorToRGB(MapDefaultColor(fCanvasColor, clWhite)));
-  opaqueCopy.PutImage(0, 0, fCanvasImage, dmDrawWithTransparency);
-  opaqueCopy.Draw(ABitmap.canvas, 0, 0, True);
-  opaqueCopy.Free;
+  OpaqueCopy := fCanvasImage.NewBitmap(fCanvasImage.Width, fCanvasImage.Height);
+  OpaqueCopy.Fill(ColorToRGB(MapDefaultColor(fCanvasColor, clWhite)));
+  OpaqueCopy.PutImage(0, 0, fCanvasImage, dmDrawWithTransparency);
+  OpaqueCopy.Draw(ABitmap.canvas, 0, 0, True);
+  OpaqueCopy.Free;
 end;
 
 function TLCCustomDrawPad.SaveToBitmap: TBitmap;
 begin
   Result := fCanvasImage.MakeBitmapCopy(MapDefaultColor(fCanvasColor, clWhite));
+end;
+
+procedure TLCCustomDrawPad.LoadFromFile(const FileName: string);
+var
+  OpaqueCopy: TBGRACustomBitmap;
+begin
+  fDrawingOccurred := False;
+
+  OpaqueCopy := TBGRABitmap.Create(FileName);
+  fCanvasImage.SetSize(OpaqueCopy.Width, OpaqueCopy.Height);
+  fCanvasImage.Fill(MapDefaultColor(fCanvasColor, clWhite));
+  fCanvasImage.PutImage(0, 0, OpaqueCopy, dmDrawWithTransparency);
+  fCanvasWidth := fCanvasImage.Width;
+  fCanvasHeight := fCanvasImage.Height;
+  FreeAndNil(OpaqueCopy);
+
+  UpdateSize;
+  Invalidate;
+end;
+
+procedure TLCCustomDrawPad.LoadFromBitmap(ABitmap: TBitmap);
+var
+  OpaqueCopy: TBGRACustomBitmap;
+begin
+  if (ABitmap = nil) Or (ABitmap.Width = 0) Or (ABitmap.Height = 0) Then
+  	Exit;
+
+  fDrawingOccurred := False;
+
+  OpaqueCopy := TBGRABitmap.Create(ABitmap);
+  fCanvasImage.SetSize(OpaqueCopy.Width, OpaqueCopy.Height);
+  fCanvasImage.Fill(MapDefaultColor(fCanvasColor, clWhite));
+  fCanvasImage.PutImage(0, 0, OpaqueCopy, dmDrawWithTransparency);
+  fCanvasWidth := fCanvasImage.Width;
+  fCanvasHeight := fCanvasImage.Height;
+  FreeAndNil(OpaqueCopy);
+
+  UpdateSize;
+  Invalidate;
 end;
 
 constructor TLCCustomDrawPad.Create(TheOwner: TComponent);
