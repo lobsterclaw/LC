@@ -217,8 +217,8 @@ pip-log.txt
 #Lazarus
 *.exe
 
-LobsterPack/backup
-LobsterPack/lib
+LobsterGraphicsPack/backup
+LobsterGraphicsPack/lib
 
 LobsterPackTest/backup
 LobsterPackTest/lib
