@@ -34,6 +34,8 @@ type
     ActExit: TAction;
     ActFlipHorizontal: TAction;
     ActFlipVertical: TAction;
+    ActZoomOut: TAction;
+    ActZoomIn: TAction;
     ActRotate180: TAction;
     ActRotateClockwise: TAction;
     ActRotateCounterClockwise: TAction;
@@ -46,6 +48,9 @@ type
     ImageList1: TImageList;
     LCDrawPad1: TLCDrawPad;
     MainMenu1: TMainMenu;
+    MnuZoomIn: TMenuItem;
+    MnuZoomOut: TMenuItem;
+    MnuView: TMenuItem;
     MnuFlipVertical: TMenuItem;
     MnuFlipHorizontal: TMenuItem;
     MnuRotate180: TMenuItem;
@@ -65,7 +70,11 @@ type
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;
     ScrollBox1: TScrollBox;
+    StatusBarMain: TStatusBar;
     ToolBar1: TToolBar;
+    ToolButton10: TToolButton;
+    ToolButton11: TToolButton;
+    ToolButton12: TToolButton;
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
@@ -85,8 +94,12 @@ type
     procedure ActRotateClockwiseExecute(Sender: TObject);
     procedure ActRotateCounterClockwiseExecute(Sender: TObject);
     procedure ActSaveAsExecute(Sender: TObject);
+    procedure ActZoomInExecute(Sender: TObject);
+    procedure ActZoomOutExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { private declarations }
+    procedure SetZoomPercent(ZoomPercent: Integer);
   public
     { public declarations }
   end;
@@ -97,7 +110,7 @@ var
 implementation
 
 uses
-  frmresizeunit;
+  frmresizeunit, LCLType;
 
 {$R *.lfm}
 
@@ -169,6 +182,58 @@ begin
   except
     ShowMessage('Error: Unable to save to file');
   end;
+end;
+
+procedure TFrmMain.ActZoomInExecute(Sender: TObject);
+var
+  NewZoom: Integer;
+begin
+  NewZoom := LCDrawPad1.ZoomPercent;
+  If NewZoom = 1 Then
+  	 NewZoom := 10
+  Else If NewZoom < 100 Then
+    NewZoom := NewZoom + 10
+  Else If NewZoom < 200 Then
+    NewZoom := NewZoom + 25
+  Else If NewZoom < 500 Then
+    NewZoom := NewZoom + 50
+  Else
+    NewZoom := NewZoom + 100;
+
+  LCDrawPad1.ZoomPercent := NewZoom;
+  SetZoomPercent(LCDrawPad1.ZoomPercent);
+end;
+
+procedure TFrmMain.ActZoomOutExecute(Sender: TObject);
+var
+  NewZoom: Integer;
+begin
+  NewZoom := LCDrawPad1.ZoomPercent;
+  If NewZoom <= 10 Then
+  	 NewZoom := 1
+  Else If NewZoom <= 100 Then
+    NewZoom := NewZoom - 10
+  Else If NewZoom <= 200 Then
+    NewZoom := NewZoom - 25
+  Else If NewZoom <= 500 Then
+    NewZoom := NewZoom - 50
+  Else
+    NewZoom := NewZoom - 100;
+
+  LCDrawPad1.ZoomPercent := NewZoom;
+  SetZoomPercent(LCDrawPad1.ZoomPercent);
+end;
+
+procedure TFrmMain.FormCreate(Sender: TObject);
+begin
+  SetZoomPercent(LCDrawPad1.ZoomPercent);
+  ActZoomOut.ShortCut := VK_SUBTRACT Or $4000; //Ctrl+-
+  ActZoomIn.ShortCut := VK_ADD Or $4000; //Ctrl++
+end;
+
+procedure TFrmMain.SetZoomPercent(ZoomPercent: Integer);
+begin
+  StatusBarMain.Panels[0].Text:= Format('Zoom %d%%     ', [ZoomPercent]);
 end;
 
 end.
