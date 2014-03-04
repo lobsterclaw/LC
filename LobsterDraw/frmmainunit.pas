@@ -227,8 +227,11 @@ end;
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   SetZoomPercent(LCDrawPad1.ZoomPercent);
-  ActZoomOut.ShortCut := VK_SUBTRACT Or $4000; //Ctrl+-
-  ActZoomIn.ShortCut := VK_ADD Or $4000; //Ctrl++
+
+  ActZoomOut.ShortCut := KeyToShortCut(VK_SUBTRACT, [ssCtrl]); //Ctrl+-
+  ActZoomOut.SecondaryShortCuts.AddObject('Ctrl+-', TObject(Pointer(PtrUInt(KeyToShortCut(VK_OEM_MINUS, [ssCtrl])))));
+  ActZoomIn.ShortCut := KeyToShortCut(VK_ADD, [ssCtrl]); //Ctrl++
+  ActZoomIn.SecondaryShortCuts.AddObject('Ctrl++', TObject(Pointer(PtrUInt(KeyToShortCut(VK_OEM_PLUS, [ssCtrl])))));
 end;
 
 procedure TFrmMain.SetZoomPercent(ZoomPercent: Integer);
