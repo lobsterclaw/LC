@@ -4,29 +4,29 @@ object FrmMain: TFrmMain
   Top = 223
   Width = 806
   Caption = 'Lobster Draw'
-  ClientHeight = 524
+  ClientHeight = 519
   ClientWidth = 806
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '1.0.14.0'
   object ScrollBox1: TScrollBox
     Left = 0
-    Height = 469
+    Height = 459
     Top = 32
     Width = 806
-    HorzScrollBar.Page = 785
+    HorzScrollBar.Page = 781
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 465
+    VertScrollBar.Page = 455
     VertScrollBar.Tracking = True
     Align = alClient
-    ClientHeight = 465
-    ClientWidth = 785
+    ClientHeight = 455
+    ClientWidth = 781
     TabOrder = 0
     object LCDrawPad1: TLCDrawPad
       Left = 0
       Height = 480
       Top = 0
-      Width = 785
+      Width = 781
       ForeColor = clBlack
       LineSize = 20
       ZoomPercent = 100
@@ -116,8 +116,8 @@ object FrmMain: TFrmMain
   end
   object StatusBarMain: TStatusBar
     Left = 0
-    Height = 23
-    Top = 501
+    Height = 28
+    Top = 491
     Width = 806
     Panels = <    
       item

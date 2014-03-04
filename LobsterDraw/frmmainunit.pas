@@ -110,7 +110,7 @@ var
 implementation
 
 uses
-  frmresizeunit, LCLType;
+  frmresizeunit, LCLType, LCLProc;
 
 {$R *.lfm}
 
@@ -228,10 +228,23 @@ procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   SetZoomPercent(LCDrawPad1.ZoomPercent);
 
-  ActZoomOut.ShortCut := KeyToShortCut(VK_SUBTRACT, [ssCtrl]); //Ctrl+-
-  ActZoomOut.SecondaryShortCuts.AddObject('Ctrl+-', TObject(Pointer(PtrUInt(KeyToShortCut(VK_OEM_MINUS, [ssCtrl])))));
-  ActZoomIn.ShortCut := KeyToShortCut(VK_ADD, [ssCtrl]); //Ctrl++
-  ActZoomIn.SecondaryShortCuts.AddObject('Ctrl++', TObject(Pointer(PtrUInt(KeyToShortCut(VK_OEM_PLUS, [ssCtrl])))));
+  {
+	  There is a bug in the IDE that does not allow Ctr+- and Ctrl++ be displayed. This code
+    addresses that by only applying the shortcut keys if the IDE has been patched or permentantly fixed
+  }
+  If ShortcutToText(KeyToShortCut(VK_SUBTRACT, [ssCtrl])) <> '' Then
+  Begin
+    //Ctrl+-
+    ActZoomOut.ShortCut := KeyToShortCut(VK_SUBTRACT, [ssCtrl]);
+    ActZoomOut.SecondaryShortCuts.AddObject('Ctrl+-', TObject(Pointer(PtrUInt(KeyToShortCut(VK_OEM_MINUS, [ssCtrl])))));
+  End;
+
+  If ShortcutToText(KeyToShortCut(VK_ADD, [ssCtrl])) <> '' Then
+  Begin
+    //Ctrl++
+    ActZoomIn.ShortCut := KeyToShortCut(VK_ADD, [ssCtrl]);
+    ActZoomIn.SecondaryShortCuts.AddObject('Ctrl++', TObject(Pointer(PtrUInt(KeyToShortCut(VK_OEM_PLUS, [ssCtrl])))));
+  End;
 end;
 
 procedure TFrmMain.SetZoomPercent(ZoomPercent: Integer);

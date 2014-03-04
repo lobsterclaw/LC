@@ -4,17 +4,15 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="15">
+    <Units Count="16">
       <Unit0>
         <Filename Value="lobsterdraw.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="lobsterdraw"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="2" Y="18"/>
-        <UsageCount Value="64"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="87"/>
       </Unit0>
       <Unit1>
         <Filename Value="frmmainunit.pas"/>
@@ -26,9 +24,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="212"/>
-        <CursorPos X="45" Y="232"/>
-        <UsageCount Value="64"/>
+        <TopLine Value="89"/>
+        <CursorPos X="34" Y="113"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -39,13 +37,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frmresizeunit"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="2" Y="18"/>
-        <UsageCount Value="64"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+        <UsageCount Value="87"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\LobsterPack\lcdrawpad.pas"/>
@@ -53,7 +48,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="133"/>
         <CursorPos X="32" Y="150"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="5"/>
       </Unit3>
       <Unit4>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgradefaultbitmap.pas"/>
@@ -61,7 +56,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="810"/>
         <CursorPos X="80" Y="839"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="30"/>
       </Unit4>
       <Unit5>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgrabitmaptypes.pas"/>
@@ -69,66 +64,60 @@
         <WindowIndex Value="0"/>
         <TopLine Value="617"/>
         <CursorPos X="15" Y="633"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="29"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
         <UnitName Value="LCDrawPad"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\LobsterGraphicsPack\lcutils.pas"/>
         <UnitName Value="lcutils"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="2" Y="18"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\LobsterGraphicsPack\lobstergraphicspack.pas"/>
         <UnitName Value="LobsterGraphicsPack"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="31"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="29"/>
       </Unit8>
       <Unit9>
         <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
         <UnitName Value="LCLType"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="564"/>
+        <TopLine Value="312"/>
         <CursorPos X="12" Y="577"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\classes\classesh.inc"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="101"/>
         <CursorPos X="21" Y="116"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="8"/>
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1489"/>
         <CursorPos X="75" Y="1516"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="8"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
@@ -137,7 +126,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="345"/>
         <CursorPos X="24" Y="352"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -146,142 +135,152 @@
         <WindowIndex Value="0"/>
         <TopLine Value="129"/>
         <CursorPos X="52" Y="141"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus\lcl\include\shortcutlist.inc"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="14"/>
+        <TopLine Value="10"/>
         <CursorPos X="10" Y="25"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit14>
+      <Unit15>
+        <Filename Value="C:\lazarus\lcl\lclproc.pas"/>
+        <UnitName Value="LCLProc"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="13" Y="25"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit15>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="C:\lazarus\lcl\forms.pp"/>
-        <Caret Line="1291" Column="16" TopLine="1262"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="229" Column="50" TopLine="201"/>
       </Position1>
       <Position2>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="228" Column="50" TopLine="200"/>
+        <Caret Line="230" Column="50" TopLine="202"/>
       </Position2>
       <Position3>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="229" Column="50" TopLine="201"/>
+        <Caret Line="231" Column="50" TopLine="203"/>
       </Position3>
       <Position4>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="230" Column="50" TopLine="202"/>
+        <Caret Line="232" Column="50" TopLine="204"/>
       </Position4>
       <Position5>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="231" Column="50" TopLine="203"/>
+        <Caret Line="231" Column="43" TopLine="203"/>
       </Position5>
       <Position6>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="232" Column="50" TopLine="204"/>
+        <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
+        <Caret Line="148" Column="23" TopLine="133"/>
       </Position6>
       <Position7>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="231" Column="43" TopLine="203"/>
+        <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
+        <Caret Line="142" Column="16" TopLine="133"/>
       </Position7>
       <Position8>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="148" Column="23" TopLine="133"/>
+        <Caret Line="173" Column="39" TopLine="148"/>
       </Position8>
       <Position9>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="142" Column="16" TopLine="133"/>
+        <Caret Line="188" Column="50" TopLine="164"/>
       </Position9>
       <Position10>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="173" Column="39" TopLine="148"/>
+        <Caret Line="189" Column="63" TopLine="165"/>
       </Position10>
       <Position11>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="188" Column="50" TopLine="164"/>
+        <Caret Line="9" Column="79" TopLine="1"/>
       </Position11>
       <Position12>
-        <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="189" Column="63" TopLine="165"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="231" Column="64" TopLine="211"/>
       </Position12>
       <Position13>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="9" Column="79" TopLine="1"/>
+        <Caret Line="142" Column="16" TopLine="132"/>
       </Position13>
       <Position14>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="231" Column="64" TopLine="211"/>
+        <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
+        <Caret Line="173" Column="39" TopLine="148"/>
       </Position14>
       <Position15>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="142" Column="16" TopLine="132"/>
+        <Caret Line="188" Column="50" TopLine="164"/>
       </Position15>
       <Position16>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="173" Column="39" TopLine="148"/>
+        <Caret Line="189" Column="63" TopLine="165"/>
       </Position16>
       <Position17>
         <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="188" Column="50" TopLine="164"/>
+        <Caret Line="352" Column="24" TopLine="345"/>
       </Position17>
       <Position18>
-        <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="189" Column="63" TopLine="165"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="231" Column="86" TopLine="211"/>
       </Position18>
       <Position19>
-        <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="352" Column="24" TopLine="345"/>
+        <Filename Value="C:\lazarus\lcl\include\customactionlist.inc"/>
+        <Caret Line="141" Column="52" TopLine="129"/>
       </Position19>
       <Position20>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="231" Column="86" TopLine="211"/>
+        <Caret Line="231" Column="88" TopLine="211"/>
       </Position20>
       <Position21>
-        <Filename Value="C:\lazarus\lcl\include\customactionlist.inc"/>
-        <Caret Line="141" Column="52" TopLine="129"/>
+        <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
+        <Caret Line="352" Column="24" TopLine="345"/>
       </Position21>
       <Position22>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="231" Column="88" TopLine="211"/>
+        <Caret Line="231" Column="61" TopLine="211"/>
       </Position22>
       <Position23>
-        <Filename Value="C:\lazarus\lcl\actnlist.pas"/>
-        <Caret Line="352" Column="24" TopLine="345"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="236" Column="63" TopLine="211"/>
       </Position23>
       <Position24>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="231" Column="61" TopLine="211"/>
+        <Caret Line="235" Column="28" TopLine="216"/>
       </Position24>
       <Position25>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="236" Column="63" TopLine="211"/>
+        <Caret Line="229" Column="3" TopLine="214"/>
       </Position25>
       <Position26>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="235" Column="28" TopLine="216"/>
+        <Caret Line="233" Column="102" TopLine="212"/>
       </Position26>
       <Position27>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="229" Column="3" TopLine="214"/>
-      </Position27>
-      <Position28>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="233" Column="102" TopLine="212"/>
-      </Position28>
-      <Position29>
         <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
         <Caret Line="492" Column="23" TopLine="483"/>
-      </Position29>
-      <Position30>
+      </Position27>
+      <Position28>
         <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
         <Caret Line="496" Column="23" TopLine="483"/>
+      </Position28>
+      <Position29>
+        <Filename Value="C:\lazarus\lcl\lclproc.pas"/>
+        <Caret Line="110" Column="24" TopLine="93"/>
+      </Position29>
+      <Position30>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="238" Column="41" TopLine="215"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
