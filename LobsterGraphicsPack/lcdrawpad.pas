@@ -36,6 +36,8 @@ type
 
   { TLCCustomDrawPad }
 
+  TDrawingOccurredEvent = procedure (Sender: TObject) of Object;
+
   TLCCustomDrawPad = class(TGraphicControl)
   private
     { Private declarations }
@@ -50,10 +52,13 @@ type
     fCanvasColor: TColor;
     fCanvasPosition: TCanvasPosition;
     fDrawingOccurred: Boolean;
+    fOnDrawingOccurred: TDrawingOccurredEvent;
     procedure RecreateCanvas();
     procedure Draw(X, Y: Integer; Closed: boolean);
     function GetImagePos: TPoint;
     procedure PaintImage;
+    procedure DoDrawingOccurred();
+    procedure SetLineSize(LineSize: Byte);
     procedure SetCanvasHeight(CanvasHeight: Integer);
     procedure SetCanvasWidth(CanvasWidth: Integer);
     procedure SetZoomPercent(ZoomPercent: Integer);
@@ -87,12 +92,14 @@ type
   published
     { Published declarations }
     property ForeColor: TColor read fForeColor write fForeColor;
-    property LineSize: Byte read fLineSize write fLineSize;
+    property LineSize: Byte read fLineSize write SetLineSize;
     property ZoomPercent: Integer read fZoomPercent write SetZoomPercent;
     property CanvasWidth: Integer read fCanvasWidth write SetCanvasWidth;
     property CanvasHeight: Integer read fCanvasHeight write SetCanvasHeight;
     property CanvasColor: TColor read fCanvasColor write SetCanvasColor;
     property CanvasPosition: TCanvasPosition read fCanvasPosition write SetCanvasPosition;
+
+    property OnDrawingOccurred: TDrawingOccurredEvent read fOnDrawingOccurred write fOnDrawingOccurred;
   end;
 
   TLCDrawPad = class(TLCCustomDrawPad)
@@ -107,6 +114,31 @@ type
     property Align;
     property Anchors;
     property AutoSize;
+    property BorderSpacing;
+    property Color;
+    property Constraints;
+    property DragCursor;
+    property DragKind;
+    property DragMode;
+    property Enabled;
+    property Hint;
+    property ParentColor;
+    property ParentShowHint;
+    property PopupMenu;
+    property ShowHint;
+    property Visible;
+
+    property OnChangeBounds;
+    //property OnClick;
+    property OnDblClick;
+    //property OnMouseDown;
+    //property OnMouseMove;
+    //property OnMouseUp;
+    property OnMouseEnter;
+    property OnMouseLeave;
+    property OnResize;
+
+    property OnDrawingOccurred;
   end;
 
 procedure Register;
@@ -123,27 +155,6 @@ begin
 end;
 
 { TLCCustomDrawPad }
-
-(*procedure TLCCustomDrawPad.ResizeCanvas();
-var
-  NewCanvasImage: TBGRABitmap;
-begin
-  if (fCanvasImage = nil) OR (CanvasResizeMode = crmClearContents) then
-  begin
-	  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, MapDefaultColor(fCanvasColor, clWhite));
-	end
-  else if CanvasResizeMode = crmResample then
-  begin
-    NewCanvasImage := fCanvasImage.Resample(fCanvasWidth, fCanvasHeight, rmSimpleStretch) as TBGRABitmap;
-  end
-  else if CanvasResizeMode = crmKeepContents then
-  begin
-	  NewCanvasImage := TBGRABitmap.Create(fCanvasWidth, fCanvasHeight, MapDefaultColor(fCanvasColor, clWhite));
-		NewCanvasImage.PutImage(0, 0, fCanvasImage, dmSet);
-  end;
-  FreeAndNil(fCanvasImage);
-  fCanvasImage := NewCanvasImage;
-end;*)
 
 procedure TLCCustomDrawPad.RecreateCanvas();
 begin
@@ -188,6 +199,7 @@ begin
   fMouseOrigin := Point(X,Y);
 
   Invalidate;
+  DoDrawingOccurred;
 end;
 
 procedure TLCCustomDrawPad.PaintImage;
@@ -212,6 +224,15 @@ begin
   Begin
     fCanvasImage.Draw(Canvas, ImagePos.X, ImagePos.Y, True);
   end;
+end;
+
+procedure TLCCustomDrawPad.SetLineSize(LineSize: Byte);
+begin
+  if LineSize < 1 Then LineSize := 1;
+  if LineSize > 200 Then LineSize := 200;
+  if fLineSize = LineSize then Exit;
+
+  fLineSize := LineSize;
 end;
 
 function TLCCustomDrawPad.GetImagePos: TPoint;
@@ -330,7 +351,7 @@ end;
 procedure TLCCustomDrawPad.SetZoomPercent(ZoomPercent: Integer);
 begin
   if ZoomPercent < 1 Then ZoomPercent := 1;
-  if ZoomPercent > 5000 Then ZoomPercent := 5000;
+  if ZoomPercent > 2000 Then ZoomPercent := 2000;
   if fZoomPercent = ZoomPercent then Exit;
 
   fZoomPercent := ZoomPercent;
@@ -363,6 +384,11 @@ end;
 procedure TLCCustomDrawPad.Paint();
 begin
   PaintImage;
+end;
+
+procedure TLCCustomDrawPad.DoDrawingOccurred();
+begin
+  if Assigned(fOnDrawingOccurred) then fOnDrawingOccurred(Self);
 end;
 
 procedure TLCCustomDrawPad.Rotate(RotateMode: TRotateMode);

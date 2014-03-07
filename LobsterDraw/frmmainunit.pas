@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ActnList, ExtCtrls, Buttons, ComCtrls, LCDrawPad;
+  ActnList, ExtCtrls, Buttons, ComCtrls, StdCtrls, Spin, LCDrawPad;
 
 type
 
@@ -45,6 +45,8 @@ type
     ActNew: TAction;
     ActOpen: TAction;
     ActionList1: TActionList;
+    BtnForeColor: TColorButton;
+    EdtZoom: TEdit;
     ImageList1: TImageList;
     LCDrawPad1: TLCDrawPad;
     MainMenu1: TMainMenu;
@@ -70,11 +72,14 @@ type
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;
     ScrollBox1: TScrollBox;
+    EdtLineSize: TSpinEdit;
     StatusBarMain: TStatusBar;
     ToolBar1: TToolBar;
     ToolButton10: TToolButton;
     ToolButton11: TToolButton;
     ToolButton12: TToolButton;
+    ToolButton13: TToolButton;
+    ToolButton14: TToolButton;
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
@@ -96,6 +101,10 @@ type
     procedure ActSaveAsExecute(Sender: TObject);
     procedure ActZoomInExecute(Sender: TObject);
     procedure ActZoomOutExecute(Sender: TObject);
+    procedure BtnForeColorColorChanged(Sender: TObject);
+    procedure EdtLineSizeChange(Sender: TObject);
+    procedure EdtZoomChange(Sender: TObject);
+    procedure EdtZoomKeyPress(Sender: TObject; var Key: char);
     procedure FormCreate(Sender: TObject);
   private
     { private declarations }
@@ -184,21 +193,44 @@ begin
   end;
 end;
 
+function IncRoundUp(Num, Factor: Integer): Integer;
+var
+  ModValue: Integer;
+Begin
+  ModValue := Num Mod Factor;
+  If ModValue = 0 Then
+		Result := Num + Factor
+  Else
+    Result := ((Num Div Factor) + 1) * Factor;
+End;
+
+function IncRoundDown(Num, Factor: Integer): Integer;
+var
+  ModValue: Integer;
+Begin
+  ModValue := Num Mod Factor;
+  If ModValue = 0 Then
+		Result := Num - Factor
+  Else
+    Result := (Num Div Factor) * Factor;
+End;
+
 procedure TFrmMain.ActZoomInExecute(Sender: TObject);
 var
   NewZoom: Integer;
 begin
+  //TODO round numbers up
   NewZoom := LCDrawPad1.ZoomPercent;
   If NewZoom = 1 Then
   	 NewZoom := 10
   Else If NewZoom < 100 Then
-    NewZoom := NewZoom + 10
+    NewZoom := IncRoundUp(NewZoom, 10)
   Else If NewZoom < 200 Then
-    NewZoom := NewZoom + 25
+    NewZoom := IncRoundUp(NewZoom, 25)
   Else If NewZoom < 500 Then
-    NewZoom := NewZoom + 50
+    NewZoom := IncRoundUp(NewZoom, 50)
   Else
-    NewZoom := NewZoom + 100;
+    NewZoom := IncRoundUp(NewZoom, 100);
 
   LCDrawPad1.ZoomPercent := NewZoom;
   SetZoomPercent(LCDrawPad1.ZoomPercent);
@@ -208,25 +240,58 @@ procedure TFrmMain.ActZoomOutExecute(Sender: TObject);
 var
   NewZoom: Integer;
 begin
+  //TODO round numbers down
   NewZoom := LCDrawPad1.ZoomPercent;
   If NewZoom <= 10 Then
   	 NewZoom := 1
   Else If NewZoom <= 100 Then
-    NewZoom := NewZoom - 10
+    NewZoom := IncRoundDown(NewZoom, 10)
   Else If NewZoom <= 200 Then
-    NewZoom := NewZoom - 25
+    NewZoom := IncRoundDown(NewZoom, 25)
   Else If NewZoom <= 500 Then
-    NewZoom := NewZoom - 50
+    NewZoom := IncRoundDown(NewZoom, 50)
   Else
-    NewZoom := NewZoom - 100;
+    NewZoom := IncRoundDown(NewZoom, 100);
 
   LCDrawPad1.ZoomPercent := NewZoom;
   SetZoomPercent(LCDrawPad1.ZoomPercent);
 end;
 
+procedure TFrmMain.BtnForeColorColorChanged(Sender: TObject);
+begin
+  LCDrawPad1.ForeColor := BtnForeColor.ButtonColor;
+end;
+
+procedure TFrmMain.EdtLineSizeChange(Sender: TObject);
+begin
+  LCDrawPad1.LineSize := EdtLineSize.Value;
+end;
+
+procedure TFrmMain.EdtZoomChange(Sender: TObject);
+var
+  NewZoom: Integer;
+begin
+  If TryStrToInt(EdtZoom.Text, NewZoom) Then
+  Begin
+    If LCDrawPad1.ZoomPercent <> NewZoom Then
+    Begin
+      LCDrawPad1.ZoomPercent := NewZoom;
+      SetZoomPercent(LCDrawPad1.ZoomPercent);
+    End;
+  End;
+end;
+
+procedure TFrmMain.EdtZoomKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Not (Key in ['0'..'9',Char(VK_BACK),Char(VK_DELETE),Char(VK_TAB),Char(VK_RETURN)])) Then
+  	 Key := #0;
+end;
+
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   SetZoomPercent(LCDrawPad1.ZoomPercent);
+  BtnForeColor.ButtonColor := LCDrawPad1.ForeColor;
+  EdtLineSize.Value := LCDrawPad1.LineSize;
 
   {
 	  There is a bug in the IDE that does not allow Ctr+- and Ctrl++ be displayed. This code
@@ -236,20 +301,21 @@ begin
   Begin
     //Ctrl+-
     ActZoomOut.ShortCut := KeyToShortCut(VK_SUBTRACT, [ssCtrl]);
-    ActZoomOut.SecondaryShortCuts.AddObject('Ctrl+-', TObject(Pointer(PtrUInt(KeyToShortCut(VK_OEM_MINUS, [ssCtrl])))));
+    ActZoomOut.SecondaryShortCuts.AddObject('Ctrl+-', TObject({%H-}Pointer(PtrUInt(KeyToShortCut(VK_OEM_MINUS, [ssCtrl])))));
   End;
 
   If ShortcutToText(KeyToShortCut(VK_ADD, [ssCtrl])) <> '' Then
   Begin
     //Ctrl++
     ActZoomIn.ShortCut := KeyToShortCut(VK_ADD, [ssCtrl]);
-    ActZoomIn.SecondaryShortCuts.AddObject('Ctrl++', TObject(Pointer(PtrUInt(KeyToShortCut(VK_OEM_PLUS, [ssCtrl])))));
+    ActZoomIn.SecondaryShortCuts.AddObject('Ctrl++', TObject({%H-}Pointer(PtrUInt(KeyToShortCut(VK_OEM_PLUS, [ssCtrl])))));
   End;
 end;
 
 procedure TFrmMain.SetZoomPercent(ZoomPercent: Integer);
 begin
   StatusBarMain.Panels[0].Text:= Format('Zoom %d%%     ', [ZoomPercent]);
+  EdtZoom.Text := IntToStr(ZoomPercent);
 end;
 
 end.

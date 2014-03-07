@@ -42,7 +42,8 @@ object FrmMain: TFrmMain
     Left = 0
     Top = 0
     Width = 806
-    ButtonHeight = 32
+    AutoSize = True
+    ButtonHeight = 30
     ButtonWidth = 32
     Caption = 'ToolBar1'
     Images = ImageList1
@@ -109,9 +110,59 @@ object FrmMain: TFrmMain
       Action = ActZoomOut
     end
     object ToolButton12: TToolButton
-      Left = 309
+      Left = 359
       Top = 2
       Action = ActZoomIn
+    end
+    object EdtZoom: TEdit
+      Left = 309
+      Height = 28
+      Hint = 'Zoom%'
+      Top = 2
+      Width = 50
+      OnChange = EdtZoomChange
+      OnKeyPress = EdtZoomKeyPress
+      TabOrder = 0
+    end
+    object BtnForeColor: TColorButton
+      Left = 401
+      Height = 30
+      Hint = 'Fore Color'
+      Top = 2
+      Width = 89
+      BorderWidth = 2
+      ButtonColorAutoSize = False
+      ButtonColorSize = 20
+      ButtonColor = clBlack
+      Caption = 'Color 1'
+      Flat = True
+      OnColorChanged = BtnForeColorColorChanged
+    end
+    object ToolButton13: TToolButton
+      Left = 391
+      Top = 2
+      Width = 10
+      Caption = 'ToolButton13'
+      Style = tbsSeparator
+    end
+    object ToolButton14: TToolButton
+      Left = 490
+      Top = 2
+      Width = 10
+      Caption = 'ToolButton14'
+      Style = tbsSeparator
+    end
+    object EdtLineSize: TSpinEdit
+      Left = 500
+      Height = 28
+      Hint = 'Adjust Line Size'
+      Top = 2
+      Width = 68
+      MaxValue = 200
+      MinValue = 1
+      OnChange = EdtLineSizeChange
+      TabOrder = 1
+      Value = 1
     end
   end
   object StatusBarMain: TStatusBar
@@ -596,6 +647,7 @@ object FrmMain: TFrmMain
       Hint = 'New'
       ImageIndex = 0
       OnExecute = ActNewExecute
+      ShortCut = 16462
     end
     object ActOpen: TAction
       Category = 'File'
@@ -603,18 +655,21 @@ object FrmMain: TFrmMain
       Hint = 'Open...'
       ImageIndex = 1
       OnExecute = ActOpenExecute
+      ShortCut = 16463
     end
     object ActSaveAs: TAction
       Category = 'File'
       Caption = 'Save As...'
       Hint = 'Save As...'
       OnExecute = ActSaveAsExecute
+      ShortCut = 24659
     end
     object ActSave: TAction
       Category = 'File'
       Caption = '&Save'
       Hint = 'Save'
       ImageIndex = 2
+      ShortCut = 16467
     end
     object ActExit: TAction
       Category = 'File'
@@ -636,6 +691,7 @@ object FrmMain: TFrmMain
       Hint = 'Rotate Counter Clockwise'
       ImageIndex = 5
       OnExecute = ActRotateCounterClockwiseExecute
+      ShortCut = 16460
     end
     object ActRotateClockwise: TAction
       Category = 'Edit'
@@ -643,6 +699,7 @@ object FrmMain: TFrmMain
       Hint = 'Rotate Clockwise'
       ImageIndex = 6
       OnExecute = ActRotateClockwiseExecute
+      ShortCut = 16466
     end
     object ActRotate180: TAction
       Category = 'Edit'
