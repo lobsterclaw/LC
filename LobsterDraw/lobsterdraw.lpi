@@ -50,7 +50,7 @@
         <ComponentName Value="FrmMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmmainunit"/>
+        <UnitName Value="FrmMainUnit"/>
       </Unit1>
       <Unit2>
         <Filename Value="frmresizeunit.pas"/>
@@ -58,7 +58,7 @@
         <ComponentName Value="FrmResize"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="frmresizeunit"/>
+        <UnitName Value="FrmResizeUnit"/>
       </Unit2>
     </Units>
   </ProjectOptions>

@@ -1,39 +1,41 @@
 object FrmMain: TFrmMain
   Left = 516
-  Height = 544
+  Height = 584
   Top = 223
   Width = 806
   Caption = 'Lobster Draw'
-  ClientHeight = 519
+  ClientHeight = 559
   ClientWidth = 806
   Menu = MainMenu1
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   LCLVersion = '1.0.14.0'
   object ScrollBox1: TScrollBox
     Left = 0
-    Height = 459
+    Height = 499
     Top = 32
     Width = 806
-    HorzScrollBar.Page = 781
+    HorzScrollBar.Page = 802
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 455
+    VertScrollBar.Page = 495
     VertScrollBar.Tracking = True
     Align = alClient
-    ClientHeight = 455
-    ClientWidth = 781
+    ClientHeight = 495
+    ClientWidth = 802
     TabOrder = 0
     object LCDrawPad1: TLCDrawPad
       Left = 0
-      Height = 480
+      Height = 495
       Top = 0
-      Width = 781
-      ForeColor = clBlack
-      LineSize = 20
+      Width = 802
+      ForeColor = clBlue
+      LineSize = 16
       ZoomPercent = 100
       CanvasWidth = 640
       CanvasHeight = 480
       CanvasColor = clWhite
       CanvasPosition = csMiddleCenter
+      OnImageChange = LCDrawPad1ImageChange
       Align = alClient
       AutoSize = True
     end
@@ -168,7 +170,7 @@ object FrmMain: TFrmMain
   object StatusBarMain: TStatusBar
     Left = 0
     Height = 28
-    Top = 491
+    Top = 531
     Width = 806
     Panels = <    
       item
@@ -669,6 +671,7 @@ object FrmMain: TFrmMain
       Caption = '&Save'
       Hint = 'Save'
       ImageIndex = 2
+      OnExecute = ActSaveExecute
       ShortCut = 16467
     end
     object ActExit: TAction

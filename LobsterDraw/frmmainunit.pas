@@ -16,7 +16,7 @@
 *                                                                          *
 ****************************************************************************
 }
-unit frmmainunit;
+unit FrmMainUnit;
 
 {$mode objfpc}{$H+}
 
@@ -99,16 +99,23 @@ type
     procedure ActRotateClockwiseExecute(Sender: TObject);
     procedure ActRotateCounterClockwiseExecute(Sender: TObject);
     procedure ActSaveAsExecute(Sender: TObject);
+    procedure ActSaveExecute(Sender: TObject);
     procedure ActZoomInExecute(Sender: TObject);
     procedure ActZoomOutExecute(Sender: TObject);
     procedure BtnForeColorColorChanged(Sender: TObject);
     procedure EdtLineSizeChange(Sender: TObject);
     procedure EdtZoomChange(Sender: TObject);
     procedure EdtZoomKeyPress(Sender: TObject; var Key: char);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
+    procedure LCDrawPad1ImageChange(Sender: TObject);
   private
     { private declarations }
+    fLastFileName: String;
+    function GetDocumentTitle(): String;
+    procedure UpdateCaption();
     procedure SetZoomPercent(ZoomPercent: Integer);
+    function CheckNeedSave(): Boolean;
   public
     { public declarations }
   end;
@@ -142,18 +149,30 @@ end;
 
 procedure TFrmMain.ActNewExecute(Sender: TObject);
 begin
-  LCDrawPad1.NewCanvas();
+  If CheckNeedSave() Then
+  Begin
+    LCDrawPad1.NewCanvas();
+    fLastFileName := '';
+    UpdateCaption;
+  End;
 end;
 
 procedure TFrmMain.ActOpenExecute(Sender: TObject);
 begin
-  try
-    OpenDialog1.Execute;
-    if (OpenDialog1.FileName <> '') And FileExistsUTF8(OpenDialog1.FileName) then
-      LCDrawPad1.LoadFromFile(OpenDialog1.FileName);
-  except
-    ShowMessage('Error: Unable to load from file');
-  end;
+  If CheckNeedSave() Then
+  Begin
+    try
+      OpenDialog1.Execute;
+      if (OpenDialog1.FileName <> '') And FileExistsUTF8(OpenDialog1.FileName) then
+      Begin
+        LCDrawPad1.LoadFromFile(OpenDialog1.FileName);
+        fLastFileName := OpenDialog1.FileName;
+        UpdateCaption;
+      end;
+    except
+      ShowMessage('Error: Unable to load from file');
+    end;
+  End;
 end;
 
 procedure TFrmMain.ActResizeExecute(Sender: TObject);
@@ -183,14 +202,33 @@ end;
 
 procedure TFrmMain.ActSaveAsExecute(Sender: TObject);
 begin
+  If (fLastFileName <> '') And FileExistsUTF8(fLastFileName) Then
+    SaveDialog1.FileName := fLastFileName;
+
   SaveDialog1.Options := SaveDialog1.Options + [ofOverwritePrompt];
   try
     SaveDialog1.Execute;
     if (SaveDialog1.FileName <> '') then
+    Begin
       LCDrawPad1.SaveToFile(SaveDialog1.FileName);
+      fLastFileName := SaveDialog1.FileName;
+      ActSave.Enabled := False;
+      UpdateCaption;
+    End;
   except
     ShowMessage('Error: Unable to save to file');
   end;
+end;
+
+procedure TFrmMain.ActSaveExecute(Sender: TObject);
+begin
+  If (fLastFileName <> '') And FileExistsUTF8(fLastFileName) Then
+  Begin
+    LCDrawPad1.SaveToFile(fLastFileName);
+    ActSave.Enabled := False;
+  end
+  Else
+    ActSaveAsExecute(Sender);
 end;
 
 function IncRoundUp(Num, Factor: Integer): Integer;
@@ -287,8 +325,18 @@ begin
   	 Key := #0;
 end;
 
+procedure TFrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+begin
+  CanClose := CheckNeedSave();
+end;
+
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
+  fLastFileName := '';
+  ActSave.Enabled := False;
+
+  UpdateCaption;
+
   SetZoomPercent(LCDrawPad1.ZoomPercent);
   BtnForeColor.ButtonColor := LCDrawPad1.ForeColor;
   EdtLineSize.Value := LCDrawPad1.LineSize;
@@ -312,10 +360,51 @@ begin
   End;
 end;
 
+procedure TFrmMain.LCDrawPad1ImageChange(Sender: TObject);
+begin
+  ActSave.Enabled := Not LCDrawPad1.IsFreshImage;
+  UpdateCaption;
+end;
+
+function TFrmMain.GetDocumentTitle(): String;
+begin
+  If fLastFileName = '' Then
+    Result := 'Untitled'
+  Else
+    Result := ExtractFileName(fLastFileName);
+end;
+
+procedure TFrmMain.UpdateCaption;
+var
+  Indicator: String = '';
+  NewCaption: String;
+begin
+  If ActSave.Enabled Then Indicator := '*';
+  NewCaption := GetDocumentTitle() + Indicator + ' - Lobster Draw';
+  If Self.Caption <> NewCaption Then Self.Caption := NewCaption;
+end;
+
 procedure TFrmMain.SetZoomPercent(ZoomPercent: Integer);
 begin
   StatusBarMain.Panels[0].Text:= Format('Zoom %d%%     ', [ZoomPercent]);
   EdtZoom.Text := IntToStr(ZoomPercent);
+end;
+
+function TFrmMain.CheckNeedSave(): Boolean;
+var
+  Reply, BoxStyle: Integer;
+begin
+  Result := True;
+  If ActSave.Enabled Then
+  Begin
+    BoxStyle := MB_ICONQUESTION + MB_YESNOCANCEL;
+    Reply := Application.MessageBox('Do you want to save changes before continuing?', 'Save Drawing?', BoxStyle);
+
+    If Reply = IDYES Then
+      ActSaveExecute(nil);
+
+    Result := (Reply = IDYES) Or (Reply = IDNO);
+  end;
 end;
 
 end.

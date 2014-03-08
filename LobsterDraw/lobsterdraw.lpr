@@ -25,7 +25,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, frmmainunit, frmresizeunit
+  Forms, FrmMainUnit, FrmResizeUnit
   { you can add units after this }
   ,bgraanimatedgif;
 
