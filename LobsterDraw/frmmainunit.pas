@@ -154,6 +154,7 @@ begin
     LCDrawPad1.NewCanvas();
     fLastFileName := '';
     UpdateCaption;
+    FrmResize.Reset();
   End;
 end;
 
@@ -168,6 +169,7 @@ begin
         LCDrawPad1.LoadFromFile(OpenDialog1.FileName);
         fLastFileName := OpenDialog1.FileName;
         UpdateCaption;
+        FrmResize.Reset();
       end;
     except
       ShowMessage('Error: Unable to load from file');
@@ -365,6 +367,7 @@ begin
   ActSave.Enabled := Not LCDrawPad1.IsFreshImage;
   UpdateCaption;
 end;
+
 
 function TFrmMain.GetDocumentTitle(): String;
 begin

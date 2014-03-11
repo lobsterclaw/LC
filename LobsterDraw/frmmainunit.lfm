@@ -157,7 +157,7 @@ object FrmMain: TFrmMain
     object EdtLineSize: TSpinEdit
       Left = 500
       Height = 28
-      Hint = 'Adjust Line Size'
+      Hint = 'Line Size'
       Top = 2
       Width = 68
       MaxValue = 200

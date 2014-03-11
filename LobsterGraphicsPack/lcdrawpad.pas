@@ -27,9 +27,9 @@ uses
   BGRABitmap, BGRABitmapTypes;
 
 type
-	TCanvasPosition = (cpUpperLeft, cpUpperCenter, cpUpperRight,
+	TCanvasPosition = (cpTopLeft, cpTopCenter, cpTopRight,
   								cpMiddleLeft, cpMiddleCenter, cpMiddleRight,
-                  cpLowerLeft, cpLowerCenter, cpLowerRight);
+                  cpBottomLeft, cpBottomCenter, cpBottomRight);
 
 	TRotateMode = (rm90Right, rm90Left, rm180);
 	TFlipMode = (fmHorizontal, fmVertical);
@@ -271,12 +271,12 @@ begin
   ratio := fZoomPercent / 100;
 
   case fCanvasPosition of
-    cpUpperLeft: Result := Point(0, 0);
-    cpUpperCenter: Result := Point(
+    cpTopLeft: Result := Point(0, 0);
+    cpTopCenter: Result := Point(
         (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
         0
       );
-    cpUpperRight: Result := Point(
+    cpTopRight: Result := Point(
 			  (self.ClientWidth - Round(fCanvasWidth * ratio)),
         0
       );
@@ -292,15 +292,15 @@ begin
         (self.ClientWidth - Round(fCanvasWidth * ratio)),
         (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
       );
-    cpLowerLeft: Result := Point(
+    cpBottomLeft: Result := Point(
         0,
         (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
-    cpLowerCenter: Result := Point(
+    cpBottomCenter: Result := Point(
         (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
         (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
-    cpLowerRight: Result := Point(
+    cpBottomRight: Result := Point(
         (self.ClientWidth - Round(fCanvasWidth * ratio)),
         (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
@@ -317,12 +317,12 @@ end;
 function TLCCustomDrawPad.GetImagePos(Outer, Inner: TPoint; Ratio: Double; ACanvasPosition: TCanvasPosition; AdjustNegative: Boolean): TPoint; overload;
 begin
   case ACanvasPosition of
-    cpUpperLeft: Result := Point(0, 0);
-    cpUpperCenter: Result := Point(
+    cpTopLeft: Result := Point(0, 0);
+    cpTopCenter: Result := Point(
         (Outer.X - Round(Inner.X * Ratio)) div 2,
         0
       );
-    cpUpperRight: Result := Point(
+    cpTopRight: Result := Point(
 			  (Outer.X - Round(Inner.X * Ratio)),
         0
       );
@@ -338,15 +338,15 @@ begin
         (Outer.X - Round(Inner.X * Ratio)),
         (Outer.Y - Round(Inner.Y * Ratio)) div 2
       );
-    cpLowerLeft: Result := Point(
+    cpBottomLeft: Result := Point(
         0,
         (Outer.Y - Round(Inner.Y * Ratio))
       );
-    cpLowerCenter: Result := Point(
+    cpBottomCenter: Result := Point(
         (Outer.X - Round(Inner.X * Ratio)) div 2,
         (Outer.Y - Round(Inner.Y * Ratio))
       );
-    cpLowerRight: Result := Point(
+    cpBottomRight: Result := Point(
         (Outer.X - Round(Inner.X * Ratio)),
         (Outer.Y - Round(Inner.Y * Ratio))
       );
@@ -703,7 +703,7 @@ begin
   fCanvasWidth := 640;
   fCanvasHeight := 480;
   fCanvasColor := clWhite;
-  fCanvasPosition := cpUpperLeft;
+  fCanvasPosition := cpTopLeft;
 
   fSafeToChangeCanvas := True;
   fIsFreshImage := True;

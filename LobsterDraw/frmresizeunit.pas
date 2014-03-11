@@ -79,6 +79,7 @@ type
   public
     { public declarations }
     function GetSelectedAnchor(): TCanvasPosition;
+    procedure Reset();
   end;
 
 var
@@ -356,9 +357,6 @@ end;
 
 procedure TFrmResize.FormShow(Sender: TObject);
 begin
-  //always reset to upper left?
-  BtnUpperLeft.Down := True;
-
   fOrigWidth := EdtWidth.Value;
   fOrigHeight := EdtHeight.Value;
 end;
@@ -437,11 +435,11 @@ end;
 function TFrmResize.GetSelectedAnchor: TCanvasPosition;
 begin
   if BtnUpperLeft.Down Then
-    Result := cpUpperLeft
+    Result := cpTopLeft
   Else if BtnUpperCenter.Down Then
-    Result := cpUpperCenter
+    Result := cpTopCenter
   Else if BtnUpperRight.Down Then
-    Result := cpUpperRight
+    Result := cpTopRight
   Else if BtnMiddleLeft.Down Then
     Result := cpMiddleLeft
   Else if BtnMiddleCenter.Down Then
@@ -449,11 +447,16 @@ begin
   Else if BtnMiddleRight.Down Then
     Result := cpMiddleRight
   Else if BtnLowerLeft.Down Then
-    Result := cpLowerLeft
+    Result := cpBottomLeft
   Else if BtnLowerCenter.Down Then
-    Result := cpLowerCenter
+    Result := cpBottomCenter
   Else if BtnLowerRight.Down Then
-    Result := cpLowerRight;
+    Result := cpBottomRight;
+end;
+
+procedure TFrmResize.Reset;
+begin
+  BtnUpperLeft.Down := True;
 end;
 
 
