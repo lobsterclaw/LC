@@ -39,7 +39,7 @@ type
     ActRotate180: TAction;
     ActRotateClockwise: TAction;
     ActRotateCounterClockwise: TAction;
-    ActResize: TAction;
+    ActResizeCanvas: TAction;
     ActSave: TAction;
     ActSaveAs: TAction;
     ActNew: TAction;
@@ -94,7 +94,7 @@ type
     procedure ActFlipVerticalExecute(Sender: TObject);
     procedure ActNewExecute(Sender: TObject);
     procedure ActOpenExecute(Sender: TObject);
-    procedure ActResizeExecute(Sender: TObject);
+    procedure ActResizeCanvasExecute(Sender: TObject);
     procedure ActRotate180Execute(Sender: TObject);
     procedure ActRotateClockwiseExecute(Sender: TObject);
     procedure ActRotateCounterClockwiseExecute(Sender: TObject);
@@ -175,13 +175,13 @@ begin
   End;
 end;
 
-procedure TFrmMain.ActResizeExecute(Sender: TObject);
+procedure TFrmMain.ActResizeCanvasExecute(Sender: TObject);
 begin
   FrmResize.EdtWidth.Value := LCDrawPad1.CanvasWidth;
   FrmResize.EdtHeight.Value := LCDrawPad1.CanvasHeight;
   if (FrmResize.ShowModal = mrOK) Then
   Begin
-	  LCDrawPad1.ResizeCanvas(FrmResize.EdtWidth.Value, FrmResize.EdtHeight.Value);
+	  LCDrawPad1.ResizeCanvas(FrmResize.EdtWidth.Value, FrmResize.EdtHeight.Value, FrmResize.GetSelectedAnchor());
   end;
 end;
 

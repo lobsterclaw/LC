@@ -27,9 +27,9 @@ uses
   BGRABitmap, BGRABitmapTypes;
 
 type
-	TCanvasPosition = (csUpperLeft, csUpperCenter, csUpperRight,
-  								csMiddleLeft, csMiddleCenter, csMiddleRight,
-                  csLowerLeft, csLowerCenter, csLowerRight);
+	TCanvasPosition = (cpUpperLeft, cpUpperCenter, cpUpperRight,
+  								cpMiddleLeft, cpMiddleCenter, cpMiddleRight,
+                  cpLowerLeft, cpLowerCenter, cpLowerRight);
 
 	TRotateMode = (rm90Right, rm90Left, rm180);
 	TFlipMode = (fmHorizontal, fmVertical);
@@ -56,7 +56,8 @@ type
     procedure ValidateSize(AWidth, AHeight: Integer);
     procedure RecreateCanvas();
     procedure Draw(X, Y: Integer; Closed: boolean);
-    function GetImagePos: TPoint;
+    function GetImagePos: TPoint; overload;
+    function GetImagePos(Outer, Inner: TPoint; Ratio: Double; ACanvasPosition: TCanvasPosition; AdjustNegative: Boolean): TPoint; overload;
     procedure PaintImage;
     procedure DoImageChange();
     procedure DoZoomChange();
@@ -83,8 +84,8 @@ type
     procedure Flip(FlipMode: TFlipMode);
     procedure NewCanvas(); overload;
     procedure NewCanvas(NewWidth, NewHeight: Integer; NewColor: TColor); overload;
-    procedure ResizeCanvas(NewWidth, NewHeight: Integer);
-    procedure ResampleCanvas(NewWidth, NewHeight: Integer; ResampleMode: TResampleMode=rmFineResample);
+    procedure ResizeCanvas(NewWidth, NewHeight: Integer; Anchor: TCanvasPosition);
+    procedure ResizeImage(NewWidth, NewHeight: Integer);
     procedure SaveToFile(const FileName: string);
     procedure SaveToStreamAsPng(AStream: TStream);
     procedure SaveToBitmap(ABitmap: TBitmap); overload;
@@ -270,36 +271,36 @@ begin
   ratio := fZoomPercent / 100;
 
   case fCanvasPosition of
-  csUpperLeft: Result := Point(0, 0);
-  csUpperCenter: Result := Point(
+    cpUpperLeft: Result := Point(0, 0);
+    cpUpperCenter: Result := Point(
         (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
         0
       );
-  csUpperRight: Result := Point(
+    cpUpperRight: Result := Point(
 			  (self.ClientWidth - Round(fCanvasWidth * ratio)),
         0
       );
-  csMiddleLeft: Result := Point(
+    cpMiddleLeft: Result := Point(
         0,
         (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
       );
-  csMiddleCenter: Result := Point(
+    cpMiddleCenter: Result := Point(
         (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
         (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
       );
-  csMiddleRight: Result := Point(
+    cpMiddleRight: Result := Point(
         (self.ClientWidth - Round(fCanvasWidth * ratio)),
         (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
       );
-  csLowerLeft: Result := Point(
+    cpLowerLeft: Result := Point(
         0,
         (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
-  csLowerCenter: Result := Point(
+    cpLowerCenter: Result := Point(
         (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
         (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
-  csLowerRight: Result := Point(
+    cpLowerRight: Result := Point(
         (self.ClientWidth - Round(fCanvasWidth * ratio)),
         (self.ClientHeight - Round(fCanvasHeight * ratio))
       );
@@ -312,6 +313,55 @@ begin
   if Result.Y < 0 then Result.Y := 0;
 
 end;
+
+function TLCCustomDrawPad.GetImagePos(Outer, Inner: TPoint; Ratio: Double; ACanvasPosition: TCanvasPosition; AdjustNegative: Boolean): TPoint; overload;
+begin
+  case ACanvasPosition of
+    cpUpperLeft: Result := Point(0, 0);
+    cpUpperCenter: Result := Point(
+        (Outer.X - Round(Inner.X * Ratio)) div 2,
+        0
+      );
+    cpUpperRight: Result := Point(
+			  (Outer.X - Round(Inner.X * Ratio)),
+        0
+      );
+    cpMiddleLeft: Result := Point(
+        0,
+        (Outer.Y - Round(Inner.Y * Ratio)) div 2
+      );
+    cpMiddleCenter: Result := Point(
+        (Outer.X - Round(Inner.X * Ratio)) div 2,
+        (Outer.Y - Round(Inner.Y * Ratio)) div 2
+      );
+    cpMiddleRight: Result := Point(
+        (Outer.X - Round(Inner.X * Ratio)),
+        (Outer.Y - Round(Inner.Y * Ratio)) div 2
+      );
+    cpLowerLeft: Result := Point(
+        0,
+        (Outer.Y - Round(Inner.Y * Ratio))
+      );
+    cpLowerCenter: Result := Point(
+        (Outer.X - Round(Inner.X * Ratio)) div 2,
+        (Outer.Y - Round(Inner.Y * Ratio))
+      );
+    cpLowerRight: Result := Point(
+        (Outer.X - Round(Inner.X * Ratio)),
+        (Outer.Y - Round(Inner.Y * Ratio))
+      );
+  else
+    Result := Point(0, 0);
+  end;
+
+  // test for negative position
+  if AdjustNegative Then
+  Begin
+    if Result.X < 0 then Result.X := 0;
+    if Result.Y < 0 then Result.Y := 0;
+  End;
+end;
+
 
 procedure TLCCustomDrawPad.SetCanvasHeight(CanvasHeight: Integer);
 begin
@@ -509,15 +559,18 @@ begin
   DoImageChange;
 end;
 
-procedure TLCCustomDrawPad.ResizeCanvas(NewWidth, NewHeight: Integer);
+procedure TLCCustomDrawPad.ResizeCanvas(NewWidth, NewHeight: Integer; Anchor: TCanvasPosition);
 var
   NewCanvasImage: TBGRABitmap;
+  ImagePos: TPoint;
 begin
   ValidateSize(NewWidth, NewHeight);
 
+  ImagePos := GetImagePos(Point(NewWidth, NewHeight), Point(fCanvasImage.Width, fCanvasImage.Height), 1, Anchor, False);
+
   NewCanvasImage := TBGRABitmap.Create(NewWidth, NewHeight, MapDefaultColor(fCanvasColor, clWhite));
   try
-    NewCanvasImage.PutImage(0, 0, fCanvasImage, dmSet);
+    NewCanvasImage.PutImage(ImagePos.X, ImagePos.Y, fCanvasImage, dmSet);
     fCanvasImage.Assign(NewCanvasImage);
     fCanvasWidth := fCanvasImage.Width;
     fCanvasHeight := fCanvasImage.Height;
@@ -532,13 +585,13 @@ begin
   DoImageChange;
 end;
 
-procedure TLCCustomDrawPad.ResampleCanvas(NewWidth, NewHeight: Integer; ResampleMode: TResampleMode = rmFineResample);
+procedure TLCCustomDrawPad.ResizeImage(NewWidth, NewHeight: Integer);
 var
   NewCanvasImage: TBGRABitmap;
 begin
   ValidateSize(NewWidth, NewHeight);
 
-  NewCanvasImage := fCanvasImage.Resample(NewWidth, NewHeight, ResampleMode) as TBGRABitmap;
+  NewCanvasImage := fCanvasImage.Resample(NewWidth, NewHeight) as TBGRABitmap;
   fCanvasImage.Free();
 	fCanvasImage := NewCanvasImage;
   NewCanvasImage := nil;
@@ -650,7 +703,7 @@ begin
   fCanvasWidth := 640;
   fCanvasHeight := 480;
   fCanvasColor := clWhite;
-  fCanvasPosition := csUpperLeft;
+  fCanvasPosition := cpUpperLeft;
 
   fSafeToChangeCanvas := True;
   fIsFreshImage := True;

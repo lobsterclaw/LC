@@ -34,7 +34,7 @@ object FrmMain: TFrmMain
       CanvasWidth = 640
       CanvasHeight = 480
       CanvasColor = clWhite
-      CanvasPosition = csMiddleCenter
+      CanvasPosition = cpMiddleCenter
       OnImageChange = LCDrawPad1ImageChange
       Align = alClient
       AutoSize = True
@@ -77,7 +77,7 @@ object FrmMain: TFrmMain
     object ToolButton2: TToolButton
       Left = 107
       Top = 2
-      Action = ActResize
+      Action = ActResizeCanvas
     end
     object ToolButton3: TToolButton
       Left = 139
@@ -352,7 +352,7 @@ object FrmMain: TFrmMain
     object MnuEdit: TMenuItem
       Caption = 'Edit'
       object MnuResize: TMenuItem
-        Action = ActResize
+        Action = ActResizeCanvas
         Bitmap.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           200000000000000400006400000064000000000000000000000053A85AFF51A6
@@ -681,12 +681,12 @@ object FrmMain: TFrmMain
       ImageIndex = 3
       OnExecute = ActExitExecute
     end
-    object ActResize: TAction
+    object ActResizeCanvas: TAction
       Category = 'Edit'
       Caption = 'Resize...'
       Hint = 'Resize Canvas'
       ImageIndex = 4
-      OnExecute = ActResizeExecute
+      OnExecute = ActResizeCanvasExecute
     end
     object ActRotateCounterClockwise: TAction
       Category = 'Edit'

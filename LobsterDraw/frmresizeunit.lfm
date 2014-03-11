@@ -1,26 +1,27 @@
 object FrmResize: TFrmResize
   Left = 678
-  Height = 264
+  Height = 320
   Top = 418
-  Width = 240
+  Width = 383
   BorderStyle = bsDialog
   Caption = 'Resize Canvas'
-  ClientHeight = 264
-  ClientWidth = 240
+  ClientHeight = 320
+  ClientWidth = 383
   FormStyle = fsStayOnTop
+  OnCreate = FormCreate
+  OnShow = FormShow
   Position = poMainFormCenter
   ShowInTaskBar = stNever
   LCLVersion = '1.0.14.0'
   object GrpResize: TGroupBox
     Left = 16
-    Height = 155
+    Height = 272
     Top = 16
-    Width = 200
+    Width = 240
     Caption = 'Resize'
-    ClientHeight = 133
-    ClientWidth = 196
+    ClientHeight = 250
+    ClientWidth = 236
     TabOrder = 0
-    OnClick = GrpResizeClick
     object EdtWidth: TSpinEdit
       Left = 94
       Height = 28
@@ -28,6 +29,7 @@ object FrmResize: TFrmResize
       Width = 74
       MaxValue = 4000
       MinValue = 1
+      OnChange = EdtDimensionsChange
       TabOrder = 0
       Value = 640
     end
@@ -38,6 +40,7 @@ object FrmResize: TFrmResize
       Width = 74
       MaxValue = 4000
       MinValue = 1
+      OnChange = EdtDimensionsChange
       TabOrder = 1
       Value = 480
     end
@@ -57,21 +60,129 @@ object FrmResize: TFrmResize
       Caption = 'Height'
       ParentColor = False
     end
+    object LblAnchor: TLabel
+      Left = 22
+      Height = 21
+      Top = 132
+      Width = 48
+      Caption = 'Anchor'
+      ParentColor = False
+    end
+    object PnlAnchors: TPanel
+      Left = 97
+      Height = 96
+      Top = 131
+      Width = 96
+      ClientHeight = 96
+      ClientWidth = 96
+      TabOrder = 2
+      object BtnUpperLeft: TSpeedButton
+        Left = 0
+        Height = 32
+        Top = 0
+        Width = 32
+        Down = True
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnUpperLeftPaint
+      end
+      object BtnUpperCenter: TSpeedButton
+        Left = 32
+        Height = 32
+        Top = 0
+        Width = 32
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnUpperCenterPaint
+      end
+      object BtnUpperRight: TSpeedButton
+        Left = 64
+        Height = 32
+        Top = 0
+        Width = 32
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnUpperRightPaint
+      end
+      object BtnMiddleLeft: TSpeedButton
+        Left = 0
+        Height = 32
+        Top = 32
+        Width = 32
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnMiddleLeftPaint
+      end
+      object BtnMiddleCenter: TSpeedButton
+        Left = 32
+        Height = 32
+        Top = 32
+        Width = 32
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnMiddleCenterPaint
+      end
+      object BtnMiddleRight: TSpeedButton
+        Left = 64
+        Height = 32
+        Top = 32
+        Width = 32
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnMiddleRightPaint
+      end
+      object BtnLowerLeft: TSpeedButton
+        Left = 0
+        Height = 32
+        Top = 64
+        Width = 32
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnLowerLeftPaint
+      end
+      object BtnLowerCenter: TSpeedButton
+        Left = 32
+        Height = 32
+        Top = 64
+        Width = 32
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnLowerCenterPaint
+      end
+      object BtnLowerRight: TSpeedButton
+        Left = 64
+        Height = 32
+        Top = 64
+        Width = 32
+        GroupIndex = 1
+        NumGlyphs = 0
+        OnClick = SpeedButtonClick
+        OnPaint = BtnLowerRightPaint
+      end
+    end
   end
   object BtnOkay: TButton
-    Left = 32
+    Left = 288
     Height = 41
-    Top = 192
-    Width = 79
-    Caption = 'Okay'
+    Top = 32
+    Width = 78
+    Caption = 'OK'
     Default = True
     ModalResult = 1
     TabOrder = 1
   end
   object BtnCancel: TButton
-    Left = 128
+    Left = 288
     Height = 41
-    Top = 192
+    Top = 88
     Width = 78
     Cancel = True
     Caption = 'Cancel'
