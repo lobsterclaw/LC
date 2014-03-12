@@ -266,52 +266,10 @@ end;
 
 function TLCCustomDrawPad.GetImagePos: TPoint;
 var
-  ratio: Double;
+  Ratio: Double;
 begin
-  ratio := fZoomPercent / 100;
-
-  case fCanvasPosition of
-    cpTopLeft: Result := Point(0, 0);
-    cpTopCenter: Result := Point(
-        (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
-        0
-      );
-    cpTopRight: Result := Point(
-			  (self.ClientWidth - Round(fCanvasWidth * ratio)),
-        0
-      );
-    cpMiddleLeft: Result := Point(
-        0,
-        (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
-      );
-    cpMiddleCenter: Result := Point(
-        (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
-        (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
-      );
-    cpMiddleRight: Result := Point(
-        (self.ClientWidth - Round(fCanvasWidth * ratio)),
-        (self.ClientHeight - Round(fCanvasHeight * ratio)) div 2
-      );
-    cpBottomLeft: Result := Point(
-        0,
-        (self.ClientHeight - Round(fCanvasHeight * ratio))
-      );
-    cpBottomCenter: Result := Point(
-        (self.ClientWidth - Round(fCanvasWidth * ratio)) div 2,
-        (self.ClientHeight - Round(fCanvasHeight * ratio))
-      );
-    cpBottomRight: Result := Point(
-        (self.ClientWidth - Round(fCanvasWidth * ratio)),
-        (self.ClientHeight - Round(fCanvasHeight * ratio))
-      );
-  else
-    Result := Point(0, 0);
-  end;
-
-  // test for negative position
-  if Result.X < 0 then Result.X := 0;
-  if Result.Y < 0 then Result.Y := 0;
-
+  Ratio := fZoomPercent / 100;
+  Result := GetImagePos(Point(ClientWidth, ClientHeight), Point(fCanvasWidth, fCanvasHeight), Ratio, fCanvasPosition, True);
 end;
 
 function TLCCustomDrawPad.GetImagePos(Outer, Inner: TPoint; Ratio: Double; ACanvasPosition: TCanvasPosition; AdjustNegative: Boolean): TPoint; overload;

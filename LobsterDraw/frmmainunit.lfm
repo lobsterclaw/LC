@@ -1,33 +1,35 @@
 object FrmMain: TFrmMain
   Left = 516
-  Height = 584
+  Height = 691
   Top = 223
-  Width = 806
+  Width = 825
+  AllowDropFiles = True
   Caption = 'Lobster Draw'
-  ClientHeight = 559
-  ClientWidth = 806
+  ClientHeight = 666
+  ClientWidth = 825
   Menu = MainMenu1
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnDropFiles = FormDropFiles
   LCLVersion = '1.0.14.0'
   object ScrollBox1: TScrollBox
     Left = 0
-    Height = 499
+    Height = 606
     Top = 32
-    Width = 806
-    HorzScrollBar.Page = 802
+    Width = 825
+    HorzScrollBar.Page = 821
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 495
+    VertScrollBar.Page = 602
     VertScrollBar.Tracking = True
     Align = alClient
-    ClientHeight = 495
-    ClientWidth = 802
+    ClientHeight = 602
+    ClientWidth = 821
     TabOrder = 0
     object LCDrawPad1: TLCDrawPad
       Left = 0
-      Height = 495
+      Height = 602
       Top = 0
-      Width = 802
+      Width = 821
       ForeColor = clBlue
       LineSize = 16
       ZoomPercent = 100
@@ -43,7 +45,7 @@ object FrmMain: TFrmMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 806
+    Width = 825
     AutoSize = True
     ButtonHeight = 30
     ButtonWidth = 32
@@ -170,8 +172,8 @@ object FrmMain: TFrmMain
   object StatusBarMain: TStatusBar
     Left = 0
     Height = 28
-    Top = 531
-    Width = 806
+    Top = 638
+    Width = 825
     Panels = <    
       item
         Alignment = taRightJustify
