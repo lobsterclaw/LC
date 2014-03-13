@@ -58,6 +58,7 @@ type
     procedure BtnUpperCenterPaint(Sender: TObject);
     procedure BtnUpperRightPaint(Sender: TObject);
     procedure EdtDimensionsChange(Sender: TObject);
+    procedure GrpResizeClick(Sender: TObject);
     procedure SpeedButtonClick(Sender: TObject);
     procedure BtnUpperLeftPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -102,6 +103,11 @@ end;
 procedure TFrmResize.EdtDimensionsChange(Sender: TObject);
 begin
   PnlAnchors.Invalidate;
+end;
+
+procedure TFrmResize.GrpResizeClick(Sender: TObject);
+begin
+
 end;
 
 procedure TFrmResize.BtnUpperLeftPaint(Sender: TObject);

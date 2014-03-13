@@ -14,20 +14,20 @@ object FrmMain: TFrmMain
   LCLVersion = '1.0.14.0'
   object ScrollBox1: TScrollBox
     Left = 0
-    Height = 606
-    Top = 32
+    Height = 608
+    Top = 30
     Width = 825
     HorzScrollBar.Page = 821
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 602
+    VertScrollBar.Page = 604
     VertScrollBar.Tracking = True
     Align = alClient
-    ClientHeight = 602
+    ClientHeight = 604
     ClientWidth = 821
     TabOrder = 0
     object LCDrawPad1: TLCDrawPad
       Left = 0
-      Height = 602
+      Height = 604
       Top = 0
       Width = 821
       ForeColor = clBlue
@@ -44,11 +44,12 @@ object FrmMain: TFrmMain
   end
   object ToolBar1: TToolBar
     Left = 0
+    Height = 30
     Top = 0
     Width = 825
     AutoSize = True
-    ButtonHeight = 30
-    ButtonWidth = 32
+    ButtonHeight = 28
+    ButtonWidth = 29
     Caption = 'ToolBar1'
     Images = ImageList1
     ParentShowHint = False
@@ -130,7 +131,7 @@ object FrmMain: TFrmMain
     end
     object BtnForeColor: TColorButton
       Left = 401
-      Height = 30
+      Height = 28
       Hint = 'Fore Color'
       Top = 2
       Width = 89

@@ -24,8 +24,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="366"/>
-        <CursorPos X="38" Y="374"/>
+        <TopLine Value="382"/>
+        <CursorPos X="7" Y="382"/>
         <UsageCount Value="208"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -39,8 +39,8 @@
         <UnitName Value="FrmResizeUnit"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="427"/>
-        <CursorPos X="36" Y="445"/>
+        <TopLine Value="108"/>
+        <CursorPos X="3" Y="110"/>
         <UsageCount Value="208"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -62,7 +62,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="3" Y="85"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -149,124 +149,124 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="59" Column="25" TopLine="42"/>
+        <Filename Value="frmresizeunit.pas"/>
+        <Caret Line="437" Column="21" TopLine="420"/>
       </Position1>
       <Position2>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="60" Column="25" TopLine="42"/>
+        <Filename Value="frmresizeunit.pas"/>
+        <Caret Line="82" Column="22" TopLine="60"/>
       </Position2>
       <Position3>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="210" Column="26" TopLine="180"/>
+        <Filename Value="frmresizeunit.pas"/>
+        <Caret Line="449" Column="29" TopLine="430"/>
       </Position3>
       <Position4>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="240" Column="26" TopLine="210"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="185" Column="110" TopLine="179"/>
       </Position4>
       <Position5>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="267" Column="38" TopLine="237"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="368" Column="5" TopLine="361"/>
       </Position5>
       <Position6>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="60" Column="25" TopLine="56"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="158" Column="23" TopLine="151"/>
       </Position6>
       <Position7>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="59" Column="25" TopLine="52"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="173" Column="27" TopLine="162"/>
       </Position7>
       <Position8>
         <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="60" Column="25" TopLine="52"/>
+        <Caret Line="30" Column="21" TopLine="18"/>
       </Position8>
       <Position9>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="210" Column="26" TopLine="180"/>
+        <Filename Value="frmresizeunit.pas"/>
+        <Caret Line="459" Column="1" TopLine="427"/>
       </Position9>
       <Position10>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="240" Column="26" TopLine="210"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="112" Column="10" TopLine="94"/>
       </Position10>
       <Position11>
         <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="267" Column="38" TopLine="237"/>
+        <Caret Line="32" Column="26" TopLine="16"/>
       </Position11>
       <Position12>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="318" Column="1" TopLine="291"/>
+        <Filename Value="frmresizeunit.pas"/>
+        <Caret Line="442" Column="20" TopLine="427"/>
       </Position12>
       <Position13>
         <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="60" Column="63" TopLine="44"/>
+        <Caret Line="315" Column="2" TopLine="262"/>
       </Position13>
       <Position14>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="81" Column="31" TopLine="55"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="113" Column="10" TopLine="94"/>
       </Position14>
       <Position15>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="437" Column="21" TopLine="420"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="368" Column="3" TopLine="365"/>
       </Position15>
       <Position16>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="82" Column="22" TopLine="60"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="164" Column="1" TopLine="162"/>
       </Position16>
       <Position17>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="449" Column="29" TopLine="430"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="378" Column="89" TopLine="366"/>
       </Position17>
       <Position18>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="185" Column="110" TopLine="179"/>
+        <Caret Line="166" Column="1" TopLine="162"/>
       </Position18>
       <Position19>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="368" Column="5" TopLine="361"/>
+        <Caret Line="376" Column="27" TopLine="366"/>
       </Position19>
       <Position20>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="158" Column="23" TopLine="151"/>
+        <Caret Line="158" Column="23" TopLine="139"/>
       </Position20>
       <Position21>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="173" Column="27" TopLine="162"/>
+        <Caret Line="173" Column="27" TopLine="142"/>
       </Position21>
       <Position22>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="30" Column="21" TopLine="18"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="118" Column="28" TopLine="93"/>
       </Position22>
       <Position23>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="459" Column="1" TopLine="427"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="413" Column="3" TopLine="402"/>
       </Position23>
       <Position24>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="112" Column="10" TopLine="94"/>
+        <Caret Line="412" Column="3" TopLine="396"/>
       </Position24>
       <Position25>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="32" Column="26" TopLine="16"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="174" Column="23" TopLine="140"/>
       </Position25>
       <Position26>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="442" Column="20" TopLine="427"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="377" Column="23" TopLine="346"/>
       </Position26>
       <Position27>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="315" Column="2" TopLine="262"/>
+        <Filename Value="frmresizeunit.pas"/>
+        <Caret Line="451" Column="36" TopLine="433"/>
       </Position27>
       <Position28>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="113" Column="10" TopLine="94"/>
+        <Caret Line="382" Column="7" TopLine="382"/>
       </Position28>
       <Position29>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="368" Column="3" TopLine="365"/>
+        <Caret Line="383" Column="7" TopLine="383"/>
       </Position29>
       <Position30>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="164" Column="1" TopLine="162"/>
+        <Caret Line="382" Column="7" TopLine="382"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

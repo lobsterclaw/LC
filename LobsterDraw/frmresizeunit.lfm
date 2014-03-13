@@ -1,12 +1,12 @@
 object FrmResize: TFrmResize
   Left = 678
-  Height = 287
+  Height = 280
   Top = 418
-  Width = 360
+  Width = 355
   BorderStyle = bsDialog
   Caption = 'Resize Canvas'
-  ClientHeight = 287
-  ClientWidth = 360
+  ClientHeight = 280
+  ClientWidth = 355
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   OnShow = FormShow
@@ -15,18 +15,19 @@ object FrmResize: TFrmResize
   LCLVersion = '1.0.14.0'
   object GrpResize: TGroupBox
     Left = 16
-    Height = 256
+    Height = 248
     Top = 16
     Width = 224
     Caption = 'Resize'
-    ClientHeight = 234
+    ClientHeight = 226
     ClientWidth = 220
     TabOrder = 0
+    OnClick = GrpResizeClick
     object EdtWidth: TSpinEdit
       Left = 94
       Height = 28
       Top = 20
-      Width = 74
+      Width = 72
       MaxValue = 4000
       MinValue = 1
       OnChange = EdtDimensionsChange
@@ -36,8 +37,8 @@ object FrmResize: TFrmResize
     object EdtHeight: TSpinEdit
       Left = 94
       Height = 28
-      Top = 70
-      Width = 74
+      Top = 65
+      Width = 72
       MaxValue = 4000
       MinValue = 1
       OnChange = EdtDimensionsChange
@@ -55,7 +56,7 @@ object FrmResize: TFrmResize
     object LblHeight: TLabel
       Left = 22
       Height = 21
-      Top = 70
+      Top = 65
       Width = 46
       Caption = 'Height'
       ParentColor = False
@@ -63,7 +64,7 @@ object FrmResize: TFrmResize
     object LblAnchor: TLabel
       Left = 22
       Height = 21
-      Top = 120
+      Top = 110
       Width = 48
       Caption = 'Anchor'
       ParentColor = False
@@ -71,7 +72,7 @@ object FrmResize: TFrmResize
     object PnlAnchors: TPanel
       Left = 94
       Height = 96
-      Top = 120
+      Top = 110
       Width = 96
       ClientHeight = 96
       ClientWidth = 96
@@ -180,9 +181,9 @@ object FrmResize: TFrmResize
   end
   object BtnOkay: TButton
     Left = 264
-    Height = 41
+    Height = 32
     Top = 32
-    Width = 78
+    Width = 72
     Caption = 'OK'
     Default = True
     ModalResult = 1
@@ -190,9 +191,9 @@ object FrmResize: TFrmResize
   end
   object BtnCancel: TButton
     Left = 264
-    Height = 41
-    Top = 88
-    Width = 78
+    Height = 32
+    Top = 72
+    Width = 72
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
