@@ -21,6 +21,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmMainUnit"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="381"/>
@@ -36,7 +37,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmResizeUnit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="108"/>
@@ -48,22 +48,18 @@
       <Unit3>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgradefaultbitmap.pas"/>
         <UnitName Value="BGRADefaultBitmap"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="395"/>
         <CursorPos X="14" Y="411"/>
         <UsageCount Value="103"/>
-        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgrabitmaptypes.pas"/>
         <UnitName Value="BGRABitmapTypes"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="3" Y="85"/>
         <UsageCount Value="82"/>
-        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
@@ -78,7 +74,7 @@
       <Unit6>
         <Filename Value="..\LobsterGraphicsPack\lcutils.pas"/>
         <UnitName Value="LCUtils"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="13" Y="20"/>
@@ -136,12 +132,10 @@
       <Unit12>
         <Filename Value="C:\lazarus\components\colorpalette\colorpalette.pas"/>
         <UnitName Value="ColorPalette"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="100"/>
         <CursorPos X="1" Y="131"/>
         <UsageCount Value="109"/>
-        <Loaded Value="True"/>
       </Unit12>
     </Units>
     <General>

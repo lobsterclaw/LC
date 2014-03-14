@@ -5,7 +5,7 @@ object FrmMain: TFrmMain
   Width = 825
   AllowDropFiles = True
   Caption = 'Lobster Draw'
-  ClientHeight = 666
+  ClientHeight = 671
   ClientWidth = 825
   Menu = MainMenu1
   OnCloseQuery = FormCloseQuery
@@ -14,20 +14,20 @@ object FrmMain: TFrmMain
   LCLVersion = '1.0.14.0'
   object ScrollBox1: TScrollBox
     Left = 0
-    Height = 608
-    Top = 30
+    Height = 620
+    Top = 28
     Width = 825
     HorzScrollBar.Page = 821
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 604
+    VertScrollBar.Page = 616
     VertScrollBar.Tracking = True
     Align = alClient
-    ClientHeight = 604
+    ClientHeight = 616
     ClientWidth = 821
     TabOrder = 0
     object LCDrawPad1: TLCDrawPad
       Left = 0
-      Height = 604
+      Height = 616
       Top = 0
       Width = 821
       ForeColor = clBlue
@@ -44,13 +44,18 @@ object FrmMain: TFrmMain
   end
   object ToolBar1: TToolBar
     Left = 0
-    Height = 30
+    Height = 28
     Top = 0
     Width = 825
     AutoSize = True
-    ButtonHeight = 28
-    ButtonWidth = 29
+    ButtonHeight = 26
+    ButtonWidth = 27
     Caption = 'ToolBar1'
+    ChildSizing.TopBottomSpacing = 1
+    ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+    ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+    EdgeBorders = []
+    EdgeOuter = esNone
     Images = ImageList1
     ParentShowHint = False
     ShowHint = True
@@ -61,67 +66,67 @@ object FrmMain: TFrmMain
       Action = ActNew
     end
     object ToolButton8: TToolButton
-      Left = 33
+      Left = 30
       Top = 2
       Action = ActOpen
     end
     object ToolButton9: TToolButton
-      Left = 65
+      Left = 59
       Top = 2
       Action = ActSave
     end
     object ToolButton1: TToolButton
-      Left = 97
+      Left = 88
       Top = 2
       Width = 10
       Caption = 'ToolButton1'
       Style = tbsSeparator
     end
     object ToolButton2: TToolButton
-      Left = 107
+      Left = 98
       Top = 2
       Action = ActResizeCanvas
     end
     object ToolButton3: TToolButton
-      Left = 139
+      Left = 127
       Top = 2
       Action = ActRotateCounterClockwise
     end
     object ToolButton4: TToolButton
-      Left = 171
+      Left = 156
       Top = 2
       Action = ActRotateClockwise
     end
     object ToolButton5: TToolButton
-      Left = 203
+      Left = 185
       Top = 2
       Action = ActFlipHorizontal
     end
     object ToolButton6: TToolButton
-      Left = 235
+      Left = 214
       Top = 2
       Action = ActFlipVertical
     end
     object ToolButton10: TToolButton
-      Left = 267
+      Left = 243
       Top = 2
       Width = 10
       Caption = 'ToolButton10'
       Style = tbsSeparator
     end
     object ToolButton11: TToolButton
-      Left = 277
+      Left = 253
       Top = 2
       Action = ActZoomOut
     end
     object ToolButton12: TToolButton
-      Left = 359
+      Left = 332
       Top = 2
       Action = ActZoomIn
     end
     object EdtZoom: TEdit
-      Left = 309
-      Height = 28
+      Left = 282
+      Height = 23
       Hint = 'Zoom%'
       Top = 2
       Width = 50
@@ -130,8 +135,8 @@ object FrmMain: TFrmMain
       TabOrder = 0
     end
     object BtnForeColor: TColorButton
-      Left = 401
-      Height = 28
+      Left = 371
+      Height = 26
       Hint = 'Fore Color'
       Top = 2
       Width = 89
@@ -144,22 +149,22 @@ object FrmMain: TFrmMain
       OnColorChanged = BtnForeColorColorChanged
     end
     object ToolButton13: TToolButton
-      Left = 391
+      Left = 361
       Top = 2
       Width = 10
       Caption = 'ToolButton13'
       Style = tbsSeparator
     end
     object ToolButton14: TToolButton
-      Left = 490
+      Left = 460
       Top = 2
       Width = 10
       Caption = 'ToolButton14'
       Style = tbsSeparator
     end
     object EdtLineSize: TSpinEdit
-      Left = 500
-      Height = 28
+      Left = 470
+      Height = 23
       Hint = 'Line Size'
       Top = 2
       Width = 68
@@ -172,8 +177,8 @@ object FrmMain: TFrmMain
   end
   object StatusBarMain: TStatusBar
     Left = 0
-    Height = 28
-    Top = 638
+    Height = 23
+    Top = 648
     Width = 825
     Panels = <    
       item
