@@ -21,11 +21,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmMainUnit"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="382"/>
-        <CursorPos X="7" Y="382"/>
+        <TopLine Value="381"/>
+        <CursorPos X="2" Y="388"/>
         <UsageCount Value="208"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -37,10 +36,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmResizeUnit"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="108"/>
-        <CursorPos X="3" Y="110"/>
+        <CursorPos X="1" Y="110"/>
         <UsageCount Value="208"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -62,7 +62,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="3" Y="85"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="82"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>

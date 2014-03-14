@@ -2,11 +2,11 @@ object FrmResize: TFrmResize
   Left = 678
   Height = 280
   Top = 418
-  Width = 355
+  Width = 335
   BorderStyle = bsDialog
   Caption = 'Resize Canvas'
   ClientHeight = 280
-  ClientWidth = 355
+  ClientWidth = 335
   FormStyle = fsStayOnTop
   OnCreate = FormCreate
   OnShow = FormShow
@@ -17,14 +17,14 @@ object FrmResize: TFrmResize
     Left = 16
     Height = 248
     Top = 16
-    Width = 224
+    Width = 210
     Caption = 'Resize'
     ClientHeight = 226
-    ClientWidth = 220
+    ClientWidth = 206
     TabOrder = 0
     OnClick = GrpResizeClick
     object EdtWidth: TSpinEdit
-      Left = 94
+      Left = 84
       Height = 28
       Top = 20
       Width = 72
@@ -35,7 +35,7 @@ object FrmResize: TFrmResize
       Value = 640
     end
     object EdtHeight: TSpinEdit
-      Left = 94
+      Left = 84
       Height = 28
       Top = 65
       Width = 72
@@ -70,7 +70,7 @@ object FrmResize: TFrmResize
       ParentColor = False
     end
     object PnlAnchors: TPanel
-      Left = 94
+      Left = 84
       Height = 96
       Top = 110
       Width = 96
@@ -180,7 +180,7 @@ object FrmResize: TFrmResize
     end
   end
   object BtnOkay: TButton
-    Left = 264
+    Left = 244
     Height = 32
     Top = 32
     Width = 72
@@ -190,7 +190,7 @@ object FrmResize: TFrmResize
     TabOrder = 1
   end
   object BtnCancel: TButton
-    Left = 264
+    Left = 244
     Height = 32
     Top = 72
     Width = 72
