@@ -27,7 +27,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, FrmMainUnit, FrmResizeUnit
   { you can add units after this }
-  ,bgraanimatedgif;
+  ,bgraanimatedgif, FrmResampleUnit;
 
 {$R *.res}
 
@@ -36,6 +36,7 @@ begin
   Application.Initialize;
   Application.CreateForm(TFrmMain, FrmMain);
   Application.CreateForm(TFrmResize, FrmResize);
+  Application.CreateForm(TFrmResample, FrmResample);
   Application.Run;
 end.
 

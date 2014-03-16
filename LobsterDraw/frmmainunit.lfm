@@ -5,7 +5,7 @@ object FrmMain: TFrmMain
   Width = 825
   AllowDropFiles = True
   Caption = 'Lobster Draw'
-  ClientHeight = 671
+  ClientHeight = 666
   ClientWidth = 825
   Menu = MainMenu1
   OnCloseQuery = FormCloseQuery
@@ -14,20 +14,20 @@ object FrmMain: TFrmMain
   LCLVersion = '1.0.14.0'
   object ScrollBox1: TScrollBox
     Left = 0
-    Height = 620
+    Height = 610
     Top = 28
     Width = 825
     HorzScrollBar.Page = 821
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 616
+    VertScrollBar.Page = 606
     VertScrollBar.Tracking = True
     Align = alClient
-    ClientHeight = 616
+    ClientHeight = 606
     ClientWidth = 821
     TabOrder = 0
     object LCDrawPad1: TLCDrawPad
       Left = 0
-      Height = 616
+      Height = 606
       Top = 0
       Width = 821
       ForeColor = clBlue
@@ -62,83 +62,83 @@ object FrmMain: TFrmMain
     TabOrder = 1
     object ToolButton7: TToolButton
       Left = 1
-      Top = 2
+      Top = 0
       Action = ActNew
     end
     object ToolButton8: TToolButton
-      Left = 30
-      Top = 2
+      Left = 28
+      Top = 0
       Action = ActOpen
     end
     object ToolButton9: TToolButton
-      Left = 59
-      Top = 2
+      Left = 55
+      Top = 0
       Action = ActSave
     end
     object ToolButton1: TToolButton
-      Left = 88
-      Top = 2
+      Left = 82
+      Top = 0
       Width = 10
       Caption = 'ToolButton1'
       Style = tbsSeparator
     end
     object ToolButton2: TToolButton
-      Left = 98
-      Top = 2
+      Left = 119
+      Top = 0
       Action = ActResizeCanvas
     end
     object ToolButton3: TToolButton
-      Left = 127
-      Top = 2
+      Left = 146
+      Top = 0
       Action = ActRotateCounterClockwise
     end
     object ToolButton4: TToolButton
-      Left = 156
-      Top = 2
+      Left = 173
+      Top = 0
       Action = ActRotateClockwise
     end
     object ToolButton5: TToolButton
-      Left = 185
-      Top = 2
+      Left = 200
+      Top = 0
       Action = ActFlipHorizontal
     end
     object ToolButton6: TToolButton
-      Left = 214
-      Top = 2
+      Left = 227
+      Top = 0
       Action = ActFlipVertical
     end
     object ToolButton10: TToolButton
-      Left = 243
-      Top = 2
+      Left = 254
+      Top = 0
       Width = 10
       Caption = 'ToolButton10'
       Style = tbsSeparator
     end
     object ToolButton11: TToolButton
-      Left = 253
-      Top = 2
+      Left = 264
+      Top = 0
       Action = ActZoomOut
     end
     object ToolButton12: TToolButton
-      Left = 332
-      Top = 2
+      Left = 341
+      Top = 0
       Action = ActZoomIn
     end
     object EdtZoom: TEdit
-      Left = 282
-      Height = 23
+      Left = 291
+      Height = 28
       Hint = 'Zoom%'
-      Top = 2
+      Top = 0
       Width = 50
       OnChange = EdtZoomChange
       OnKeyPress = EdtZoomKeyPress
       TabOrder = 0
     end
     object BtnForeColor: TColorButton
-      Left = 371
+      Left = 378
       Height = 26
       Hint = 'Fore Color'
-      Top = 2
+      Top = 0
       Width = 89
       BorderWidth = 2
       ButtonColorAutoSize = False
@@ -149,24 +149,24 @@ object FrmMain: TFrmMain
       OnColorChanged = BtnForeColorColorChanged
     end
     object ToolButton13: TToolButton
-      Left = 361
-      Top = 2
+      Left = 368
+      Top = 0
       Width = 10
       Caption = 'ToolButton13'
       Style = tbsSeparator
     end
     object ToolButton14: TToolButton
-      Left = 460
-      Top = 2
+      Left = 467
+      Top = 0
       Width = 10
       Caption = 'ToolButton14'
       Style = tbsSeparator
     end
     object EdtLineSize: TSpinEdit
-      Left = 470
-      Height = 23
+      Left = 477
+      Height = 28
       Hint = 'Line Size'
-      Top = 2
+      Top = 0
       Width = 68
       MaxValue = 200
       MinValue = 1
@@ -174,11 +174,16 @@ object FrmMain: TFrmMain
       TabOrder = 1
       Value = 1
     end
+    object ToolButton15: TToolButton
+      Left = 92
+      Top = 0
+      Action = ActResizeImage
+    end
   end
   object StatusBarMain: TStatusBar
     Left = 0
-    Height = 23
-    Top = 648
+    Height = 28
+    Top = 638
     Width = 825
     Panels = <    
       item
@@ -359,7 +364,10 @@ object FrmMain: TFrmMain
     end
     object MnuEdit: TMenuItem
       Caption = 'Edit'
-      object MnuResize: TMenuItem
+      object MnuResizeImage: TMenuItem
+        Action = ActResizeImage
+      end
+      object MnuResizeCanvas: TMenuItem
         Action = ActResizeCanvas
         Bitmap.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
@@ -689,9 +697,30 @@ object FrmMain: TFrmMain
       ImageIndex = 3
       OnExecute = ActExitExecute
     end
+    object ActZoomOut: TAction
+      Category = 'View'
+      Caption = 'Zoom Out'
+      Hint = 'Zoom Out'
+      ImageIndex = 9
+      OnExecute = ActZoomOutExecute
+    end
+    object ActZoomIn: TAction
+      Category = 'View'
+      Caption = 'Zoom In'
+      Hint = 'Zoom In'
+      ImageIndex = 10
+      OnExecute = ActZoomInExecute
+    end
+    object ActResizeImage: TAction
+      Category = 'Edit'
+      Caption = 'Resize/Scale Image...'
+      Hint = 'Resize/Scale Image'
+      ImageIndex = 11
+      OnExecute = ActResizeImageExecute
+    end
     object ActResizeCanvas: TAction
       Category = 'Edit'
-      Caption = 'Resize...'
+      Caption = 'Resize Canvas...'
       Hint = 'Resize Canvas'
       ImageIndex = 4
       OnExecute = ActResizeCanvasExecute
@@ -732,26 +761,12 @@ object FrmMain: TFrmMain
       ImageIndex = 8
       OnExecute = ActFlipVerticalExecute
     end
-    object ActZoomOut: TAction
-      Category = 'View'
-      Caption = 'Zoom Out'
-      Hint = 'Zoom Out'
-      ImageIndex = 9
-      OnExecute = ActZoomOutExecute
-    end
-    object ActZoomIn: TAction
-      Category = 'View'
-      Caption = 'Zoom In'
-      Hint = 'Zoom In'
-      ImageIndex = 10
-      OnExecute = ActZoomInExecute
-    end
   end
   object ImageList1: TImageList
     left = 34
     top = 179
     Bitmap = {
-      4C690B0000001000000010000000FFFFFF000000001C00000033000000360000
+      4C690C0000001000000010000000FFFFFF000000001C00000033000000360000
       0036000000360000003600000036000000360000003600000036000000200000
       0002FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000033F8F8F8F0FBFBFBFDFCFC
       FCFFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFFF8F8F8FF949494910000
@@ -1103,7 +1118,39 @@ object FrmMain: TFrmMain
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00145D9503105A
       921AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00
+      FF00FFFFFF00FFFFFF00FFFFFF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00E6B38CFFE6B38CFFE6B38CFFE5AF
+      88FFE2A880FFDE9F76FFDA956CFFCE916FFFDFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00E6B38CFFECC8ACFFEBC3A4FFEABE
+      A0FFE7B798FFE4AF90FFE2AA8BFFD99169D2DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00E6B38CFFECC7AAFFEBC0A1FFE7BA
+      9BFFE5B192FFE2AA8BFFE0A687FFD88E66D2DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00E7B48DFEEBC5A7FFE9BB9DFFE5B4
+      95FFE2AC8DFFE0A584FFDFA384FFD88E66D2DFDFDF00A4A4A4FFA4A4A4FFDFDF
+      DF00A4A4A4FFA4A4A4FFDFDFDF00DFDFDF00E7B48DFFEBC5A7FFE9BB9DFFE5B4
+      95FFE2AC8DFFE0A584FFDFA384FFD88E66F7DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00A4A4A4FFDFDFDF00DFDFDF00E6B089FEE2A880FFDD9F76FFD996
+      6CFFD78C63FFD3855AFFD28358FFD48358D2DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00A4A4A4FFDFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00A4A4A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00A4A4
+      A4FFDFDFDF00DFDFDF00A4A4A4FF5F5F5FFFA4A4A4FFDFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00A4A4A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00A4A4A4FF5F5F5FFFA4A4A4FFDFDFDF00A4A4
+      A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00A4A4
+      A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00A4A4A4FF5F5F5FFFA4A4A4FF5F5F
+      5FFFDFDFDF00A4A4A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00A4A4
+      A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00A4A4A4FF5F5F5FFF5F5F
+      5FFFDFDFDF00A4A4A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00A4A4A4FF5F5F5FFF5F5F5FFF5F5F
+      5FFFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00A4A4
+      A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00A4A4A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00A4A4
+      A4FFA4A4A4FFDFDFDF00A4A4A4FFA4A4A4FFDFDFDF00A4A4A4FFA4A4A4FFDFDF
+      DF00A4A4A4FFA4A4A4FFDFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDFDF00DFDF
+      DF00DFDFDF00DFDFDF00DFDFDF00
     }
   end
   object OpenDialog1: TOpenDialog

@@ -22,7 +22,6 @@ object FrmResize: TFrmResize
     ClientHeight = 226
     ClientWidth = 206
     TabOrder = 0
-    OnClick = GrpResizeClick
     object EdtWidth: TSpinEdit
       Left = 84
       Height = 28

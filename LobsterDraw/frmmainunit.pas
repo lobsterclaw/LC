@@ -34,6 +34,7 @@ type
     ActExit: TAction;
     ActFlipHorizontal: TAction;
     ActFlipVertical: TAction;
+    ActResizeImage: TAction;
     ActZoomOut: TAction;
     ActZoomIn: TAction;
     ActRotate180: TAction;
@@ -50,6 +51,7 @@ type
     ImageList1: TImageList;
     LCDrawPad1: TLCDrawPad;
     MainMenu1: TMainMenu;
+    MnuResizeImage: TMenuItem;
     MnuZoomIn: TMenuItem;
     MnuZoomOut: TMenuItem;
     MnuView: TMenuItem;
@@ -60,7 +62,7 @@ type
     MnuSpacer2: TMenuItem;
     MnuRotateClockwise: TMenuItem;
     MnuRotateCounterClockwise: TMenuItem;
-    MnuResize: TMenuItem;
+    MnuResizeCanvas: TMenuItem;
     MnuFile: TMenuItem;
     MnuSpacer1: TMenuItem;
     MnuEdit: TMenuItem;
@@ -80,6 +82,7 @@ type
     ToolButton12: TToolButton;
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
+    ToolButton15: TToolButton;
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
@@ -95,6 +98,7 @@ type
     procedure ActNewExecute(Sender: TObject);
     procedure ActOpenExecute(Sender: TObject);
     procedure ActResizeCanvasExecute(Sender: TObject);
+    procedure ActResizeImageExecute(Sender: TObject);
     procedure ActRotate180Execute(Sender: TObject);
     procedure ActRotateClockwiseExecute(Sender: TObject);
     procedure ActRotateCounterClockwiseExecute(Sender: TObject);
@@ -128,7 +132,7 @@ var
 implementation
 
 uses
-  frmresizeunit, LCLType, LCLProc;
+  frmresizeunit, frmresampleunit, LCLType, LCLProc;
 
 {$R *.lfm}
 
@@ -187,6 +191,18 @@ begin
   Begin
 	  LCDrawPad1.ResizeCanvas(FrmResize.EdtWidth.Value, FrmResize.EdtHeight.Value, FrmResize.GetSelectedAnchor());
   end;
+end;
+
+procedure TFrmMain.ActResizeImageExecute(Sender: TObject);
+begin
+  FrmResample.RbPixels.Checked := True;
+  FrmResample.EdtWidth.Value := LCDrawPad1.CanvasWidth;
+  FrmResample.EdtHeight.Value := LCDrawPad1.CanvasHeight;
+  if (FrmResample.ShowModal = mrOK) Then
+  Begin
+	  LCDrawPad1.ResizeImage(FrmResample.GetWidthAsValue, FrmResample.GetHeightAsValue);
+  end;
+
 end;
 
 procedure TFrmMain.ActRotate180Execute(Sender: TObject);
