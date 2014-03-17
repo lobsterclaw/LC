@@ -36,6 +36,8 @@ type
     EdtHeight: TSpinEdit;
     GrpResize: TGroupBox;
     EdtWidth: TSpinEdit;
+    LblEdit1: TLabel;
+    LblEdit2: TLabel;
     LblHeight: TLabel;
     LblAnchor: TLabel;
     LblWidth: TLabel;

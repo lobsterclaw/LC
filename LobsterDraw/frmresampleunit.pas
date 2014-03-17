@@ -36,6 +36,8 @@ type
     EdtHeight: TFloatSpinEdit;
     EdtWidth: TFloatSpinEdit;
     GrpResize: TGroupBox;
+    LblEdit2: TLabel;
+    LblEdit1: TLabel;
     LblHeight: TLabel;
     LblWidth: TLabel;
     RbPercent: TRadioButton;
@@ -96,6 +98,8 @@ begin
     EdtHeight.Value := Round((EdtHeight.Value / fOrigHeight) * 1000) / 10.0;
     EdtWidth.MaxValue := Round(4000 / fOrigWidth * 100);
     EdtHeight.MaxValue := Round(4000 / fOrigHeight * 100);
+    LblEdit1.Caption := '%';
+    LblEdit2.Caption := '%';
   end;
 
   fPreviousPercent := RbPercent.Checked;
@@ -115,6 +119,8 @@ begin
     EdtHeight.Value := Round((EdtHeight.Value * fOrigHeight) / 100);
     EdtWidth.DecimalPlaces := 0;
     EdtHeight.DecimalPlaces := 0;
+    LblEdit1.Caption := 'pixels';
+    LblEdit2.Caption := 'pixels';
   end;
 
   fPreviousPixels := RbPixels.Checked;

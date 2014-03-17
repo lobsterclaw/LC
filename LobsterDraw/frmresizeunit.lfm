@@ -17,13 +17,13 @@ object FrmResize: TFrmResize
     Left = 16
     Height = 248
     Top = 16
-    Width = 210
+    Width = 216
     Caption = 'Resize'
     ClientHeight = 226
-    ClientWidth = 206
+    ClientWidth = 212
     TabOrder = 0
     object EdtWidth: TSpinEdit
-      Left = 84
+      Left = 76
       Height = 28
       Top = 20
       Width = 72
@@ -34,7 +34,7 @@ object FrmResize: TFrmResize
       Value = 640
     end
     object EdtHeight: TSpinEdit
-      Left = 84
+      Left = 76
       Height = 28
       Top = 65
       Width = 72
@@ -45,7 +45,7 @@ object FrmResize: TFrmResize
       Value = 480
     end
     object LblWidth: TLabel
-      Left = 22
+      Left = 18
       Height = 21
       Top = 20
       Width = 41
@@ -53,7 +53,7 @@ object FrmResize: TFrmResize
       ParentColor = False
     end
     object LblHeight: TLabel
-      Left = 22
+      Left = 18
       Height = 21
       Top = 65
       Width = 46
@@ -61,7 +61,7 @@ object FrmResize: TFrmResize
       ParentColor = False
     end
     object LblAnchor: TLabel
-      Left = 22
+      Left = 18
       Height = 21
       Top = 110
       Width = 48
@@ -69,7 +69,7 @@ object FrmResize: TFrmResize
       ParentColor = False
     end
     object PnlAnchors: TPanel
-      Left = 84
+      Left = 76
       Height = 96
       Top = 110
       Width = 96
@@ -177,9 +177,25 @@ object FrmResize: TFrmResize
         OnPaint = BtnLowerRightPaint
       end
     end
+    object LblEdit1: TLabel
+      Left = 156
+      Height = 21
+      Top = 20
+      Width = 39
+      Caption = 'pixels'
+      ParentColor = False
+    end
+    object LblEdit2: TLabel
+      Left = 156
+      Height = 21
+      Top = 65
+      Width = 39
+      Caption = 'pixels'
+      ParentColor = False
+    end
   end
   object BtnOkay: TButton
-    Left = 244
+    Left = 248
     Height = 32
     Top = 32
     Width = 72
@@ -189,7 +205,7 @@ object FrmResize: TFrmResize
     TabOrder = 1
   end
   object BtnCancel: TButton
-    Left = 244
+    Left = 248
     Height = 32
     Top = 72
     Width = 72

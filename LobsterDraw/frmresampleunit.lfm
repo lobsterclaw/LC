@@ -16,13 +16,13 @@ object FrmResample: TFrmResample
     Left = 16
     Height = 216
     Top = 16
-    Width = 210
+    Width = 216
     Caption = 'Resize'
     ClientHeight = 194
-    ClientWidth = 206
+    ClientWidth = 212
     TabOrder = 0
     object EdtWidth: TFloatSpinEdit
-      Left = 84
+      Left = 76
       Height = 28
       Top = 20
       Width = 72
@@ -35,7 +35,7 @@ object FrmResample: TFrmResample
       Value = 640
     end
     object EdtHeight: TFloatSpinEdit
-      Left = 84
+      Left = 76
       Height = 28
       Top = 65
       Width = 72
@@ -48,7 +48,7 @@ object FrmResample: TFrmResample
       Value = 480
     end
     object LblWidth: TLabel
-      Left = 22
+      Left = 18
       Height = 21
       Top = 20
       Width = 41
@@ -56,7 +56,7 @@ object FrmResample: TFrmResample
       ParentColor = False
     end
     object LblHeight: TLabel
-      Left = 22
+      Left = 18
       Height = 21
       Top = 65
       Width = 46
@@ -64,7 +64,7 @@ object FrmResample: TFrmResample
       ParentColor = False
     end
     object CbConstrain: TCheckBox
-      Left = 22
+      Left = 18
       Height = 24
       Top = 148
       Width = 164
@@ -75,7 +75,7 @@ object FrmResample: TFrmResample
       TabOrder = 4
     end
     object RbPixels: TRadioButton
-      Left = 24
+      Left = 20
       Height = 24
       Top = 110
       Width = 61
@@ -86,7 +86,7 @@ object FrmResample: TFrmResample
       TabStop = True
     end
     object RbPercent: TRadioButton
-      Left = 106
+      Left = 102
       Height = 24
       Top = 110
       Width = 73
@@ -94,9 +94,25 @@ object FrmResample: TFrmResample
       OnChange = RbPercentChange
       TabOrder = 3
     end
+    object LblEdit1: TLabel
+      Left = 156
+      Height = 21
+      Top = 20
+      Width = 39
+      Caption = 'pixels'
+      ParentColor = False
+    end
+    object LblEdit2: TLabel
+      Left = 156
+      Height = 21
+      Top = 65
+      Width = 39
+      Caption = 'pixels'
+      ParentColor = False
+    end
   end
   object BtnOkay: TButton
-    Left = 244
+    Left = 248
     Height = 32
     Top = 32
     Width = 72
@@ -106,7 +122,7 @@ object FrmResample: TFrmResample
     TabOrder = 1
   end
   object BtnCancel: TButton
-    Left = 244
+    Left = 248
     Height = 32
     Top = 72
     Width = 72

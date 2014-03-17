@@ -139,13 +139,14 @@ object FrmMain: TFrmMain
       Height = 26
       Hint = 'Fore Color'
       Top = 0
-      Width = 89
+      Width = 73
       BorderWidth = 2
       ButtonColorAutoSize = False
       ButtonColorSize = 20
       ButtonColor = clBlack
-      Caption = 'Color 1'
+      Caption = 'Line'
       Flat = True
+      Layout = blGlyphRight
       OnColorChanged = BtnForeColorColorChanged
     end
     object ToolButton13: TToolButton
@@ -156,14 +157,14 @@ object FrmMain: TFrmMain
       Style = tbsSeparator
     end
     object ToolButton14: TToolButton
-      Left = 467
+      Left = 451
       Top = 0
       Width = 10
       Caption = 'ToolButton14'
       Style = tbsSeparator
     end
     object EdtLineSize: TSpinEdit
-      Left = 477
+      Left = 461
       Height = 28
       Hint = 'Line Size'
       Top = 0
