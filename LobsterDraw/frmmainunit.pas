@@ -392,13 +392,13 @@ begin
     ActZoomIn.SecondaryShortCuts.AddObject('Ctrl++', TObject({%H-}Pointer(PtrUInt(KeyToShortCut(VK_OEM_PLUS, [ssCtrl])))));
   End;
 
-  //Ctrl+[
-  If ShortcutToText(KeyToShortCut(VK_OEM_4, [ssCtrl])) <> '' Then
-    ActDecLineSize.ShortCut := KeyToShortCut(VK_OEM_4, [ssCtrl]);
+  //[
+  If ShortcutToText(KeyToShortCut(VK_OEM_4, [])) <> '' Then
+    ActDecLineSize.ShortCut := KeyToShortCut(VK_OEM_4, []);
 
-  //Ctrl+]
-  If ShortcutToText(KeyToShortCut(VK_OEM_6, [ssCtrl])) <> '' Then
-    ActIncLineSize.ShortCut := KeyToShortCut(VK_OEM_6, [ssCtrl]);
+  //]
+  If ShortcutToText(KeyToShortCut(VK_OEM_6, [])) <> '' Then
+    ActIncLineSize.ShortCut := KeyToShortCut(VK_OEM_6, []);
 
 end;
 
