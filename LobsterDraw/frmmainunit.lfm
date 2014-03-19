@@ -1,7 +1,7 @@
 object FrmMain: TFrmMain
-  Left = 522
+  Left = 526
   Height = 691
-  Top = 186
+  Top = 153
   Width = 825
   AllowDropFiles = True
   Caption = 'Lobster Draw'
@@ -190,7 +190,7 @@ object FrmMain: TFrmMain
     Panels = <    
       item
         Alignment = taRightJustify
-        Width = 100
+        Width = 570
       end    
       item
         Alignment = taCenter
@@ -203,7 +203,7 @@ object FrmMain: TFrmMain
         Width = 100
       end    
       item
-        Width = 40
+        Width = 25
       end>
     SimplePanel = False
     OnResize = StatusBarMainResize
