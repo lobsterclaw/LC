@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ActnList, ExtCtrls, Buttons, ComCtrls, StdCtrls, Spin, LCDrawPad;
+  ActnList, ExtCtrls, Buttons, ComCtrls, StdCtrls, LCDrawPad;
 
 type
 
@@ -34,6 +34,8 @@ type
     ActExit: TAction;
     ActFlipHorizontal: TAction;
     ActFlipVertical: TAction;
+    ActIncLineSize: TAction;
+    ActDecLineSize: TAction;
     ActResizeImage: TAction;
     ActZoomOut: TAction;
     ActZoomIn: TAction;
@@ -74,7 +76,6 @@ type
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;
     ScrollBox1: TScrollBox;
-    EdtLineSize: TSpinEdit;
     StatusBarMain: TStatusBar;
     ToolBar1: TToolBar;
     ToolButton10: TToolButton;
@@ -92,9 +93,12 @@ type
     ToolButton4: TToolButton;
     ToolButton5: TToolButton;
     ToolButton6: TToolButton;
+    TbLineSize: TTrackBar;
+    procedure ActDecLineSizeExecute(Sender: TObject);
     procedure ActExitExecute(Sender: TObject);
     procedure ActFlipHorizontalExecute(Sender: TObject);
     procedure ActFlipVerticalExecute(Sender: TObject);
+    procedure ActIncLineSizeExecute(Sender: TObject);
     procedure ActNewExecute(Sender: TObject);
     procedure ActOpenExecute(Sender: TObject);
     procedure ActResizeCanvasExecute(Sender: TObject);
@@ -107,13 +111,14 @@ type
     procedure ActZoomInExecute(Sender: TObject);
     procedure ActZoomOutExecute(Sender: TObject);
     procedure BtnForeColorColorChanged(Sender: TObject);
-    procedure EdtLineSizeChange(Sender: TObject);
     procedure EdtZoomChange(Sender: TObject);
     procedure EdtZoomKeyPress(Sender: TObject; var Key: char);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
     procedure LCDrawPad1ImageChange(Sender: TObject);
+    procedure StatusBarMainResize(Sender: TObject);
+    procedure TbLineSizeChange(Sender: TObject);
   private
     { private declarations }
     fLastFileName: String;
@@ -121,6 +126,7 @@ type
     procedure UpdateCaption();
     procedure ResetControls();
     procedure SetZoomPercent(ZoomPercent: Integer);
+    procedure SetLineSize(LineSize: Byte);
     function CheckNeedSave(): Boolean;
   public
     { public declarations }
@@ -143,6 +149,11 @@ begin
   Close;
 end;
 
+procedure TFrmMain.ActDecLineSizeExecute(Sender: TObject);
+begin
+  TbLineSize.Position := TbLineSize.Position - 1;
+end;
+
 procedure TFrmMain.ActFlipHorizontalExecute(Sender: TObject);
 begin
   LCDrawPad1.Flip(fmHorizontal);
@@ -151,6 +162,11 @@ end;
 procedure TFrmMain.ActFlipVerticalExecute(Sender: TObject);
 begin
   LCDrawPad1.Flip(fmVertical);
+end;
+
+procedure TFrmMain.ActIncLineSizeExecute(Sender: TObject);
+begin
+  TbLineSize.Position := TbLineSize.Position + 1;
 end;
 
 procedure TFrmMain.ActNewExecute(Sender: TObject);
@@ -320,11 +336,6 @@ begin
   LCDrawPad1.ForeColor := BtnForeColor.ButtonColor;
 end;
 
-procedure TFrmMain.EdtLineSizeChange(Sender: TObject);
-begin
-  LCDrawPad1.LineSize := EdtLineSize.Value;
-end;
-
 procedure TFrmMain.EdtZoomChange(Sender: TObject);
 var
   NewZoom: Integer;
@@ -358,26 +369,37 @@ begin
   UpdateCaption;
 
   SetZoomPercent(LCDrawPad1.ZoomPercent);
+  SetLineSize(LCDrawPad1.LineSize);
   BtnForeColor.ButtonColor := LCDrawPad1.ForeColor;
-  EdtLineSize.Value := LCDrawPad1.LineSize;
+  TbLineSize.Position := LCDrawPad1.LineSize;
 
   {
 	  There is a bug in the IDE that does not allow Ctr+- and Ctrl++ be displayed. This code
     addresses that by only applying the shortcut keys if the IDE has been patched or permentantly fixed
   }
+
+  //Ctrl+-
   If ShortcutToText(KeyToShortCut(VK_SUBTRACT, [ssCtrl])) <> '' Then
   Begin
-    //Ctrl+-
     ActZoomOut.ShortCut := KeyToShortCut(VK_SUBTRACT, [ssCtrl]);
     ActZoomOut.SecondaryShortCuts.AddObject('Ctrl+-', TObject({%H-}Pointer(PtrUInt(KeyToShortCut(VK_OEM_MINUS, [ssCtrl])))));
   End;
 
+  //Ctrl++
   If ShortcutToText(KeyToShortCut(VK_ADD, [ssCtrl])) <> '' Then
   Begin
-    //Ctrl++
     ActZoomIn.ShortCut := KeyToShortCut(VK_ADD, [ssCtrl]);
     ActZoomIn.SecondaryShortCuts.AddObject('Ctrl++', TObject({%H-}Pointer(PtrUInt(KeyToShortCut(VK_OEM_PLUS, [ssCtrl])))));
   End;
+
+  //Ctrl+[
+  If ShortcutToText(KeyToShortCut(VK_OEM_4, [ssCtrl])) <> '' Then
+    ActDecLineSize.ShortCut := KeyToShortCut(VK_OEM_4, [ssCtrl]);
+
+  //Ctrl+]
+  If ShortcutToText(KeyToShortCut(VK_OEM_6, [ssCtrl])) <> '' Then
+    ActIncLineSize.ShortCut := KeyToShortCut(VK_OEM_6, [ssCtrl]);
+
 end;
 
 procedure TFrmMain.FormDropFiles(Sender: TObject; const FileNames: array of String);
@@ -402,6 +424,18 @@ procedure TFrmMain.LCDrawPad1ImageChange(Sender: TObject);
 begin
   ActSave.Enabled := Not LCDrawPad1.IsFreshImage;
   UpdateCaption;
+end;
+
+procedure TFrmMain.StatusBarMainResize(Sender: TObject);
+begin
+  StatusBarMain.Panels[0].Width := StatusBarMain.Width - StatusBarMain.Panels[1].Width - StatusBarMain.Panels[2].Width
+      - StatusBarMain.Panels[3].Width;
+end;
+
+procedure TFrmMain.TbLineSizeChange(Sender: TObject);
+begin
+  LCDrawPad1.LineSize := TbLineSize.Position;
+  SetLineSize(LCDrawPad1.LineSize);
 end;
 
 
@@ -432,8 +466,13 @@ end;
 
 procedure TFrmMain.SetZoomPercent(ZoomPercent: Integer);
 begin
-  StatusBarMain.Panels[0].Text:= Format('Zoom %d%%     ', [ZoomPercent]);
+  StatusBarMain.Panels[2].Text:= Format('Zoom %d%%', [ZoomPercent]);
   EdtZoom.Text := IntToStr(ZoomPercent);
+end;
+
+procedure TFrmMain.SetLineSize(LineSize: Byte);
+begin
+  StatusBarMain.Panels[1].Text:= Format('Line Size %dpx', [LineSize]);
 end;
 
 function TFrmMain.CheckNeedSave(): Boolean;

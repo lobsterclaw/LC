@@ -1,7 +1,7 @@
 object FrmMain: TFrmMain
-  Left = 516
+  Left = 522
   Height = 691
-  Top = 223
+  Top = 186
   Width = 825
   AllowDropFiles = True
   Caption = 'Lobster Draw'
@@ -163,22 +163,23 @@ object FrmMain: TFrmMain
       Caption = 'ToolButton14'
       Style = tbsSeparator
     end
-    object EdtLineSize: TSpinEdit
-      Left = 461
-      Height = 28
-      Hint = 'Line Size'
-      Top = 0
-      Width = 68
-      MaxValue = 200
-      MinValue = 1
-      OnChange = EdtLineSizeChange
-      TabOrder = 1
-      Value = 1
-    end
     object ToolButton15: TToolButton
       Left = 92
       Top = 0
       Action = ActResizeImage
+    end
+    object TbLineSize: TTrackBar
+      Left = 461
+      Height = 26
+      Top = 0
+      Width = 131
+      Frequency = 10
+      Max = 250
+      Min = 1
+      OnChange = TbLineSizeChange
+      PageSize = 5
+      Position = 1
+      TabOrder = 1
     end
   end
   object StatusBarMain: TStatusBar
@@ -189,10 +190,23 @@ object FrmMain: TFrmMain
     Panels = <    
       item
         Alignment = taRightJustify
-        Text = 'Zoom       '
         Width = 100
+      end    
+      item
+        Alignment = taCenter
+        Text = 'Line Size'
+        Width = 120
+      end    
+      item
+        Alignment = taCenter
+        Text = 'Zoom'
+        Width = 100
+      end    
+      item
+        Width = 40
       end>
     SimplePanel = False
+    OnResize = StatusBarMainResize
   end
   object MainMenu1: TMainMenu
     Images = ImageList1
@@ -761,6 +775,18 @@ object FrmMain: TFrmMain
       Hint = 'Flip Vertical'
       ImageIndex = 8
       OnExecute = ActFlipVerticalExecute
+    end
+    object ActDecLineSize: TAction
+      Category = 'Edit'
+      Caption = 'Decrease Line Size'
+      Hint = 'Decrease Line Size'
+      OnExecute = ActDecLineSizeExecute
+    end
+    object ActIncLineSize: TAction
+      Category = 'Edit'
+      Caption = 'Increase Line Size'
+      Hint = 'Increase Line Size'
+      OnExecute = ActIncLineSizeExecute
     end
   end
   object ImageList1: TImageList
