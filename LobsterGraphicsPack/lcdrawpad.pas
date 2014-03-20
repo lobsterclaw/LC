@@ -42,7 +42,10 @@ type
     fCanvasImage: TBGRABitmap;
     fMouseDrawing: boolean;
     fMouseOrigin: TPoint;
-    fForeColor: TColor;
+    fBackgroundColor1: TColor;
+    fBackgroundColor2: TColor;
+    fFillColor: TColor;
+    fLineColor: TColor;
     fLineSize: Byte;
     fZoomPercent: Integer;
     fCanvasWidth: Integer;
@@ -65,6 +68,8 @@ type
     procedure SetCanvasHeight(CanvasHeight: Integer);
     procedure SetCanvasWidth(CanvasWidth: Integer);
     procedure SetZoomPercent(ZoomPercent: Integer);
+    procedure SetBackgroundColor1(BackgroundColor1: TColor);
+    procedure SetBackgroundColor2(BackgroundColor2: TColor);
     procedure SetCanvasColor(CanvasColor: TColor);
     procedure SetCanvasPosition(CanvasPosition: TCanvasPosition);
   protected
@@ -94,7 +99,10 @@ type
     procedure LoadFromBitmap(ABitmap: TBitmap);
   published
     { Published declarations }
-    property ForeColor: TColor read fForeColor write fForeColor;
+    property BackgroundColor1: TColor read fBackgroundColor1 write SetBackgroundColor1;
+    property BackgroundColor2: TColor read fBackgroundColor2 write SetBackgroundColor2;
+    property FillColor: TColor read fFillColor write fFillColor;
+    property LineColor: TColor read fLineColor write fLineColor;
     property LineSize: Byte read fLineSize write SetLineSize;
     property ZoomPercent: Integer read fZoomPercent write SetZoomPercent;
     property CanvasWidth: Integer read fCanvasWidth write SetCanvasWidth;
@@ -120,7 +128,6 @@ type
     property Anchors;
     property AutoSize;
     property BorderSpacing;
-    property Color;
     property Constraints;
     property DragCursor;
     property DragKind;
@@ -205,7 +212,7 @@ procedure TLCCustomDrawPad.Draw(X, Y: Integer; Closed: boolean);
 var
   ratio: Double;
   adjOrigin, adjDest, imagePos: TPoint;
-  lForeColor: TBGRAPixel;
+  lLineColor: TBGRAPixel;
 begin
   imagePos := GetImagePos();
   ratio := fZoomPercent / 100;
@@ -213,12 +220,12 @@ begin
   adjOrigin := Point(Round((fMouseOrigin.X - imagePos.X) / ratio), Round((fMouseOrigin.Y - imagePos.Y) / ratio));
   adjDest := Point(Round((X - imagePos.X) / ratio), Round((Y - imagePos.Y) / ratio));
 
-  lForeColor := ColorToBGRA(ColorToRGB(MapDefaultColor(fForeColor, clBlack)));
-  lForeColor.alpha:= 255;
+  lLineColor := ColorToBGRA(ColorToRGB(MapDefaultColor(fLineColor, clBlack)));
+  lLineColor.alpha:= 255;
 
   //fCanvasImage.PenStyle := psDash;
   //fCanvasImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, BGRA(0,0,0,128), LineSize, true);
-  fCanvasImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, lForeColor, fLineSize, true);
+  fCanvasImage.DrawLineAntialias(adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, lLineColor, fLineSize, true);
 	//fCanvasImage.Canvas2D.;
   //drawCrayonLine(fCanvasImage.Canvas2D, adjOrigin.X, adjOrigin.Y, adjDest.X, adjDest.Y, BGRA(255,0,0, 255), BGRA(0,0,0, 255), '');
 
@@ -401,6 +408,24 @@ begin
   DoZoomChange;
 end;
 
+procedure TLCCustomDrawPad.SetBackgroundColor1(BackgroundColor1: TColor);
+begin
+  if fBackgroundColor1 = BackgroundColor1 Then
+    Exit;
+
+  fBackgroundColor1 := BackgroundColor1;
+  Invalidate;
+end;
+
+procedure TLCCustomDrawPad.SetBackgroundColor2(BackgroundColor2: TColor);
+begin
+  if fBackgroundColor2 = BackgroundColor2 Then
+    Exit;
+
+  fBackgroundColor2 := BackgroundColor2;
+  Invalidate;
+end;
+
 procedure TLCCustomDrawPad.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   inherited;
@@ -430,6 +455,11 @@ end;
 
 procedure TLCCustomDrawPad.Paint();
 begin
+  if ((fBackgroundColor1 <> clNone) and (fBackgroundColor1 <> clDefault)) then
+  begin
+    Canvas.Brush.Color := fBackgroundColor1;
+    Canvas.FillRect(0, 0, Canvas.Width, Canvas.Height);
+  end;
   PaintImage;
 end;
 
@@ -651,9 +681,12 @@ constructor TLCCustomDrawPad.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
 
+  fBackgroundColor1 := clNone;
+  fBackgroundColor2 := clNone;
+
   fMouseDrawing := false;
   fMouseOrigin := Point(0, 0);
-  fForeColor := clBlack;
+  fLineColor := clBlack;
   fLineSize := 10;
 
   fZoomPercent := 100;

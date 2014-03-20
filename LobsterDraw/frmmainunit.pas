@@ -48,7 +48,7 @@ type
     ActNew: TAction;
     ActOpen: TAction;
     ActionList1: TActionList;
-    BtnForeColor: TColorButton;
+    BtnLineColor: TColorButton;
     EdtZoom: TEdit;
     ImageList1: TImageList;
     LCDrawPad1: TLCDrawPad;
@@ -110,7 +110,7 @@ type
     procedure ActSaveExecute(Sender: TObject);
     procedure ActZoomInExecute(Sender: TObject);
     procedure ActZoomOutExecute(Sender: TObject);
-    procedure BtnForeColorColorChanged(Sender: TObject);
+    procedure BtnLineColorColorChanged(Sender: TObject);
     procedure EdtZoomChange(Sender: TObject);
     procedure EdtZoomKeyPress(Sender: TObject; var Key: char);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -125,8 +125,8 @@ type
     function GetDocumentTitle(): String;
     procedure UpdateCaption();
     procedure ResetControls();
-    procedure SetZoomPercent(ZoomPercent: Integer);
-    procedure SetLineSize(LineSize: Byte);
+    procedure UpdateZoomPercent(ZoomPercent: Integer);
+    procedure UpdateLineSize(LineSize: Byte);
     function CheckNeedSave(): Boolean;
   public
     { public declarations }
@@ -307,7 +307,7 @@ begin
     NewZoom := IncRoundUp(NewZoom, 100);
 
   LCDrawPad1.ZoomPercent := NewZoom;
-  SetZoomPercent(LCDrawPad1.ZoomPercent);
+  UpdateZoomPercent(LCDrawPad1.ZoomPercent);
 end;
 
 procedure TFrmMain.ActZoomOutExecute(Sender: TObject);
@@ -328,12 +328,12 @@ begin
     NewZoom := IncRoundDown(NewZoom, 100);
 
   LCDrawPad1.ZoomPercent := NewZoom;
-  SetZoomPercent(LCDrawPad1.ZoomPercent);
+  UpdateZoomPercent(LCDrawPad1.ZoomPercent);
 end;
 
-procedure TFrmMain.BtnForeColorColorChanged(Sender: TObject);
+procedure TFrmMain.BtnLineColorColorChanged(Sender: TObject);
 begin
-  LCDrawPad1.ForeColor := BtnForeColor.ButtonColor;
+  LCDrawPad1.LineColor := BtnLineColor.ButtonColor;
 end;
 
 procedure TFrmMain.EdtZoomChange(Sender: TObject);
@@ -345,7 +345,7 @@ begin
     If LCDrawPad1.ZoomPercent <> NewZoom Then
     Begin
       LCDrawPad1.ZoomPercent := NewZoom;
-      SetZoomPercent(LCDrawPad1.ZoomPercent);
+      UpdateZoomPercent(LCDrawPad1.ZoomPercent);
     End;
   End;
 end;
@@ -368,9 +368,9 @@ begin
 
   UpdateCaption;
 
-  SetZoomPercent(LCDrawPad1.ZoomPercent);
-  SetLineSize(LCDrawPad1.LineSize);
-  BtnForeColor.ButtonColor := LCDrawPad1.ForeColor;
+  UpdateZoomPercent(LCDrawPad1.ZoomPercent);
+  UpdateLineSize(LCDrawPad1.LineSize);
+  BtnLineColor.ButtonColor := LCDrawPad1.LineColor;
   TbLineSize.Position := LCDrawPad1.LineSize;
 
   {
@@ -435,7 +435,7 @@ end;
 procedure TFrmMain.TbLineSizeChange(Sender: TObject);
 begin
   LCDrawPad1.LineSize := TbLineSize.Position;
-  SetLineSize(LCDrawPad1.LineSize);
+  UpdateLineSize(LCDrawPad1.LineSize);
 end;
 
 
@@ -461,16 +461,16 @@ procedure TFrmMain.ResetControls;
 begin
   FrmResize.Reset();
   LCDrawPad1.ZoomPercent := 100;
-  SetZoomPercent(LCDrawPad1.ZoomPercent);
+  UpdateZoomPercent(LCDrawPad1.ZoomPercent);
 end;
 
-procedure TFrmMain.SetZoomPercent(ZoomPercent: Integer);
+procedure TFrmMain.UpdateZoomPercent(ZoomPercent: Integer);
 begin
   StatusBarMain.Panels[2].Text:= Format('Zoom %d%%', [ZoomPercent]);
   EdtZoom.Text := IntToStr(ZoomPercent);
 end;
 
-procedure TFrmMain.SetLineSize(LineSize: Byte);
+procedure TFrmMain.UpdateLineSize(LineSize: Byte);
 begin
   StatusBarMain.Panels[1].Text:= Format('Line Size %dpx', [LineSize]);
 end;
