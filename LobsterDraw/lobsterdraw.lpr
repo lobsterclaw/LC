@@ -27,7 +27,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, FrmMainUnit, FrmResizeUnit
   { you can add units after this }
-  ,bgraanimatedgif, FrmResampleUnit;
+  , FrmResampleUnit;
 
 {$R *.res}
 

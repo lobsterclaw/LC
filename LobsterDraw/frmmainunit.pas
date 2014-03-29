@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ActnList, ExtCtrls, Buttons, ComCtrls, StdCtrls, LCDrawPad;
+  ActnList, ExtCtrls, Buttons, ComCtrls, StdCtrls, ExtDlgs, LCDrawPad;
 
 type
 
@@ -73,8 +73,8 @@ type
     MnuSave: TMenuItem;
     MnuNew: TMenuItem;
     MnuOpen: TMenuItem;
-    OpenDialog1: TOpenDialog;
-    SaveDialog1: TSaveDialog;
+    OpenPictureDialog1: TOpenPictureDialog;
+    SavePictureDialog1: TSavePictureDialog;
     ScrollBox1: TScrollBox;
     StatusBarMain: TStatusBar;
     ToolBar1: TToolBar;
@@ -184,16 +184,15 @@ procedure TFrmMain.ActOpenExecute(Sender: TObject);
 begin
   If CheckNeedSave() Then
   Begin
-    OpenDialog1.Execute;
-    if (OpenDialog1.FileName <> '') And FileExistsUTF8(OpenDialog1.FileName) then
+    if OpenPictureDialog1.Execute And (OpenPictureDialog1.FileName <> '') And FileExistsUTF8(OpenPictureDialog1.FileName) then
     Begin
       try
-        LCDrawPad1.LoadFromFile(OpenDialog1.FileName);
-        fLastFileName := OpenDialog1.FileName;
+        LCDrawPad1.LoadFromFile(OpenPictureDialog1.FileName);
+        fLastFileName := OpenPictureDialog1.FileName;
         UpdateCaption;
         ResetControls;
       except
-        ShowMessage('Error: Unable to load from file ' + ExtractFileName(OpenDialog1.FileName));
+        ShowMessage('Error: Unable to load from file ' + ExtractFileName(OpenPictureDialog1.FileName));
       end;
     end;
   End;
@@ -239,15 +238,14 @@ end;
 procedure TFrmMain.ActSaveAsExecute(Sender: TObject);
 begin
   If (fLastFileName <> '') And FileExistsUTF8(fLastFileName) Then
-    SaveDialog1.FileName := fLastFileName;
+    SavePictureDialog1.FileName := fLastFileName;
 
-  SaveDialog1.Options := SaveDialog1.Options + [ofOverwritePrompt];
+  SavePictureDialog1.Options := SavePictureDialog1.Options + [ofOverwritePrompt];
   try
-    SaveDialog1.Execute;
-    if (SaveDialog1.FileName <> '') then
+    if SavePictureDialog1.Execute And (SavePictureDialog1.FileName <> '') then
     Begin
-      LCDrawPad1.SaveToFile(SaveDialog1.FileName);
-      fLastFileName := SaveDialog1.FileName;
+      LCDrawPad1.SaveToFile(SavePictureDialog1.FileName);
+      fLastFileName := SavePictureDialog1.FileName;
       ActSave.Enabled := False;
       UpdateCaption;
     End;

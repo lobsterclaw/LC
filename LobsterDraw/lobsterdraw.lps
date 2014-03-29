@@ -4,15 +4,17 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="16">
+    <Units Count="21">
       <Unit0>
         <Filename Value="lobsterdraw.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="lobsterdraw"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
-        <CursorPos X="36" Y="28"/>
+        <CursorPos X="3" Y="30"/>
         <UsageCount Value="208"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="frmmainunit.pas"/>
@@ -23,8 +25,8 @@
         <UnitName Value="FrmMainUnit"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="446"/>
-        <CursorPos X="34" Y="473"/>
+        <TopLine Value="62"/>
+        <CursorPos X="37" Y="76"/>
         <UsageCount Value="208"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -36,7 +38,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmResizeUnit"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="54" Y="74"/>
@@ -51,7 +53,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmResampleUnit"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="90"/>
         <CursorPos X="27" Y="102"/>
@@ -62,7 +64,7 @@
       <Unit4>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgradefaultbitmap.pas"/>
         <UnitName Value="BGRADefaultBitmap"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="395"/>
         <CursorPos X="14" Y="411"/>
@@ -72,7 +74,7 @@
       <Unit5>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgrabitmaptypes.pas"/>
         <UnitName Value="BGRABitmapTypes"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="3" Y="85"/>
@@ -82,18 +84,17 @@
       <Unit6>
         <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
         <UnitName Value="LCDrawPad"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="443"/>
-        <CursorPos X="43" Y="445"/>
+        <TopLine Value="11"/>
+        <CursorPos X="74" Y="420"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\LobsterGraphicsPack\lcutils.pas"/>
         <UnitName Value="LCUtils"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="13" Y="20"/>
@@ -103,7 +104,7 @@
       <Unit8>
         <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
         <UnitName Value="LCLType"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="545"/>
         <CursorPos X="31" Y="592"/>
@@ -116,11 +117,11 @@
         <WindowIndex Value="0"/>
         <TopLine Value="345"/>
         <CursorPos X="24" Y="352"/>
-        <UsageCount Value="102"/>
+        <UsageCount Value="91"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus\lcl\include\customactionlist.inc"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="129"/>
         <CursorPos X="52" Y="141"/>
@@ -129,7 +130,7 @@
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus\lcl\include\shortcutlist.inc"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="10" Y="25"/>
@@ -139,7 +140,7 @@
       <Unit12>
         <Filename Value="C:\lazarus\lcl\lclproc.pas"/>
         <UnitName Value="LCLProc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="496"/>
         <CursorPos X="29" Y="514"/>
@@ -149,7 +150,7 @@
       <Unit13>
         <Filename Value="C:\lazarus\components\colorpalette\colorpalette.pas"/>
         <UnitName Value="ColorPalette"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="100"/>
         <CursorPos X="1" Y="131"/>
@@ -161,140 +162,180 @@
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="1" Y="50"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="39"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\lazarus\lcl\include\radiobutton.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
         <CursorPos X="1" Y="83"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="39"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="C:\lazarus\lcl\extdlgs.pas"/>
+        <UnitName Value="ExtDlgs"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="371"/>
+        <CursorPos X="29" Y="383"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="C:\lazarus\lcl\graphics.pp"/>
+        <UnitName Value="Graphics"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1882"/>
+        <CursorPos X="23" Y="1898"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="C:\lazarus\lcl\include\graphicsobject.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="C:\lazarus\lcl\include\graphic.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="301"/>
+        <CursorPos X="27" Y="317"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit20>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="462" Column="17" TopLine="435"/>
+        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
+        <Caret Line="64" Column="20" TopLine="50"/>
       </Position1>
       <Position2>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="8" Column="77" TopLine="1"/>
+        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
+        <Caret Line="87" Column="20" TopLine="62"/>
       </Position2>
       <Position3>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="128" Column="29" TopLine="102"/>
+        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
+        <Caret Line="241" Column="33" TopLine="215"/>
       </Position3>
       <Position4>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="310" Column="17" TopLine="283"/>
+        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
+        <Caret Line="459" Column="8" TopLine="454"/>
       </Position4>
       <Position5>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="331" Column="17" TopLine="304"/>
+        <Caret Line="473" Column="34" TopLine="1"/>
       </Position5>
       <Position6>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="348" Column="21" TopLine="321"/>
+        <Caret Line="474" Column="34" TopLine="442"/>
       </Position6>
       <Position7>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="372" Column="36" TopLine="344"/>
+        <Caret Line="475" Column="34" TopLine="443"/>
       </Position7>
       <Position8>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="72" Column="51" TopLine="47"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="474" Column="34" TopLine="442"/>
       </Position8>
       <Position9>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="422" Column="42" TopLine="396"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="473" Column="34" TopLine="441"/>
       </Position9>
       <Position10>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="228" Column="87" TopLine="207"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="445" Column="25" TopLine="441"/>
       </Position10>
       <Position11>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="425" Column="22" TopLine="400"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="26" Column="65" TopLine="10"/>
       </Position11>
       <Position12>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="400" Column="60" TopLine="393"/>
+        <Caret Line="76" Column="43" TopLine="50"/>
       </Position12>
       <Position13>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="336" Column="30" TopLine="320"/>
+        <Caret Line="77" Column="43" TopLine="51"/>
       </Position13>
       <Position14>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="379" Column="46" TopLine="363"/>
+        <Caret Line="187" Column="16" TopLine="160"/>
       </Position14>
       <Position15>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="335" Column="1" TopLine="335"/>
+        <Caret Line="196" Column="92" TopLine="169"/>
       </Position15>
       <Position16>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="104" Column="55" TopLine="98"/>
+        <Caret Line="76" Column="37" TopLine="62"/>
       </Position16>
       <Position17>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="467" Column="34" TopLine="459"/>
+        <Filename Value="C:\lazarus\lcl\extdlgs.pas"/>
+        <Caret Line="383" Column="31" TopLine="371"/>
       </Position17>
       <Position18>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="128" Column="29" TopLine="113"/>
+        <Filename Value="C:\lazarus\lcl\graphics.pp"/>
+        <Caret Line="1894" Column="51" TopLine="1883"/>
       </Position18>
       <Position19>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="310" Column="17" TopLine="283"/>
+        <Filename Value="C:\lazarus\lcl\graphics.pp"/>
+        <Caret Line="2703" Column="15" TopLine="2698"/>
       </Position19>
       <Position20>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="331" Column="17" TopLine="304"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position20>
       <Position21>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="348" Column="21" TopLine="321"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="320" Column="49" TopLine="310"/>
       </Position21>
       <Position22>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="371" Column="17" TopLine="344"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="29" Column="22" TopLine="16"/>
       </Position22>
       <Position23>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="464" Column="17" TopLine="437"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="20" Column="24" TopLine="14"/>
       </Position23>
       <Position24>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="467" Column="34" TopLine="440"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="29" Column="22" TopLine="14"/>
       </Position24>
       <Position25>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="473" Column="31" TopLine="451"/>
+        <Filename Value="C:\lazarus\lcl\extdlgs.pas"/>
+        <Caret Line="383" Column="29" TopLine="371"/>
       </Position25>
       <Position26>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="680" Column="20" TopLine="405"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="336" Column="39" TopLine="317"/>
       </Position26>
       <Position27>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="64" Column="20" TopLine="50"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="43" Column="33" TopLine="27"/>
       </Position27>
       <Position28>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="87" Column="20" TopLine="62"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="191" Column="22" TopLine="73"/>
       </Position28>
       <Position29>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="241" Column="33" TopLine="215"/>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <Caret Line="336" Column="20" TopLine="316"/>
       </Position29>
-      <Position30>
-        <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
-        <Caret Line="459" Column="8" TopLine="454"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

@@ -1219,16 +1219,15 @@ object FrmMain: TFrmMain
       DF00DFDFDF00DFDFDF00DFDFDF00
     }
   end
-  object OpenDialog1: TOpenDialog
-    DefaultExt = '.png'
-    Filter = 'Portable Network Graphic (*.png)|*.png|Bitmap (*.bmp)|*.bmp|Graphic Interchange Format (*.gif)|*.gif|Jpeg (*.jpg,*.jpeg)|*.jpg,*.jpeg'
-    left = 106
-    top = 155
+  object OpenPictureDialog1: TOpenPictureDialog
+    Filter = 'Graphic (*.bmp,*.gif,*.jpg;*.jpeg;*.jpe;*.jfif,*.png,*.pbm;*.pgm;*.ppm,*.tif;*.tiff)|*.bmp;*.gif;*.jpg;*.jpeg;*.jpe;*.jfif;*.png;*.pbm;*.pgm;*.ppm;*.tif;*.tiff|Bitmaps (*.bmp)|*.bmp|Graphics Interchange Format (*.gif)|*.gif|Joint Picture Expert Group (*.jpg;*.jpeg;*.jpe;*.jfif)|*.jpg;*.jpeg;*.jpe;*.jfif|Portable Network Graphics (*.png)|*.png|Portable PixMap (*.pbm;*.pgm;*.ppm)|*.pbm;*.pgm;*.ppm|Tagged Image File Format (*.tif;*.tiff)|*.tif;*.tiff|All files (*.*)|*.*|'
+    left = 112
+    top = 184
   end
-  object SaveDialog1: TSaveDialog
-    DefaultExt = '.png'
-    Filter = 'Portable Network Graphic (*.png)|*.png|Bitmap (*.bmp)|*.bmp|Graphic Interchange Format (*.gif)|*.gif|Jpeg (*.jpg,*.jpeg)|*.jpg,*.jpeg'
-    left = 173
-    top = 165
+  object SavePictureDialog1: TSavePictureDialog
+    Filter = 'Graphic (*.bmp,*.gif,*.jpg;*.jpeg;*.jpe;*.jfif,*.png,*.pbm;*.pgm;*.ppm,*.tif;*.tiff)|*.bmp;*.gif;*.jpg;*.jpeg;*.jpe;*.jfif;*.png;*.pbm;*.pgm;*.ppm;*.tif;*.tiff|Bitmaps (*.bmp)|*.bmp|Graphics Interchange Format (*.gif)|*.gif|Joint Picture Expert Group (*.jpg;*.jpeg;*.jpe;*.jfif)|*.jpg;*.jpeg;*.jpe;*.jfif|Portable Network Graphics (*.png)|*.png|Portable PixMap (*.pbm;*.pgm;*.ppm)|*.pbm;*.pgm;*.ppm|Tagged Image File Format (*.tif;*.tiff)|*.tif;*.tiff|All files (*.*)|*.*|'
+    FilterIndex = 6
+    left = 192
+    top = 152
   end
 end
