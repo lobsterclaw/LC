@@ -116,6 +116,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
+    procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure LCDrawPad1ImageChange(Sender: TObject);
     procedure StatusBarMainResize(Sender: TObject);
     procedure TbLineSizeChange(Sender: TObject);
@@ -236,16 +237,24 @@ begin
 end;
 
 procedure TFrmMain.ActSaveAsExecute(Sender: TObject);
+var
+  FileName: String;
 begin
   If (fLastFileName <> '') And FileExistsUTF8(fLastFileName) Then
-    SavePictureDialog1.FileName := fLastFileName;
+  Begin
+    SavePictureDialog1.InitialDir := ExtractFileDir(fLastFileName);
+    SavePictureDialog1.FileName := ExtractFileNameOnly(fLastFileName);
+  end;
 
   SavePictureDialog1.Options := SavePictureDialog1.Options + [ofOverwritePrompt];
   try
     if SavePictureDialog1.Execute And (SavePictureDialog1.FileName <> '') then
     Begin
-      LCDrawPad1.SaveToFile(SavePictureDialog1.FileName);
-      fLastFileName := SavePictureDialog1.FileName;
+      FileName := SavePictureDialog1.FileName;
+      If ExtractFileExt(FileName) = '' Then //just in case
+        FileName := FileName + '.png';
+      LCDrawPad1.SaveToFile(FileName);
+      fLastFileName := FileName;
       ActSave.Enabled := False;
       UpdateCaption;
     End;
@@ -260,6 +269,7 @@ begin
   Begin
     LCDrawPad1.SaveToFile(fLastFileName);
     ActSave.Enabled := False;
+    UpdateCaption();
   end
   Else
     ActSaveAsExecute(Sender);
@@ -372,8 +382,8 @@ begin
   TbLineSize.Position := LCDrawPad1.LineSize;
 
   {
-	  There is a bug in the IDE that does not allow Ctr+- and Ctrl++ be displayed. This code
-    addresses that by only applying the shortcut keys if the IDE has been patched or permentantly fixed
+	  There is a bug in the LCL that does not allow Ctr+- and Ctrl++ be displayed. This code
+    addresses that by only applying the shortcut keys if the LCL has been patched or permentantly fixed
   }
 
   //Ctrl+-
@@ -389,14 +399,6 @@ begin
     ActZoomIn.ShortCut := KeyToShortCut(VK_ADD, [ssCtrl]);
     ActZoomIn.SecondaryShortCuts.AddObject('Ctrl++', TObject({%H-}Pointer(PtrUInt(KeyToShortCut(VK_OEM_PLUS, [ssCtrl])))));
   End;
-
-  //[
-  If ShortcutToText(KeyToShortCut(VK_OEM_4, [])) <> '' Then
-    ActDecLineSize.ShortCut := KeyToShortCut(VK_OEM_4, []);
-
-  //]
-  If ShortcutToText(KeyToShortCut(VK_OEM_6, [])) <> '' Then
-    ActIncLineSize.ShortCut := KeyToShortCut(VK_OEM_6, []);
 
 end;
 
@@ -416,6 +418,14 @@ begin
       end;
     end;
   End;
+end;
+
+procedure TFrmMain.FormKeyPress(Sender: TObject; var Key: char);
+begin
+  If Key = '[' Then
+    TbLineSize.Position := TbLineSize.Position - 1
+  Else If Key = ']' Then
+    TbLineSize.Position := TbLineSize.Position + 1;
 end;
 
 procedure TFrmMain.LCDrawPad1ImageChange(Sender: TObject);
