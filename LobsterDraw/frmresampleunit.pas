@@ -176,7 +176,12 @@ begin
   if CbConstrain.Checked then
   begin
     fIsEditing := True;
-    EdtHeight.Value := Round(EdtWidth.Value / fAspectRatio);
+
+    if RbPixels.Checked then  //pixels
+      EdtHeight.Value := Round(EdtWidth.Value / fAspectRatio)
+    else //percent
+      EdtHeight.Value := EdtWidth.Value;
+
     fIsEditing := False;
   end;
 end;

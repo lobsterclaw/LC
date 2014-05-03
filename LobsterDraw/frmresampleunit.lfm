@@ -1,7 +1,7 @@
 object FrmResample: TFrmResample
-  Left = 1038
+  Left = 1448
   Height = 249
-  Top = 417
+  Top = 646
   Width = 335
   BorderStyle = bsDialog
   Caption = 'Resize Image'
@@ -11,6 +11,7 @@ object FrmResample: TFrmResample
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
+  ShowInTaskBar = stNever
   LCLVersion = '1.0.14.0'
   object GrpResize: TGroupBox
     Left = 16

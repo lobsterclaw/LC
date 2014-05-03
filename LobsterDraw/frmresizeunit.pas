@@ -33,9 +33,10 @@ type
   TFrmResize = class(TForm)
     BtnOkay: TButton;
     BtnCancel: TButton;
-    EdtHeight: TSpinEdit;
+    CbConstrain: TCheckBox;
+    EdtHeight: TFloatSpinEdit;
+    EdtWidth: TFloatSpinEdit;
     GrpResize: TGroupBox;
-    EdtWidth: TSpinEdit;
     LblEdit1: TLabel;
     LblEdit2: TLabel;
     LblHeight: TLabel;
@@ -51,6 +52,8 @@ type
     BtnLowerLeft: TSpeedButton;
     BtnLowerCenter: TSpeedButton;
     BtnLowerRight: TSpeedButton;
+    RbPercent: TRadioButton;
+    RbPixels: TRadioButton;
     procedure BtnLowerCenterPaint(Sender: TObject);
     procedure BtnLowerLeftPaint(Sender: TObject);
     procedure BtnLowerRightPaint(Sender: TObject);
@@ -59,7 +62,11 @@ type
     procedure BtnMiddleRightPaint(Sender: TObject);
     procedure BtnUpperCenterPaint(Sender: TObject);
     procedure BtnUpperRightPaint(Sender: TObject);
-    procedure EdtDimensionsChange(Sender: TObject);
+    procedure CbConstrainChange(Sender: TObject);
+    procedure EdtHeightChange(Sender: TObject);
+    procedure EdtWidthChange(Sender: TObject);
+    procedure RbPercentChange(Sender: TObject);
+    procedure RbPixelsChange(Sender: TObject);
     procedure SpeedButtonClick(Sender: TObject);
     procedure BtnUpperLeftPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -67,6 +74,9 @@ type
   private
     { private declarations }
     fOrigWidth, fOrigHeight: Integer;
+    fIsEditing: Boolean;
+    fAspectRatio: Double;
+    fPreviousPercent, fPreviousPixels: Boolean;
     procedure DrawArrow(BeginPoint, EndPoint: TPoint; ACanvas: TCanvas);
     procedure DrawCircle(Rect: TRect; ACanvas: TCanvas); overload;
     procedure DrawCircle(SpeedButton: TSpeedButton); overload;
@@ -82,6 +92,8 @@ type
     { public declarations }
     function GetSelectedAnchor(): TCanvasPosition;
     procedure Reset();
+    function GetWidthAsValue: Integer;
+    function GetHeightAsValue: Integer;
   end;
 
 var
@@ -96,12 +108,131 @@ uses
 
 { TFrmResize }
 
-procedure TFrmResize.SpeedButtonClick(Sender: TObject);
+procedure TFrmResize.FormCreate(Sender: TObject);
 begin
-  PnlAnchors.Invalidate;
+  fOrigWidth := 640;
+  fOrigHeight := 480;
+  fIsEditing := False;
+  fAspectRatio := 1.0;
 end;
 
-procedure TFrmResize.EdtDimensionsChange(Sender: TObject);
+procedure TFrmResize.FormShow(Sender: TObject);
+begin
+  fIsEditing := True;
+  fOrigWidth := Round(EdtWidth.Value);
+  fOrigHeight := Round(EdtHeight.Value);
+  fAspectRatio := EdtWidth.Value / EdtHeight.Value;
+  fIsEditing := False;
+end;
+
+procedure TFrmResize.RbPercentChange(Sender: TObject);
+begin
+  if (fPreviousPercent = RbPercent.Checked) or fIsEditing then Exit;
+  fIsEditing := True;
+
+  if RbPercent.Checked then
+  begin
+    EdtWidth.DecimalPlaces := 1;
+    EdtHeight.DecimalPlaces := 1;
+    EdtWidth.Value := Round((EdtWidth.Value / fOrigWidth) * 1000) / 10.0;
+    EdtHeight.Value := Round((EdtHeight.Value / fOrigHeight) * 1000) / 10.0;
+    EdtWidth.MaxValue := Round(4000 / fOrigWidth * 100);
+    EdtHeight.MaxValue := Round(4000 / fOrigHeight * 100);
+    LblEdit1.Caption := '%';
+    LblEdit2.Caption := '%';
+  end;
+
+  fPreviousPercent := RbPercent.Checked;
+  fIsEditing := False;
+end;
+
+procedure TFrmResize.RbPixelsChange(Sender: TObject);
+begin
+  if (fPreviousPixels = RbPixels.Checked) or fIsEditing then Exit;
+  fIsEditing := True;
+
+  if RbPixels.Checked then
+  begin
+    EdtWidth.MaxValue := 4000;
+    EdtHeight.MaxValue := 4000;
+    EdtWidth.Value := Round((EdtWidth.Value * fOrigWidth) / 100);
+    EdtHeight.Value := Round((EdtHeight.Value * fOrigHeight) / 100);
+    EdtWidth.DecimalPlaces := 0;
+    EdtHeight.DecimalPlaces := 0;
+    LblEdit1.Caption := 'pixels';
+    LblEdit2.Caption := 'pixels';
+  end;
+
+  fPreviousPixels := RbPixels.Checked;
+  fIsEditing := False;
+end;
+
+function TFrmResize.GetWidthAsValue: Integer;
+begin
+  if RbPixels.Checked then
+    Result := Round(EdtWidth.Value)
+  else
+    Result := Round(fOrigWidth * (EdtWidth.Value / 100));
+end;
+
+function TFrmResize.GetHeightAsValue: Integer;
+begin
+  if RbPixels.Checked then
+    Result := Round(EdtHeight.Value)
+  else
+    Result := Round(fOrigHeight * (EdtHeight.Value / 100));
+end;
+
+procedure TFrmResize.EdtWidthChange(Sender: TObject);
+begin
+  if fIsEditing then Exit;
+  fIsEditing := True;
+
+  if CbConstrain.Checked then
+    if RbPixels.Checked then  //pixels
+      EdtHeight.Value := Round(EdtWidth.Value / fAspectRatio)
+    else //percent
+      EdtHeight.Value := EdtWidth.Value;
+
+  PnlAnchors.Invalidate;
+
+  fIsEditing := False;
+end;
+
+procedure TFrmResize.EdtHeightChange(Sender: TObject);
+begin
+  if fIsEditing then Exit;
+  fIsEditing := True;
+
+  if CbConstrain.Checked then
+    if RbPixels.Checked then  //pixels
+      EdtWidth.Value := Round(EdtHeight.Value * fAspectRatio)
+    else //percent
+      EdtWidth.Value := EdtHeight.Value;
+
+  PnlAnchors.Invalidate;
+
+  fIsEditing := False;
+end;
+
+procedure TFrmResize.CbConstrainChange(Sender: TObject);
+begin
+  if CbConstrain.Checked then
+  begin
+    fIsEditing := True;
+
+    if RbPixels.Checked then  //pixels
+      EdtHeight.Value := Round(EdtWidth.Value / fAspectRatio)
+    else //percent
+      EdtHeight.Value := EdtWidth.Value;
+
+    PnlAnchors.Invalidate;
+
+    fIsEditing := False;
+  end;
+end;
+
+procedure TFrmResize.SpeedButtonClick(Sender: TObject);
 begin
   PnlAnchors.Invalidate;
 end;
@@ -113,15 +244,15 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnUpperLeft.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnUpperCenter.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnUpperCenter.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowW(SpeedButton)
   Else if BtnUpperCenter.Down Then
     DrawArrowE(SpeedButton)
-  Else if BtnMiddleCenter.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleCenter.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowNW(SpeedButton)
   Else if BtnMiddleCenter.Down Then
     DrawArrowSE(SpeedButton)
-  Else if BtnMiddleLeft.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleLeft.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowN(SpeedButton)
   Else if BtnMiddleLeft.Down Then
     DrawArrowS(SpeedButton);
@@ -135,23 +266,23 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnUpperCenter.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnUpperRight.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnUpperRight.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowW(SpeedButton)
   Else if BtnUpperRight.Down Then
     DrawArrowE(SpeedButton)
-  Else if BtnMiddleRight.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleRight.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowNW(SpeedButton)
   Else if BtnMiddleRight.Down Then
     DrawArrowSE(SpeedButton)
-  Else if BtnMiddleCenter.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleCenter.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowN(SpeedButton)
   Else if BtnMiddleCenter.Down Then
     DrawArrowS(SpeedButton)
-  Else if BtnMiddleLeft.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleLeft.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowNE(SpeedButton)
   Else if BtnMiddleLeft.Down Then
     DrawArrowSW(SpeedButton)
-  Else if BtnUpperLeft.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnUpperLeft.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowE(SpeedButton)
   Else if BtnUpperLeft.Down Then
     DrawArrowW(SpeedButton);
@@ -165,15 +296,15 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnUpperRight.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnMiddleRight.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleRight.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowN(SpeedButton)
   Else if BtnMiddleRight.Down Then
     DrawArrowS(SpeedButton)
-  Else if BtnMiddleCenter.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleCenter.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowNE(SpeedButton)
   Else if BtnMiddleCenter.Down Then
     DrawArrowSW(SpeedButton)
-  Else if BtnUpperCenter.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnUpperCenter.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowE(SpeedButton)
   Else if BtnUpperCenter.Down Then
     DrawArrowW(SpeedButton);
@@ -187,23 +318,23 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnMiddleLeft.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnUpperLeft.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnUpperLeft.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowS(SpeedButton)
   Else if BtnUpperLeft.Down Then
     DrawArrowN(SpeedButton)
-  Else if BtnUpperCenter.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnUpperCenter.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowSW(SpeedButton)
   Else if BtnUpperCenter.Down Then
     DrawArrowNE(SpeedButton)
-  Else if BtnMiddleCenter.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnMiddleCenter.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowW(SpeedButton)
   Else if BtnMiddleCenter.Down Then
     DrawArrowE(SpeedButton)
-  Else if BtnLowerCenter.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnLowerCenter.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowNW(SpeedButton)
   Else if BtnLowerCenter.Down Then
     DrawArrowSE(SpeedButton)
-  Else if BtnLowerLeft.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnLowerLeft.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowN(SpeedButton)
   Else if BtnLowerLeft.Down Then
     DrawArrowS(SpeedButton);
@@ -217,35 +348,35 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnMiddleCenter.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnUpperCenter.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnUpperCenter.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowS(SpeedButton)
   Else if BtnUpperCenter.Down Then
     DrawArrowN(SpeedButton)
-  Else if BtnUpperRight.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnUpperRight.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowSW(SpeedButton)
   Else if BtnUpperRight.Down Then
     DrawArrowNE(SpeedButton)
-  Else if BtnMiddleRight.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnMiddleRight.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowW(SpeedButton)
   Else if BtnMiddleRight.Down Then
     DrawArrowE(SpeedButton)
-  Else if BtnLowerRight.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnLowerRight.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowNW(SpeedButton)
   Else if BtnLowerRight.Down Then
     DrawArrowSE(SpeedButton)
-  Else if BtnLowerCenter.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnLowerCenter.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowN(SpeedButton)
   Else if BtnLowerCenter.Down Then
     DrawArrowS(SpeedButton)
-  Else if BtnLowerLeft.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnLowerLeft.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowNE(SpeedButton)
   Else if BtnLowerLeft.Down Then
     DrawArrowSW(SpeedButton)
-  Else if BtnMiddleLeft.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnMiddleLeft.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowE(SpeedButton)
   Else if BtnMiddleLeft.Down Then
     DrawArrowW(SpeedButton)
-  Else if BtnUpperLeft.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnUpperLeft.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowSE(SpeedButton)
   Else if BtnUpperLeft.Down Then
     DrawArrowNW(SpeedButton);
@@ -258,23 +389,23 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnMiddleRight.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnUpperRight.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnUpperRight.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowS(SpeedButton)
   Else if BtnUpperRight.Down Then
     DrawArrowN(SpeedButton)
-  Else if BtnLowerRight.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnLowerRight.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowN(SpeedButton)
   Else if BtnLowerRight.Down Then
     DrawArrowS(SpeedButton)
-  Else if BtnLowerCenter.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnLowerCenter.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowNE(SpeedButton)
   Else if BtnLowerCenter.Down Then
     DrawArrowSW(SpeedButton)
-  Else if BtnMiddleCenter.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnMiddleCenter.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowE(SpeedButton)
   Else if BtnMiddleCenter.Down Then
     DrawArrowW(SpeedButton)
-  Else if BtnUpperCenter.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnUpperCenter.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowSE(SpeedButton)
   Else if BtnUpperCenter.Down Then
     DrawArrowNW(SpeedButton);
@@ -287,15 +418,15 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnLowerLeft.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnMiddleLeft.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleLeft.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowS(SpeedButton)
   Else if BtnMiddleLeft.Down Then
     DrawArrowN(SpeedButton)
-  Else if BtnMiddleCenter.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleCenter.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowSW(SpeedButton)
   Else if BtnMiddleCenter.Down Then
     DrawArrowNE(SpeedButton)
-  Else if BtnLowerCenter.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnLowerCenter.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowW(SpeedButton)
   Else if BtnLowerCenter.Down Then
     DrawArrowE(SpeedButton);
@@ -308,23 +439,23 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnLowerCenter.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnMiddleCenter.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleCenter.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowS(SpeedButton)
   Else if BtnMiddleCenter.Down Then
     DrawArrowN(SpeedButton)
-  Else if BtnMiddleRight.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleRight.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowSW(SpeedButton)
   Else if BtnMiddleRight.Down Then
     DrawArrowNE(SpeedButton)
-  Else if BtnLowerRight.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnLowerRight.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowW(SpeedButton)
   Else if BtnLowerRight.Down Then
     DrawArrowE(SpeedButton)
-  Else if BtnLowerLeft.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnLowerLeft.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowE(SpeedButton)
   Else if BtnLowerLeft.Down Then
     DrawArrowW(SpeedButton)
-  Else if BtnMiddleLeft.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleLeft.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowSE(SpeedButton)
   Else if BtnMiddleLeft.Down Then
     DrawArrowNW(SpeedButton);
@@ -337,30 +468,18 @@ begin
   SpeedButton := Sender As TSpeedButton;
   if BtnLowerRight.Down Then
     DrawCircle(SpeedButton)
-  Else if BtnMiddleRight.Down And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleRight.Down And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowS(SpeedButton)
   Else if BtnMiddleRight.Down Then
     DrawArrowN(SpeedButton)
-  Else if BtnLowerCenter.Down And (EdtWidth.Value >= fOrigWidth) Then
+  Else if BtnLowerCenter.Down And (GetWidthAsValue >= fOrigWidth) Then
     DrawArrowE(SpeedButton)
   Else if BtnLowerCenter.Down Then
     DrawArrowW(SpeedButton)
-  Else if BtnMiddleCenter.Down And (EdtWidth.Value >= fOrigWidth) And (EdtHeight.Value >= fOrigHeight) Then
+  Else if BtnMiddleCenter.Down And (GetWidthAsValue >= fOrigWidth) And (GetHeightAsValue >= fOrigHeight) Then
     DrawArrowSE(SpeedButton)
   Else if BtnMiddleCenter.Down Then
     DrawArrowNW(SpeedButton);
-end;
-
-procedure TFrmResize.FormCreate(Sender: TObject);
-begin
-  fOrigWidth := 640;
-  fOrigHeight := 480;
-end;
-
-procedure TFrmResize.FormShow(Sender: TObject);
-begin
-  fOrigWidth := EdtWidth.Value;
-  fOrigHeight := EdtHeight.Value;
 end;
 
 procedure TFrmResize.DrawArrow(BeginPoint, EndPoint: TPoint; ACanvas: TCanvas);

@@ -201,11 +201,12 @@ end;
 
 procedure TFrmMain.ActResizeCanvasExecute(Sender: TObject);
 begin
+  FrmResize.RbPixels.Checked := True;
   FrmResize.EdtWidth.Value := LCDrawPad1.CanvasWidth;
   FrmResize.EdtHeight.Value := LCDrawPad1.CanvasHeight;
   if (FrmResize.ShowModal = mrOK) Then
   Begin
-	  LCDrawPad1.ResizeCanvas(FrmResize.EdtWidth.Value, FrmResize.EdtHeight.Value, FrmResize.GetSelectedAnchor());
+	  LCDrawPad1.ResizeCanvas(FrmResize.GetWidthAsValue, FrmResize.GetHeightAsValue, FrmResize.GetSelectedAnchor());
   end;
 end;
 
