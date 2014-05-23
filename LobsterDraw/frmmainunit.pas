@@ -23,8 +23,8 @@ unit FrmMainUnit;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ActnList, ExtCtrls, Buttons, ComCtrls, StdCtrls, ExtDlgs, LCDrawPad;
+  Classes, SysUtils, FileUtil, PrintersDlgs, Forms, Controls, Graphics, Dialogs, Menus,
+  ActnList, ExtCtrls, Buttons, ComCtrls, StdCtrls, ExtDlgs, LCDrawPad, Printers;
 
 type
 
@@ -36,6 +36,7 @@ type
     ActFlipVertical: TAction;
     ActIncLineSize: TAction;
     ActDecLineSize: TAction;
+    ActPrint: TAction;
     ActResizeImage: TAction;
     ActZoomOut: TAction;
     ActZoomIn: TAction;
@@ -53,6 +54,8 @@ type
     ImageList1: TImageList;
     LCDrawPad1: TLCDrawPad;
     MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     MnuResizeImage: TMenuItem;
     MnuZoomIn: TMenuItem;
     MnuZoomOut: TMenuItem;
@@ -74,6 +77,7 @@ type
     MnuNew: TMenuItem;
     MnuOpen: TMenuItem;
     OpenPictureDialog1: TOpenPictureDialog;
+    PrintDialog1: TPrintDialog;
     SavePictureDialog1: TSavePictureDialog;
     ScrollBox1: TScrollBox;
     StatusBarMain: TStatusBar;
@@ -101,6 +105,7 @@ type
     procedure ActIncLineSizeExecute(Sender: TObject);
     procedure ActNewExecute(Sender: TObject);
     procedure ActOpenExecute(Sender: TObject);
+    procedure ActPrintExecute(Sender: TObject);
     procedure ActResizeCanvasExecute(Sender: TObject);
     procedure ActResizeImageExecute(Sender: TObject);
     procedure ActRotate180Execute(Sender: TObject);
@@ -139,7 +144,7 @@ var
 implementation
 
 uses
-  frmresizeunit, frmresampleunit, LCLType, LCLProc;
+  frmresizeunit, frmresampleunit, LCLType, LCLProc, Math;
 
 {$R *.lfm}
 
@@ -197,6 +202,35 @@ begin
       end;
     end;
   End;
+end;
+
+procedure TFrmMain.ActPrintExecute(Sender: TObject);
+var
+  MyPrinter : TPrinter;
+  MyBitMap : TBitMap;
+  AspectRatio : Double;
+  DestRect: TRect;
+  OffsetX, OffsetY: Integer;
+begin
+  if PrintDialog1.Execute then
+  begin
+    MyBitMap := TBitMap.Create;
+    MyBitMap.Width := LCDrawPad1.CanvasWidth;
+    MyBitMap.Height := LCDrawPad1.CanvasHeight;
+    LCDrawPad1.SaveToBitmap(MyBitMap);
+    MyPrinter := Printer;
+    MyPrinter.BeginDoc;
+    //todo constrain proporations
+    AspectRatio := Min(MyPrinter.PaperSize.Width / MyBitMap.Width, MyPrinter.PaperSize.Height / MyBitMap.Height);
+    OffsetX := Round((MyPrinter.PaperSize.Width - Round(AspectRatio * MyBitMap.Width)) / 2);
+    OffsetY := Round((MyPrinter.PaperSize.Height - Round(AspectRatio * MyBitMap.Height)) / 2);
+    DestRect := Rect(OffsetX, OffsetY, Round(AspectRatio * MyBitMap.Width), Round(AspectRatio * MyBitMap.Height));
+    MyPrinter.Canvas.StretchDraw(DestRect, MyBitMap);
+    //MyPrinter.Canvas.CopyRect(Classes.Rect(0, 0, MyPrinter.PaperSize.Width, MyPrinter.PaperSize.Height),
+    //   MyBitMap.Canvas, Classes.Rect(0, 0, MyBitMap.Width, MyBitMap.Height));
+    MyPrinter.EndDoc;
+    MyBitMap.Free;
+  end;
 end;
 
 procedure TFrmMain.ActResizeCanvasExecute(Sender: TObject);

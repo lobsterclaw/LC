@@ -25,7 +25,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, FrmMainUnit, FrmResizeUnit
+  Forms, printer4lazarus, FrmMainUnit, FrmResizeUnit
   { you can add units after this }
   , FrmResampleUnit;
 
