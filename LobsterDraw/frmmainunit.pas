@@ -221,6 +221,7 @@ begin
     MyBitMap.Height := LCDrawPad1.CanvasHeight;
     LCDrawPad1.SaveToBitmap(MyBitMap);
 
+    Printer.Title := GetDocumentTitle();
     Printer.BeginDoc;
 
     //Calculate New Location and Size
