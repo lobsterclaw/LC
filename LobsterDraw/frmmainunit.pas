@@ -88,6 +88,7 @@ type
     ToolButton13: TToolButton;
     ToolButton14: TToolButton;
     ToolButton15: TToolButton;
+    ToolButton16: TToolButton;
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
@@ -150,10 +151,6 @@ uses
 
 { TFrmMain }
 
-const
-  kx = 100;
-  kfmt1 = '%-15s = %-30s';
-
 procedure TFrmMain.ActExitExecute(Sender: TObject);
 begin
   Close;
@@ -208,43 +205,6 @@ begin
   End;
 end;
 
-
-function fmt2str(const Pval: Integer): string; overload;
-begin
-  Result := IntToStr(pVal);
-end;
-
-function fmt2str(const Pval: Double): string; overload;
-begin
-  Result := FloatToStr(pVal);
-end;
-
-function fmt2str(const Pval: string): string; overload;
-begin
-  Result := pVal;
-end;
-
-function fmt2str(const Pval: TRect): string; overload;
-begin
-  Result := Format('(%d : %d : %d : %d)', [pVal.Left, pVal.Top,
-    pVal.Right, pVal.Bottom]);
-end;
-
-function y(const pInit: Boolean = False; const pIndent: Integer = 100): Integer;
-const
-  _iy: Integer = 0;
-  _ii: Integer = 100;
-begin
-  if (pInit = True) then
-  begin
-    _iy := 0;
-    _ii := pIndent;
-  end
-  else
-    Inc(_iy, _ii);
-  Result := _iy;
-end;
-
 procedure TFrmMain.ActPrintExecute(Sender: TObject);
 var
   MyBitMap : TBitMap;
@@ -263,51 +223,19 @@ begin
 
     Printer.BeginDoc;
 
-    // Draw a rectangle around the printable area
-    Printer.Canvas.Pen.Width := 27;
-    Printer.Canvas.Pen.Color := clRed;
-    Printer.Canvas.Brush.Style := bsClear;
-    Printer.Canvas.Rectangle(Printer.PaperSize.PaperRect.WorkRect);
-
     //Calculate New Location and Size
-    //;
     PaperWorkWidth := Printer.PaperSize.PaperRect.WorkRect.Right - Printer.PaperSize.PaperRect.WorkRect.Left;
     PaperWorkHeight := Printer.PaperSize.PaperRect.WorkRect.Bottom - Printer.PaperSize.PaperRect.WorkRect.Top;
     AspectRatio := Min(PaperWorkWidth / MyBitMap.Width, PaperWorkHeight / MyBitMap.Height);
     NewW := Floor(MyBitMap.Width * AspectRatio);
 		NewH := Floor(MyBitMap.Height * AspectRatio);
-		OffsetX :=  Floor((PaperWorkWidth - NewW) / 2);// + Printer.PaperSize.PaperRect.WorkRect.Left;
-		OffsetY := Floor((PaperWorkHeight - NewH) / 2);// + Printer.PaperSize.PaperRect.WorkRect.Top;
+		OffsetX :=  Floor((PaperWorkWidth - NewW) / 2);
+		OffsetY := Floor((PaperWorkHeight - NewH) / 2);
     DestRect := Rect(OffsetX, OffsetY, OffsetX + NewW, OffsetY + NewH);
 
-    //Printer.Canvas.StretchDraw(DestRect, MyBitMap);
-    Printer.Canvas.CopyRect(DestRect,
-       MyBitMap.Canvas, Rect(0, 0, MyBitMap.Width, MyBitMap.Height));
-
-    Printer.Canvas.Pen.Width := 27;
-    Printer.Canvas.Pen.Color := clRed;
-    Printer.Canvas.Brush.Style := bsClear;
-    Printer.Canvas.Rectangle(Printer.PaperSize.PaperRect.WorkRect);
-    Printer.Canvas.TextOut(kx, y, Format(
-      kfmt1, ['Default Paper', Printer.PaperSize.DefaultPaperName]));
-    Printer.Canvas.TextOut(kx, y, Format(
-      kfmt1, ['Paper name', Printer.PaperSize.PaperName]));
-    Printer.Canvas.TextOut(kx, y, Format(
-      kfmt1, ['DestRect', fmt2str(DestRect)]));
-    Printer.Canvas.TextOut(kx, y, Format(
-      kfmt1, ['PhysicalRect', fmt2str(Printer.PaperSize.PaperRect.PhysicalRect)]));
-    Printer.Canvas.TextOut(kx, y, Format(
-      kfmt1, ['WorkRect', fmt2str(Printer.PaperSize.PaperRect.WorkRect)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['Orig Ratio', fmt2str(MyBitMap.Width /  MyBitMap.Height)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['Print Ratio', fmt2str(((DestRect.Right - DestRect.Left) / (DestRect.Bottom - DestRect.Top)))]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['PaperWorkWidth', fmt2str(PaperWorkWidth)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['PaperWorkHeight', fmt2str(PaperWorkHeight)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['OffsetX', fmt2str(OffsetX)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['OffsetY', fmt2str(OffsetY)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['Printer.PaperSize.Width', fmt2str(Printer.PaperSize.Width)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['Printer.PaperSize.Height', fmt2str(Printer.PaperSize.Height)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['Xdpi', fmt2str(Printer.XDPI)]));
-    Printer.Canvas.TextOut(kx, y, Format(kfmt1, ['Ydpi', fmt2str(Printer.YDPI)]));
+    Printer.Canvas.StretchDraw(DestRect, MyBitMap);
+    //Printer.Canvas.CopyRect(DestRect,
+    //   MyBitMap.Canvas, Rect(0, 0, MyBitMap.Width, MyBitMap.Height));
 
     Printer.EndDoc;
     MyBitMap.Free;

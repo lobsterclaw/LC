@@ -83,56 +83,56 @@ object FrmMain: TFrmMain
       Action = ActSave
     end
     object ToolButton1: TToolButton
-      Left = 82
+      Left = 109
       Top = 0
       Width = 10
       Caption = 'ToolButton1'
       Style = tbsSeparator
     end
     object ToolButton2: TToolButton
-      Left = 119
+      Left = 146
       Top = 0
       Action = ActResizeCanvas
     end
     object ToolButton3: TToolButton
-      Left = 146
+      Left = 173
       Top = 0
       Action = ActRotateCounterClockwise
     end
     object ToolButton4: TToolButton
-      Left = 173
+      Left = 200
       Top = 0
       Action = ActRotateClockwise
     end
     object ToolButton5: TToolButton
-      Left = 200
+      Left = 227
       Top = 0
       Action = ActFlipHorizontal
     end
     object ToolButton6: TToolButton
-      Left = 227
+      Left = 254
       Top = 0
       Action = ActFlipVertical
     end
     object ToolButton10: TToolButton
-      Left = 254
+      Left = 281
       Top = 0
       Width = 10
       Caption = 'ToolButton10'
       Style = tbsSeparator
     end
     object ToolButton11: TToolButton
-      Left = 264
+      Left = 291
       Top = 0
       Action = ActZoomOut
     end
     object ToolButton12: TToolButton
-      Left = 341
+      Left = 368
       Top = 0
       Action = ActZoomIn
     end
     object EdtZoom: TEdit
-      Left = 291
+      Left = 318
       Height = 28
       Hint = 'Zoom%'
       Top = 0
@@ -142,7 +142,7 @@ object FrmMain: TFrmMain
       TabOrder = 0
     end
     object BtnLineColor: TColorButton
-      Left = 378
+      Left = 405
       Height = 26
       Hint = 'Line Color'
       Top = 0
@@ -157,26 +157,26 @@ object FrmMain: TFrmMain
       OnColorChanged = BtnLineColorColorChanged
     end
     object ToolButton13: TToolButton
-      Left = 368
+      Left = 395
       Top = 0
       Width = 10
       Caption = 'ToolButton13'
       Style = tbsSeparator
     end
     object ToolButton14: TToolButton
-      Left = 451
+      Left = 478
       Top = 0
       Width = 10
       Caption = 'ToolButton14'
       Style = tbsSeparator
     end
     object ToolButton15: TToolButton
-      Left = 92
+      Left = 119
       Top = 0
       Action = ActResizeImage
     end
     object TbLineSize: TTrackBar
-      Left = 461
+      Left = 488
       Height = 26
       Top = 0
       Width = 131
@@ -187,6 +187,11 @@ object FrmMain: TFrmMain
       PageSize = 5
       Position = 1
       TabOrder = 1
+    end
+    object ToolButton16: TToolButton
+      Left = 82
+      Top = 0
+      Action = ActPrint
     end
   end
   object StatusBarMain: TStatusBar
@@ -868,8 +873,8 @@ object FrmMain: TFrmMain
     end
     object ActPrint: TAction
       Category = 'File'
-      Caption = 'Print...'
-      Hint = 'Print'
+      Caption = '&Print...'
+      Hint = 'Print...'
       ImageIndex = 12
       OnExecute = ActPrintExecute
       ShortCut = 16464
