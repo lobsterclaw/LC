@@ -4,12 +4,12 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="18">
+    <Units Count="19">
       <Unit0>
         <Filename Value="lobsterdraw.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="lobsterdraw"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
         <CursorPos X="3" Y="30"/>
@@ -26,11 +26,10 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="207"/>
-        <CursorPos X="118" Y="223"/>
+        <TopLine Value="203"/>
+        <CursorPos X="18" Y="219"/>
         <UsageCount Value="208"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="frmresizeunit.pas"/>
@@ -39,7 +38,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmResizeUnit"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="8" Y="105"/>
@@ -54,7 +53,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmResampleUnit"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="158"/>
         <CursorPos X="41" Y="183"/>
@@ -65,7 +64,7 @@
       <Unit4>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgradefaultbitmap.pas"/>
         <UnitName Value="BGRADefaultBitmap"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
         <TopLine Value="395"/>
         <CursorPos X="14" Y="411"/>
@@ -75,7 +74,7 @@
       <Unit5>
         <Filename Value="C:\lazarus\components\bgrabitmap7.2\bgrabitmaptypes.pas"/>
         <UnitName Value="BGRABitmapTypes"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="3" Y="85"/>
@@ -85,7 +84,7 @@
       <Unit6>
         <Filename Value="..\LobsterGraphicsPack\lcdrawpad.pas"/>
         <UnitName Value="LCDrawPad"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="11"/>
         <CursorPos X="74" Y="420"/>
@@ -95,7 +94,7 @@
       <Unit7>
         <Filename Value="..\LobsterGraphicsPack\lcutils.pas"/>
         <UnitName Value="LCUtils"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="13" Y="20"/>
@@ -105,7 +104,7 @@
       <Unit8>
         <Filename Value="C:\lazarus\lcl\lcltype.pp"/>
         <UnitName Value="LCLType"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="545"/>
         <CursorPos X="31" Y="592"/>
@@ -118,11 +117,11 @@
         <WindowIndex Value="0"/>
         <TopLine Value="345"/>
         <CursorPos X="24" Y="352"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="10"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus\lcl\include\customactionlist.inc"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="129"/>
         <CursorPos X="52" Y="141"/>
@@ -131,7 +130,7 @@
       </Unit10>
       <Unit11>
         <Filename Value="C:\lazarus\lcl\include\shortcutlist.inc"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="10" Y="25"/>
@@ -141,7 +140,7 @@
       <Unit12>
         <Filename Value="C:\lazarus\lcl\lclproc.pas"/>
         <UnitName Value="LCLProc"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="496"/>
         <CursorPos X="29" Y="514"/>
@@ -151,7 +150,7 @@
       <Unit13>
         <Filename Value="C:\lazarus\components\colorpalette\colorpalette.pas"/>
         <UnitName Value="ColorPalette"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <WindowIndex Value="0"/>
         <TopLine Value="100"/>
         <CursorPos X="1" Y="131"/>
@@ -161,7 +160,7 @@
       <Unit14>
         <Filename Value="C:\lazarus\lcl\extdlgs.pas"/>
         <UnitName Value="ExtDlgs"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="371"/>
         <CursorPos X="29" Y="383"/>
@@ -171,7 +170,7 @@
       <Unit15>
         <Filename Value="C:\lazarus\lcl\graphics.pp"/>
         <UnitName Value="Graphics"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1882"/>
         <CursorPos X="23" Y="1898"/>
@@ -180,7 +179,7 @@
       </Unit15>
       <Unit16>
         <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="301"/>
         <CursorPos X="27" Y="317"/>
@@ -190,137 +189,146 @@
       <Unit17>
         <Filename Value="C:\lazarus\components\lazutils\fileutil.pas"/>
         <UnitName Value="FileUtil"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="176"/>
         <CursorPos X="18" Y="202"/>
         <UsageCount Value="239"/>
         <Loaded Value="True"/>
       </Unit17>
+      <Unit18>
+        <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\sysutils\sysstrh.inc"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="126"/>
+        <CursorPos X="10" Y="107"/>
+        <UsageCount Value="69"/>
+        <Loaded Value="True"/>
+      </Unit18>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="frmmainunit.pas"/>
-        <Caret Line="142" Column="27" TopLine="126"/>
+        <Filename Value="frmresizeunit.pas"/>
+        <Caret Line="193" Column="61" TopLine="166"/>
       </Position1>
       <Position2>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="576" Column="1" TopLine="547"/>
+        <Caret Line="209" Column="61" TopLine="182"/>
       </Position2>
       <Position3>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="575" Column="1" TopLine="546"/>
+        <Filename Value="frmresampleunit.pas"/>
+        <Caret Line="187" Column="25" TopLine="160"/>
       </Position3>
       <Position4>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="574" Column="1" TopLine="545"/>
+        <Caret Line="173" Column="35" TopLine="170"/>
       </Position4>
       <Position5>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="576" Column="1" TopLine="547"/>
+        <Caret Line="122" Column="37" TopLine="106"/>
       </Position5>
       <Position6>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="188" Column="3" TopLine="186"/>
+        <Caret Line="124" Column="33" TopLine="106"/>
       </Position6>
       <Position7>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="223" Column="59" TopLine="218"/>
+        <Caret Line="137" Column="44" TopLine="110"/>
       </Position7>
       <Position8>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="78" Column="17" TopLine="63"/>
+        <Caret Line="158" Column="44" TopLine="131"/>
       </Position8>
       <Position9>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="116" Column="15" TopLine="89"/>
+        <Caret Line="173" Column="35" TopLine="146"/>
       </Position9>
       <Position10>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="124" Column="15" TopLine="97"/>
+        <Caret Line="175" Column="49" TopLine="148"/>
       </Position10>
       <Position11>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="193" Column="61" TopLine="166"/>
+        <Caret Line="193" Column="46" TopLine="166"/>
       </Position11>
       <Position12>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="209" Column="61" TopLine="182"/>
+        <Caret Line="195" Column="40" TopLine="168"/>
       </Position12>
       <Position13>
-        <Filename Value="frmresampleunit.pas"/>
-        <Caret Line="187" Column="25" TopLine="160"/>
+        <Filename Value="frmresizeunit.pas"/>
+        <Caret Line="209" Column="21" TopLine="182"/>
       </Position13>
       <Position14>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="173" Column="35" TopLine="170"/>
+        <Caret Line="211" Column="21" TopLine="184"/>
       </Position14>
       <Position15>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="122" Column="37" TopLine="106"/>
+        <Caret Line="225" Column="46" TopLine="198"/>
       </Position15>
       <Position16>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="124" Column="33" TopLine="106"/>
+        <Caret Line="227" Column="40" TopLine="200"/>
       </Position16>
       <Position17>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="137" Column="44" TopLine="110"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="27" Column="80" TopLine="184"/>
       </Position17>
       <Position18>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="158" Column="44" TopLine="131"/>
+        <Caret Line="116" Column="15" TopLine="100"/>
       </Position18>
       <Position19>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="173" Column="35" TopLine="146"/>
+        <Caret Line="78" Column="17" TopLine="63"/>
       </Position19>
       <Position20>
         <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="175" Column="49" TopLine="148"/>
+        <Caret Line="116" Column="15" TopLine="89"/>
       </Position20>
       <Position21>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="193" Column="46" TopLine="166"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="223" Column="118" TopLine="207"/>
       </Position21>
       <Position22>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="195" Column="40" TopLine="168"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="234" Column="25" TopLine="203"/>
       </Position22>
       <Position23>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="209" Column="21" TopLine="182"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="231" Column="59" TopLine="212"/>
       </Position23>
       <Position24>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="211" Column="21" TopLine="184"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="245" Column="1" TopLine="215"/>
       </Position24>
       <Position25>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="225" Column="46" TopLine="198"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="264" Column="83" TopLine="236"/>
       </Position25>
       <Position26>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="227" Column="40" TopLine="200"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="155" Column="27" TopLine="124"/>
       </Position26>
       <Position27>
         <Filename Value="frmmainunit.pas"/>
-        <Caret Line="27" Column="80" TopLine="184"/>
+        <Caret Line="230" Column="5" TopLine="208"/>
       </Position27>
       <Position28>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="116" Column="15" TopLine="100"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="297" Column="140" TopLine="275"/>
       </Position28>
       <Position29>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="78" Column="17" TopLine="63"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="219" Column="16" TopLine="203"/>
       </Position29>
       <Position30>
-        <Filename Value="frmresizeunit.pas"/>
-        <Caret Line="116" Column="15" TopLine="89"/>
+        <Filename Value="frmmainunit.pas"/>
+        <Caret Line="214" Column="21" TopLine="203"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
