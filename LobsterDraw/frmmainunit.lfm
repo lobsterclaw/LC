@@ -26,7 +26,7 @@ object FrmMain: TFrmMain
     Align = alClient
     ClientHeight = 606
     ClientWidth = 821
-    Color = clAppWorkspace
+    Color = clGray
     ParentColor = False
     TabOrder = 0
     object LCDrawPad1: TLCDrawPad
@@ -34,7 +34,7 @@ object FrmMain: TFrmMain
       Height = 606
       Top = 0
       Width = 821
-      BackgroundColor1 = clAppWorkspace
+      BackgroundColor1 = clGray
       BackgroundColor2 = clNone
       FillColor = clBlack
       LineColor = clBlack
