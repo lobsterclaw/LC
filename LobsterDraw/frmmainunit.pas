@@ -214,6 +214,7 @@ var
   OffsetX, OffsetY: Integer;
   DestRect: TRect;
 begin
+  PrintDialog1.Title := 'Print ' + GetDocumentTitle();
   if PrintDialog1.Execute then
   begin
     MyBitMap := TBitMap.Create;

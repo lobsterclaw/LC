@@ -5,7 +5,7 @@ object FrmMain: TFrmMain
   Width = 825
   AllowDropFiles = True
   Caption = 'Lobster Draw'
-  ClientHeight = 666
+  ClientHeight = 691
   ClientWidth = 825
   KeyPreview = True
   Menu = MainMenu1
@@ -16,24 +16,24 @@ object FrmMain: TFrmMain
   LCLVersion = '1.0.14.0'
   object ScrollBox1: TScrollBox
     Left = 0
-    Height = 610
-    Top = 28
+    Height = 650
+    Top = 26
     Width = 825
-    HorzScrollBar.Page = 821
+    HorzScrollBar.Page = 825
     HorzScrollBar.Tracking = True
-    VertScrollBar.Page = 606
+    VertScrollBar.Page = 650
     VertScrollBar.Tracking = True
     Align = alClient
-    ClientHeight = 606
-    ClientWidth = 821
+    ClientHeight = 650
+    ClientWidth = 825
     Color = clGray
     ParentColor = False
     TabOrder = 0
     object LCDrawPad1: TLCDrawPad
       Left = 0
-      Height = 606
+      Height = 650
       Top = 0
-      Width = 821
+      Width = 825
       BackgroundColor1 = clGray
       BackgroundColor2 = clNone
       FillColor = clBlack
@@ -51,7 +51,7 @@ object FrmMain: TFrmMain
   end
   object ToolBar1: TToolBar
     Left = 0
-    Height = 28
+    Height = 26
     Top = 0
     Width = 825
     AutoSize = True
@@ -133,7 +133,7 @@ object FrmMain: TFrmMain
     end
     object EdtZoom: TEdit
       Left = 318
-      Height = 28
+      Height = 22
       Hint = 'Zoom%'
       Top = 0
       Width = 50
@@ -178,6 +178,7 @@ object FrmMain: TFrmMain
     object TbLineSize: TTrackBar
       Left = 488
       Height = 26
+      Hint = 'Change Line Size'
       Top = 0
       Width = 131
       Frequency = 10
@@ -196,8 +197,8 @@ object FrmMain: TFrmMain
   end
   object StatusBarMain: TStatusBar
     Left = 0
-    Height = 28
-    Top = 638
+    Height = 15
+    Top = 676
     Width = 825
     Panels = <    
       item
