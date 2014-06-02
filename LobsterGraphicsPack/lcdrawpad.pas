@@ -72,6 +72,7 @@ type
     procedure SetBackgroundColor2(BackgroundColor2: TColor);
     procedure SetCanvasColor(CanvasColor: TColor);
     procedure SetCanvasPosition(CanvasPosition: TCanvasPosition);
+    property Cursor;
   protected
     { Protected declarations }
     procedure CalculatePreferredSize(var PreferredWidth, PreferredHeight: integer;
@@ -439,8 +440,24 @@ begin
 end;
 
 procedure TLCCustomDrawPad.MouseMove(Shift: TShiftState; X, Y: Integer);
+var
+  Ratio: Double;
+  ImagePos: TPoint;
+  ImageRect: TRect;
+  NewCursor: TCursor;
 begin
   inherited;
+
+  Ratio := fZoomPercent / 100;
+  ImagePos := GetImagePos();
+  ImageRect := Rect(ImagePos.x, ImagePos.y, ImagePos.x + Round(fCanvasWidth * Ratio), ImagePos.y + Round(fCanvasHeight * Ratio));
+
+  If PtInRect(Point(X, Y), ImageRect) Then
+    NewCursor := crCross
+  Else
+    NewCursor := crDefault;
+
+  If NewCursor <> Cursor Then Cursor := NewCursor;
 
   if fMouseDrawing then Draw(X, Y, False);
 end;
