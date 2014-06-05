@@ -56,6 +56,9 @@ type
     fSafeToChangeCanvas: Boolean;
     fOnImageChange: TNotifyEvent;
     fOnZoomChange: TNotifyEvent;
+    fBackgroundCursor: TCursor;
+    fCanvasCursor: TCursor;
+    fCursorLock: Boolean;
     procedure ValidateSize(AWidth, AHeight: Integer);
     procedure RecreateCanvas();
     procedure Draw(X, Y: Integer; Closed: boolean);
@@ -72,9 +75,11 @@ type
     procedure SetBackgroundColor2(BackgroundColor2: TColor);
     procedure SetCanvasColor(CanvasColor: TColor);
     procedure SetCanvasPosition(CanvasPosition: TCanvasPosition);
-    property Cursor;
+    procedure SetParentCursor(AValue: TCursor);
+    function GetParentCursor(): TCursor;
   protected
     { Protected declarations }
+    procedure SetCursor(AValue: TCursor); override;
     procedure CalculatePreferredSize(var PreferredWidth, PreferredHeight: integer;
       {%H-}WithThemeSpace: boolean); override;
     procedure UpdateSize;
@@ -109,6 +114,7 @@ type
     property CanvasWidth: Integer read fCanvasWidth write SetCanvasWidth;
     property CanvasHeight: Integer read fCanvasHeight write SetCanvasHeight;
     property CanvasColor: TColor read fCanvasColor write SetCanvasColor;
+    property CanvasCursor: TCursor read fCanvasCursor write fCanvasCursor;
     property CanvasPosition: TCanvasPosition read fCanvasPosition write SetCanvasPosition;
     property IsFreshImage: Boolean read fIsFreshImage;
 
@@ -379,6 +385,24 @@ begin
   Invalidate;
 end;
 
+procedure TLCCustomDrawPad.SetCursor(AValue: TCursor);
+begin
+  fBackgroundCursor := AValue;
+
+  if (csDesigning in ComponentState) then
+     inherited SetCursor(AValue);
+end;
+
+procedure TLCCustomDrawPad.SetParentCursor(AValue: TCursor);
+begin
+  inherited SetCursor(AValue);
+end;
+
+function TLCCustomDrawPad.GetParentCursor: TCursor;
+begin
+  Result:=inherited GetCursor;
+end;
+
 procedure TLCCustomDrawPad.CalculatePreferredSize(var PreferredWidth,
   PreferredHeight: integer; WithThemeSpace: boolean);
 var
@@ -453,11 +477,11 @@ begin
   ImageRect := Rect(ImagePos.x, ImagePos.y, ImagePos.x + Round(fCanvasWidth * Ratio), ImagePos.y + Round(fCanvasHeight * Ratio));
 
   If PtInRect(Point(X, Y), ImageRect) Then
-    NewCursor := crCross
+    NewCursor := fCanvasCursor
   Else
-    NewCursor := crDefault;
+    NewCursor := fBackgroundCursor;
 
-  If NewCursor <> Cursor Then Cursor := NewCursor;
+  If NewCursor <> GetParentCursor() Then SetParentCursor(NewCursor);
 
   if fMouseDrawing then Draw(X, Y, False);
 end;
@@ -697,6 +721,10 @@ end;
 constructor TLCCustomDrawPad.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+
+  fCursorLock := true;
+  fBackgroundCursor := crDefault;
+  fCanvasCursor := crCross;
 
   fBackgroundColor1 := clNone;
   fBackgroundColor2 := clNone;

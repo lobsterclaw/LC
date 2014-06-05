@@ -16,7 +16,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Version Minor="6"/>
+    <Version Minor="6" Release="5"/>
     <Files Count="2">
       <Item1>
         <Filename Value="lcdrawpad.pas"/>
@@ -25,7 +25,7 @@
       </Item1>
       <Item2>
         <Filename Value="lcutils.pas"/>
-        <UnitName Value="lcutils"/>
+        <UnitName Value="LCUtils"/>
       </Item2>
     </Files>
     <Type Value="RunAndDesignTime"/>

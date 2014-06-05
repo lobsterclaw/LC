@@ -43,6 +43,7 @@ object FrmMain: TFrmMain
       CanvasWidth = 640
       CanvasHeight = 480
       CanvasColor = clWhite
+      CanvasCursor = crCross
       CanvasPosition = cpMiddleCenter
       OnImageChange = LCDrawPad1ImageChange
       Align = alClient
