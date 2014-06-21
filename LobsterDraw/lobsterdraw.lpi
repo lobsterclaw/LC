@@ -41,7 +41,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="lobsterdraw.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -71,6 +71,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FrmResampleUnit"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="frmaboutunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrmAbout"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frmaboutunit"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

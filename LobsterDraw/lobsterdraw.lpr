@@ -27,7 +27,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, printer4lazarus, FrmMainUnit, FrmResizeUnit
   { you can add units after this }
-  , FrmResampleUnit;
+  , FrmResampleUnit, frmaboutunit;
 
 {$R *.res}
 
@@ -37,6 +37,7 @@ begin
   Application.CreateForm(TFrmMain, FrmMain);
   Application.CreateForm(TFrmResize, FrmResize);
   Application.CreateForm(TFrmResample, FrmResample);
+  Application.CreateForm(TFrmAbout, FrmAbout);
   Application.Run;
 end.
 

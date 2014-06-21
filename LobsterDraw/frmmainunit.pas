@@ -36,6 +36,7 @@ type
     ActFlipVertical: TAction;
     ActIncLineSize: TAction;
     ActDecLineSize: TAction;
+    ActHelpAbout: TAction;
     ActPrint: TAction;
     ActResizeImage: TAction;
     ActZoomOut: TAction;
@@ -56,6 +57,8 @@ type
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    MnuHelp: TMenuItem;
+    MnuAbout: TMenuItem;
     MnuResizeImage: TMenuItem;
     MnuZoomIn: TMenuItem;
     MnuZoomOut: TMenuItem;
@@ -103,6 +106,7 @@ type
     procedure ActExitExecute(Sender: TObject);
     procedure ActFlipHorizontalExecute(Sender: TObject);
     procedure ActFlipVerticalExecute(Sender: TObject);
+    procedure ActHelpAboutExecute(Sender: TObject);
     procedure ActIncLineSizeExecute(Sender: TObject);
     procedure ActNewExecute(Sender: TObject);
     procedure ActOpenExecute(Sender: TObject);
@@ -145,7 +149,7 @@ var
 implementation
 
 uses
-  frmresizeunit, frmresampleunit, LCLType, LCLProc, Math;
+  frmresizeunit, frmresampleunit, frmaboutunit, LCLType, LCLProc, Math;
 
 {$R *.lfm}
 
@@ -169,6 +173,11 @@ end;
 procedure TFrmMain.ActFlipVerticalExecute(Sender: TObject);
 begin
   LCDrawPad1.Flip(fmVertical);
+end;
+
+procedure TFrmMain.ActHelpAboutExecute(Sender: TObject);
+begin
+  FrmAbout.ShowModal();
 end;
 
 procedure TFrmMain.ActIncLineSizeExecute(Sender: TObject);

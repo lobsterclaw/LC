@@ -1,0 +1,190 @@
+object FrmAbout: TFrmAbout
+  Left = 425
+  Height = 340
+  Top = 186
+  Width = 472
+  BorderStyle = bsDialog
+  Caption = 'About Lobster Draw'
+  ClientHeight = 340
+  ClientWidth = 472
+  OnCreate = FormCreate
+  Position = poMainFormCenter
+  ShowInTaskBar = stNever
+  LCLVersion = '1.0.14.0'
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 288
+    Top = 0
+    Width = 472
+    ActivePage = TabVersion
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 0
+    object TabVersion: TTabSheet
+      Caption = 'Version'
+      ClientHeight = 255
+      ClientWidth = 464
+      object Image1: TImage
+        Left = 36
+        Height = 100
+        Top = 43
+        Width = 100
+        AutoSize = True
+        Stretch = True
+        Transparent = True
+      end
+      object Label1: TLabel
+        Left = 213
+        Height = 38
+        Top = 35
+        Width = 158
+        Caption = 'Lobster Draw'
+        Font.Height = -27
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label2: TLabel
+        Left = 284
+        Height = 21
+        Top = 91
+        Width = 17
+        Caption = 'by'
+        ParentColor = False
+      end
+      object Label3: TLabel
+        Left = 218
+        Height = 21
+        Top = 131
+        Width = 149
+        Caption = 'Lobster Claw Software'
+        ParentColor = False
+      end
+      object Label4: TLabel
+        Left = 207
+        Height = 21
+        Top = 195
+        Width = 170
+        Caption = 'Apache Public License 2.0'
+        ParentColor = False
+      end
+      object Label5: TLabel
+        Cursor = crHandPoint
+        Left = 188
+        Height = 21
+        Hint = 'http://lobsterclawsoftware.com'
+        Top = 163
+        Width = 208
+        Caption = 'http://lobsterclawsoftware.com'
+        Font.Color = clBlue
+        Font.Style = [fsUnderline]
+        ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = Label5Click
+      end
+    end
+    object TabAck: TTabSheet
+      Caption = 'Acknowledgements'
+      ClientHeight = 255
+      ClientWidth = 464
+      object Label6: TLabel
+        Left = 87
+        Height = 21
+        Top = 19
+        Width = 299
+        Caption = 'Lobster Draw uses the following components'
+        ParentColor = False
+      end
+      object Label7: TLabel
+        Left = 172
+        Height = 21
+        Top = 58
+        Width = 128
+        Caption = 'Software Libraries'
+        Font.Style = [fsBold, fsUnderline]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label8: TLabel
+        Cursor = crHandPoint
+        Left = 131
+        Height = 21
+        Hint = 'http://wiki.freepascal.org/BGRABitmap'
+        Top = 91
+        Width = 210
+        Caption = 'BGRABitmap by Johann ELSASS'
+        Font.Color = clBlue
+        Font.Style = [fsUnderline]
+        ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = Label8Click
+      end
+      object Label9: TLabel
+        Left = 204
+        Height = 21
+        Top = 131
+        Width = 64
+        Caption = 'Icon Sets'
+        Font.Style = [fsBold, fsUnderline]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label10: TLabel
+        Cursor = crHandPoint
+        Left = 134
+        Height = 21
+        Hint = 'http://famfamfam.com/lab/icons/silk/'
+        Top = 171
+        Width = 205
+        Caption = 'Silk Icon Set 1.3 by Mark James'
+        Font.Color = clBlue
+        Font.Style = [fsUnderline]
+        ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = Label10Click
+      end
+      object Label11: TLabel
+        Cursor = crHandPoint
+        Left = 174
+        Height = 21
+        Hint = 'http://tango.freedesktop.org/Tango_Icon_Library'
+        Top = 208
+        Width = 124
+        Caption = 'Tango Icon Library'
+        Font.Color = clBlue
+        Font.Style = [fsUnderline]
+        ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+        OnClick = Label11Click
+      end
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 52
+    Top = 288
+    Width = 472
+    Align = alBottom
+    ClientHeight = 52
+    ClientWidth = 472
+    TabOrder = 1
+    object Button1: TButton
+      Left = 184
+      Height = 35
+      Top = 8
+      Width = 104
+      Cancel = True
+      Caption = 'Close'
+      Default = True
+      OnClick = Button1Click
+      TabOrder = 0
+    end
+  end
+end
